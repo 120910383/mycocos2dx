@@ -23,5 +23,8 @@ namespace cocos2d
 		void release(void);
 		void retain(void);
 		CCObject* copy(void);
+		bool isSingleRefrence(void);
+		unsigned int retainCount(void);
+		virtual bool isEqual(const CCObject* pObject);
 	};
 }

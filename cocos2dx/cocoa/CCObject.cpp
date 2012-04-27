@@ -42,4 +42,19 @@ namespace cocos2d
 	{
 		return copyWithZone(NULL);
 	}
+
+	bool CCObject::isSingleRefrence(void)
+	{
+		return m_uReference == 1;
+	}
+
+	unsigned int CCObject::retainCount(void)
+	{
+		return m_uReference;
+	}
+
+	bool CCObject::isEqual(const CCObject* pObject)
+	{
+		return this == pObject;
+	}
 }
