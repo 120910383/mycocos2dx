@@ -182,6 +182,10 @@
 			Name="include"
 			>
 			<File
+				RelativePath=".\include\CCMutableArray.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCObject.h"
 				>
 			</File>
