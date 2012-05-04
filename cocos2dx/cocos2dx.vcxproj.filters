@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="cocoa\CCObject.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCZone.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\CCMutableArray.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCObject.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCZone.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{dd2502ed-cdc7-4c7a-808a-502804288f16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocoa">
+      <UniqueIdentifier>{cc0df4d6-0cfd-4b89-8903-ee09d9566b0b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
