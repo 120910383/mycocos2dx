@@ -6,9 +6,15 @@
 
 namespace cocos2d
 {
+	// 从代码可以看出，本类型所接受的元素类型只能是CCObject及其派生类型，而不是任意类型，因为元素带有release retain等使用方法
 	template<class T = CCObject*>
 	class CCMutableArray : public CCObject
 	{
+	public:
+		typedef std::vector<T>								CCObjectArray;
+		typedef typename CCObjectArray::iterator			CCMutableArrayIterator;
+		typedef typename CCObjectArray::reverse_iterator	CCMutableArrayRevIterator;
+
 	public:
 		CCMutableArray(unsigned int uSize = 0)
 		{
@@ -36,7 +42,7 @@ namespace cocos2d
 			}
 
 			bool bRet = false;
-			std::vector<T>::iterator iter;
+			CCMutableArrayIterator iter;
 			for (iter = m_array.begin(); iter != m_array.end(); ++iter)
 			{
 				if (*iter == pObject)
@@ -52,7 +58,7 @@ namespace cocos2d
 		// 获取最后一个元素
 		T getLastObject(void)
 		{
-			std::vector<T>::reverse_iterator iter = m_array.rbegin();
+			CCMutableArrayRevIterator iter = m_array.rbegin();
 
 			if (iter != m_array.rend())
 				return *iter;
@@ -89,7 +95,7 @@ namespace cocos2d
 			if (pArray && pArray->count() > 0)
 			{
 				m_array.reserve(count() + pArray->count());
-				std::vector<T>::iterator iter;
+				CCMutableArrayIterator iter;
 				for (iter = pArray->m_array.begin(); iter != pArray->m_array.end(); ++iter)
 				{
 					if (*iter)
@@ -119,7 +125,7 @@ namespace cocos2d
 		// 删除最后一个元素
 		void removeLastObject(bool bDeleteObject = true)
 		{
-			std::vector<T>::reverse_iterator it = m_array.rbegin();
+			CCMutableArrayRevIterator it = m_array.rbegin();
 			if (it != m_array.rend())
 			{
 				if (bDeleteObject)
@@ -134,7 +140,7 @@ namespace cocos2d
 			if (m_array.empty() || (! pObject))
 				return;
 
-			std::vector<T>::iterator iter;
+			CCMutableArrayIterator iter;
 			for (iter = m_array.begin(); iter != m_array.end(); ++iter)
 			{
 				if (*iter == pObject)
@@ -152,7 +158,7 @@ namespace cocos2d
 		{
 			if(pDeleteArray && pDeleteArray->count())
 			{
-				std::vector<T>::iterator it;
+				CCMutableArrayIterator it;
 				for( it = pDeleteArray->m_array.begin(); it != pDeleteArray->m_array.end(); ++it)
 				{
 					removeObject(*it);
@@ -179,12 +185,12 @@ namespace cocos2d
 		// 删除所有元素
 		void removeAllObjects(bool bDeleteObject = true)
 		{
-			std::vector<T> tmp_array;
+			CCObjectArray tmp_array;
 			m_array.swap(tmp_array);
 
 			if (bDeleteObject)
 			{
-				std::vector<T>::iterator iter;
+				CCMutableArrayIterator iter;
 				for (iter = tmp_array.begin(); iter != tmp_array.end(); ++iter)
 					(*iter)->release();
 			}		
@@ -204,6 +210,27 @@ namespace cocos2d
 				pObject->retain();
 		}
 
+		// 一组适配函数，让外界可以像访问标准vector一样访问该类
+		inline CCMutableArrayIterator begin(void)
+		{
+			return m_array.begin();
+		}
+
+		inline CCMutableArrayRevIterator rbegin(void)
+		{
+			return m_array.rbegin();
+		}
+
+		inline CCMutableArrayIterator end(void)
+		{
+			return m_array.end();
+		}
+
+		inline CCMutableArrayRevIterator rend(void)
+		{
+			return m_array.rend();
+		}
+
 		// 复制该数组
 		CCMutableArray<T>* copy(void)
 		{
@@ -213,7 +240,7 @@ namespace cocos2d
 
 			if(pArray->count() > 0)
 			{
-				std::vector<T>::iterator it;
+				CCMutableArrayIterator it;
 				for(it = pArray->m_array.begin(); it != pArray->m_array.end(); ++it)
 				{
 					if(*it)
@@ -261,6 +288,6 @@ namespace cocos2d
 		}
 
 	private:
-		std::vector<T> m_array;
+		CCObjectArray m_array;
 	};
 }
