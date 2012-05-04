@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace cocos2d
 {
@@ -14,7 +14,7 @@ namespace cocos2d
 	class CCObject : public CCCopying
 	{
 	protected:
-		unsigned int		m_uReference;		//ÒıÓÃ¼ÆÊı£¬¹¹ÔìÖĞÉèÖÃÎª1£¬Ã¿´Îrelease¼õ1£¬Ã¿´Îretain¼Ó1£¬Îª0Ê±delete
+		unsigned int		m_uReference;		//å¼•ç”¨è®¡æ•°ï¼Œæ„é€ ä¸­è®¾ç½®ä¸º1ï¼Œæ¯æ¬¡releaseå‡1ï¼Œæ¯æ¬¡retainåŠ 1ï¼Œä¸º0æ—¶delete
 
 	public:
 		CCObject(void);

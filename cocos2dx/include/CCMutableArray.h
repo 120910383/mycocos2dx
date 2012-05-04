@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CCObject.h"
 #include <vector>
@@ -6,7 +6,7 @@
 
 namespace cocos2d
 {
-	// ´Ó´úÂë¿ÉÒÔ¿´³ö£¬±¾ÀàĞÍËù½ÓÊÜµÄÔªËØÀàĞÍÖ»ÄÜÊÇCCObject¼°ÆäÅÉÉúÀàĞÍ£¬¶ø²»ÊÇÈÎÒâÀàĞÍ£¬ÒòÎªÔªËØ´øÓĞrelease retainµÈÊ¹ÓÃ·½·¨
+	// ä»ä»£ç å¯ä»¥çœ‹å‡ºï¼Œæœ¬ç±»å‹æ‰€æ¥å—çš„å…ƒç´ ç±»å‹åªèƒ½æ˜¯CCObjectåŠå…¶æ´¾ç”Ÿç±»å‹ï¼Œè€Œä¸æ˜¯ä»»æ„ç±»å‹ï¼Œå› ä¸ºå…ƒç´ å¸¦æœ‰release retainç­‰ä½¿ç”¨æ–¹æ³•
 	template<class T = CCObject*>
 	class CCMutableArray : public CCObject
 	{
@@ -27,13 +27,13 @@ namespace cocos2d
 
 		}
 
-		// ·µ»ØÊı×é¸öÊı
+		// è¿”å›æ•°ç»„ä¸ªæ•°
 		unsigned int count(void)
 		{
 			return (unsigned int)m_array.size();
 		}
 
-		// ÅĞ¶ÏÖ¸¶¨ÔªËØÊÇ·ñÔÚ¸ÃÊı×éÖĞ
+		// åˆ¤æ–­æŒ‡å®šå…ƒç´ æ˜¯å¦åœ¨è¯¥æ•°ç»„ä¸­
 		bool containsObject(T pObject)
 		{
 			if (m_array.empty() || (! pObject))
@@ -55,7 +55,7 @@ namespace cocos2d
 			return bRet;
 		}
 
-		// »ñÈ¡×îºóÒ»¸öÔªËØ
+		// è·å–æœ€åä¸€ä¸ªå…ƒç´ 
 		T getLastObject(void)
 		{
 			CCMutableArrayRevIterator iter = m_array.rbegin();
@@ -66,7 +66,7 @@ namespace cocos2d
 			return 0;
 		}
 
-		// »ñÈ¡Ö¸¶¨Ë÷ÒıÖµµÄÔªËØ
+		// è·å–æŒ‡å®šç´¢å¼•å€¼çš„å…ƒç´ 
 		T getObjectAtIndex(unsigned int uIndex)
 		{
 			assert(uIndex < count());
@@ -79,7 +79,7 @@ namespace cocos2d
 			return m_array[uIndex];
 		}
 
-		// Ìí¼ÓÒ»¸öÔªËØ
+		// æ·»åŠ ä¸€ä¸ªå…ƒç´ 
 		void addObject(T pObject)
 		{
 			if (pObject == NULL)
@@ -89,7 +89,7 @@ namespace cocos2d
 			m_array.push_back(pObject);
 		}
 
-		// ´ÓÒÑÓĞµÄÊı×éÖĞ£¬Öğ¸öÌí¼ÓÔªËØ
+		// ä»å·²æœ‰çš„æ•°ç»„ä¸­ï¼Œé€ä¸ªæ·»åŠ å…ƒç´ 
 		void addObjectsFromArray(CCMutableArray<T> *pArray)
 		{
 			if (pArray && pArray->count() > 0)
@@ -105,7 +105,7 @@ namespace cocos2d
 			}
 		}
 
-		// ½«ÔªËØ²åÈëµ½Êı×éÖ¸¶¨Î»ÖÃ
+		// å°†å…ƒç´ æ’å…¥åˆ°æ•°ç»„æŒ‡å®šä½ç½®
 		void insertObjectAtIndex(T pObject, unsigned int uIndex)
 		{
 			assert(uIndex <= count());
@@ -122,7 +122,7 @@ namespace cocos2d
 				m_array.insert(m_array.begin() + uIndex, pObject);
 		}
 
-		// É¾³ı×îºóÒ»¸öÔªËØ
+		// åˆ é™¤æœ€åä¸€ä¸ªå…ƒç´ 
 		void removeLastObject(bool bDeleteObject = true)
 		{
 			CCMutableArrayRevIterator it = m_array.rbegin();
@@ -134,7 +134,7 @@ namespace cocos2d
 			}
 		}
 
-		// É¾³ıÖ¸¶¨ÔªËØ
+		// åˆ é™¤æŒ‡å®šå…ƒç´ 
 		void removeObject(T pObject, bool bDeleteObject = true)
 		{
 			if (m_array.empty() || (! pObject))
@@ -153,7 +153,7 @@ namespace cocos2d
 			}
 		}
 
-		// É¾³ıËùÓĞÓëÖ¸¶¨Êı×éÖĞÔªËØÏàÍ¬µÄÔªËØ
+		// åˆ é™¤æ‰€æœ‰ä¸æŒ‡å®šæ•°ç»„ä¸­å…ƒç´ ç›¸åŒçš„å…ƒç´ 
 		void removeObjectsInArray(CCMutableArray<T>* pDeleteArray)
 		{
 			if(pDeleteArray && pDeleteArray->count())
@@ -166,7 +166,7 @@ namespace cocos2d
 			}
 		}
 
-		// É¾³ıÖ¸¶¨Ë÷ÒıµÄÔªËØ
+		// åˆ é™¤æŒ‡å®šç´¢å¼•çš„å…ƒç´ 
 		void removeObjectAtIndex(unsigned int uIndex, bool bDeleteObject = true)
 		{
 			if (m_array.empty())
@@ -182,7 +182,7 @@ namespace cocos2d
 			m_array.erase(m_array.begin() + uIndex);
 		}
 
-		// É¾³ıËùÓĞÔªËØ
+		// åˆ é™¤æ‰€æœ‰å…ƒç´ 
 		void removeAllObjects(bool bDeleteObject = true)
 		{
 			CCObjectArray tmp_array;
@@ -196,7 +196,7 @@ namespace cocos2d
 			}		
 		}
 
-		// Ìæ»»Ö¸¶¨Î»ÖÃµÄÔªËØ
+		// æ›¿æ¢æŒ‡å®šä½ç½®çš„å…ƒç´ 
 		void replaceObjectAtIndex(unsigned int uIndex, T pObject, bool bDeleteObject = true)
 		{
 			if (bDeleteObject && m_array[uIndex])
@@ -210,7 +210,7 @@ namespace cocos2d
 				pObject->retain();
 		}
 
-		// Ò»×éÊÊÅäº¯Êı£¬ÈÃÍâ½ç¿ÉÒÔÏñ·ÃÎÊ±ê×¼vectorÒ»Ñù·ÃÎÊ¸ÃÀà
+		// ä¸€ç»„é€‚é…å‡½æ•°ï¼Œè®©å¤–ç•Œå¯ä»¥åƒè®¿é—®æ ‡å‡†vectorä¸€æ ·è®¿é—®è¯¥ç±»
 		inline CCMutableArrayIterator begin(void)
 		{
 			return m_array.begin();
@@ -231,7 +231,7 @@ namespace cocos2d
 			return m_array.rend();
 		}
 
-		// ¸´ÖÆ¸ÃÊı×é
+		// å¤åˆ¶è¯¥æ•°ç»„
 		CCMutableArray<T>* copy(void)
 		{
 			CCMutableArray* pArray = new CCMutableArray();
@@ -254,10 +254,10 @@ namespace cocos2d
 		}
 
 	public:
-		// ¸ù¾İ²»¶¨¸öÊıµÄÔªËØ´´½¨Êı×é
+		// æ ¹æ®ä¸å®šä¸ªæ•°çš„å…ƒç´ åˆ›å»ºæ•°ç»„
 		static CCMutableArray<T>* arrayWithObjects(T pObject1, ...)
 		{
-			CCMutableArray<T> *pArray = new CCMutableArray<T>();		//´Ë´¦Ôİ²»¿ÉÊ¹ÓÃÄÚ´æ³Ø×Ô¶¯ÊÍ·Å¹¦ÄÜ£¬mark£¬Íâ²¿ĞèÊÖ¶¯delete
+			CCMutableArray<T> *pArray = new CCMutableArray<T>();		//æ­¤å¤„æš‚ä¸å¯ä½¿ç”¨å†…å­˜æ± è‡ªåŠ¨é‡Šæ”¾åŠŸèƒ½ï¼Œmarkï¼Œå¤–éƒ¨éœ€æ‰‹åŠ¨delete
 
 			va_list params;
 			va_start(params, pObject1);
@@ -274,13 +274,13 @@ namespace cocos2d
 			return pArray;
 		}
 
-		// ¸ù¾İÒ»¸öÊı×é´´½¨Êı×é£¬ÓëcopyÏàÍ¬
+		// æ ¹æ®ä¸€ä¸ªæ•°ç»„åˆ›å»ºæ•°ç»„ï¼Œä¸copyç›¸åŒ
 		static CCMutableArray<T>* arrayWithArray(CCMutableArray<T> *pSrcArray)
 		{
 			CCMutableArray<T> *pDestArray = 0;
 
 			if (pSrcArray == 0)
-				pDestArray = new CCMutableArray<T>();		//´Ë´¦Ôİ²»¿ÉÊ¹ÓÃÄÚ´æ³Ø×Ô¶¯ÊÍ·Å¹¦ÄÜ£¬mark£¬Íâ²¿ĞèÊÖ¶¯delete
+				pDestArray = new CCMutableArray<T>();		//æ­¤å¤„æš‚ä¸å¯ä½¿ç”¨å†…å­˜æ± è‡ªåŠ¨é‡Šæ”¾åŠŸèƒ½ï¼Œmarkï¼Œå¤–éƒ¨éœ€æ‰‹åŠ¨delete
 			else
 				pDestArray = pSrcArray->copy();
 

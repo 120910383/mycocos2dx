@@ -1,21 +1,21 @@
-#include "CCObject.h"
+ï»¿#include "CCObject.h"
 #include "CCZone.h"
 #include <cassert>
-#include "CCMutableArray.h"	//±àÒë²âÊÔÓÃ
+#include "CCMutableArray.h"	//ç¼–è¯‘æµ‹è¯•ç”¨
 
 namespace cocos2d
 {
 	CCObject* CCCopying::copyWithZone(CCZone* pZone)
 	{
-		assert(false);			// »ùÀàÎŞÊµÏÖcopyWithZone
+		assert(false);			// åŸºç±»æ— å®ç°copyWithZone
 		return 0;
 	}
 
 	CCObject::CCObject(void)
 	{
-		m_uReference = 1;			// µ±´´½¨¶ÔÏóÊ±£¬¸Ã¶ÔÏóµÄÒıÓÃ¼ÆÊıÎª1
+		m_uReference = 1;			// å½“åˆ›å»ºå¯¹è±¡æ—¶ï¼Œè¯¥å¯¹è±¡çš„å¼•ç”¨è®¡æ•°ä¸º1
 
-		//////////////////////////////////////////////////////////////////////////²âÊÔCCMutableArrayµÄ¸÷¸ö·½·¨±àÒë´íÎó,´ı²âÊÔ¹¤³Ì½¨Á¢ºóÔÙ¿¼ÂÇÄÚ´æÊÍ·Å
+		//////////////////////////////////////////////////////////////////////////æµ‹è¯•CCMutableArrayçš„å„ä¸ªæ–¹æ³•ç¼–è¯‘é”™è¯¯,å¾…æµ‹è¯•å·¥ç¨‹å»ºç«‹åå†è€ƒè™‘å†…å­˜é‡Šæ”¾
 		CCObject* obj1 = new CCObject;
 		CCObject* obj2 = new CCObject;
 		CCObject* obj3 = new CCObject;
@@ -42,7 +42,7 @@ namespace cocos2d
 		CCMutableArray<CCObject*>* test_array2 = test_array->copy();
 		CCMutableArray<CCObject*>* test_array3 = CCMutableArray<CCObject*>::arrayWithArray(test_array2);
 
-		///////////////////////////////////////////////////////////////////////////²âÊÔ½áÊø
+		///////////////////////////////////////////////////////////////////////////æµ‹è¯•ç»“æŸ
 	}
 
 	CCObject::~CCObject(void)
@@ -52,7 +52,7 @@ namespace cocos2d
 
 	void CCObject::release(void)
 	{
-		assert(m_uReference > 0);			//ÒıÓÃ¼ÆÊıÓ¦±È0´ó
+		assert(m_uReference > 0);			//å¼•ç”¨è®¡æ•°åº”æ¯”0å¤§
 		--m_uReference;
 
 		if (m_uReference == 0)
@@ -63,7 +63,7 @@ namespace cocos2d
 
 	void CCObject::retain(void)
 	{
-		assert(m_uReference > 0);			//ÒıÓÃ¼ÆÊıÓ¦±È0´ó
+		assert(m_uReference > 0);			//å¼•ç”¨è®¡æ•°åº”æ¯”0å¤§
 
 		++m_uReference;
 	}
