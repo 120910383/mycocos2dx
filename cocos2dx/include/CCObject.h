@@ -26,5 +26,7 @@ namespace cocos2d
 		bool isSingleRefrence(void);
 		unsigned int retainCount(void);
 		virtual bool isEqual(const CCObject* pObject);
+
+		friend class CCAutoreleasePool;
 	};
 }

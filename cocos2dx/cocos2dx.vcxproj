@@ -75,11 +75,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\CCAutoreleasePool.h" />
     <ClInclude Include="include\CCMutableArray.h" />
     <ClInclude Include="include\CCObject.h" />
     <ClInclude Include="include\CCZone.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cocoa\CCAutoreleasePool.cpp" />
     <ClCompile Include="cocoa\CCObject.cpp" />
     <ClCompile Include="cocoa\CCZone.cpp" />
   </ItemGroup>

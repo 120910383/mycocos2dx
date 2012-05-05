@@ -7,6 +7,9 @@
     <ClCompile Include="cocoa\CCZone.cpp">
       <Filter>cocoa</Filter>
     </ClCompile>
+    <ClCompile Include="cocoa\CCAutoreleasePool.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CCMutableArray.h">
@@ -16,6 +19,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\CCZone.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCAutoreleasePool.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
