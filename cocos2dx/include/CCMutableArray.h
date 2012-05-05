@@ -3,6 +3,7 @@
 #include "CCObject.h"
 #include <vector>
 #include <stdarg.h>
+#include <cassert>
 
 namespace cocos2d
 {

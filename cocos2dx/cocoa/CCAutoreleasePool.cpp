@@ -33,7 +33,105 @@ namespace cocos2d
 	{
 		if (m_pManagedObjectArray->count() > 0)
 		{
+			CCMutableArray<CCObject*>::CCMutableArrayRevIterator it;
+			for (it = m_pManagedObjectArray->rbegin(); it != m_pManagedObjectArray->rend(); ++it)
+			{
+				if (NULL == *it)
+					break;
+				(*it)->m_bManaged = false;
+			}
 			m_pManagedObjectArray->removeAllObjects();
 		}
+	}
+
+//--------------------------------------------------------------------
+//
+// CCPoolManager
+//
+//--------------------------------------------------------------------
+	CCPoolManager g_PoolManager;
+
+	CCPoolManager* CCPoolManager::getInstance()
+	{
+		return &g_PoolManager;
+	}
+
+	CCPoolManager::CCPoolManager(void)
+	{
+		m_pReleasePoolStack = new CCMutableArray<CCAutoreleasePool*>();
+		m_pCurReleasePool = NULL;
+	}
+
+	CCPoolManager::~CCPoolManager(void)
+	{
+		finalize();	
+		// 由于pop函数每帧都会调用，而该类只保留最后一个内存池对象，因此这里也只处理唯一的一个内存池对象
+		// 个人认为应该断言一下其count不大于1
+		assert(m_pReleasePoolStack->count() <= 1);
+		m_pCurReleasePool = NULL;
+		m_pReleasePoolStack->removeObjectAtIndex(0);
+	}
+
+	void CCPoolManager::finalize()
+	{
+		// 清理所有内存池对象中的CCObject对象
+		if (m_pReleasePoolStack->count() > 0)
+		{
+			CCMutableArray<CCAutoreleasePool*>::CCMutableArrayIterator it;
+			for (it = m_pReleasePoolStack->begin(); it != m_pReleasePoolStack->end(); ++it)
+			{
+				if (NULL == *it)
+					break;
+				(*it)->clear();
+			}
+		}
+	}
+
+	void CCPoolManager::push()
+	{
+		// 新增一个内存池对象到内存池管理栈中
+		CCAutoreleasePool* pPool = new CCAutoreleasePool();
+		m_pCurReleasePool = pPool;
+		m_pReleasePoolStack->addObject(pPool);
+		pPool->release();
+	}
+
+	void CCPoolManager::pop()
+	{
+		// 销毁一个内存池对象，并释放其所有元素，至少保留一个内存池对象（保留的内存池对象其所有元素仍销毁）
+		if (NULL != m_pCurReleasePool)
+		{
+			return;
+		}
+
+		m_pCurReleasePool->clear();
+		int nCount = m_pReleasePoolStack->count();
+		if (nCount > 1)
+		{
+			m_pReleasePoolStack->removeObjectAtIndex(nCount - 1);
+			m_pCurReleasePool = m_pReleasePoolStack->getObjectAtIndex(nCount - 2);
+		}
+	}
+
+	void CCPoolManager::removeObject(CCObject* pObject)
+	{
+		assert(NULL != m_pCurReleasePool);
+		m_pCurReleasePool->removeObject(pObject);
+	}
+
+	void CCPoolManager::addObject(CCObject* pObject)
+	{
+		getCurReleasePool()->addObject(pObject);
+	}
+
+	CCAutoreleasePool* CCPoolManager::getCurReleasePool()
+	{
+		if(!m_pCurReleasePool)
+		{
+			push();
+		}
+
+		assert(NULL != m_pCurReleasePool);
+		return m_pCurReleasePool;
 	}
 }

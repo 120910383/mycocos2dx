@@ -1,6 +1,7 @@
 ﻿#include "CCObject.h"
 #include "CCZone.h"
 #include <cassert>
+#include "CCAutoreleasePool.h"
 #include "CCMutableArray.h"	//编译测试用
 
 namespace cocos2d
@@ -14,7 +15,7 @@ namespace cocos2d
 	CCObject::CCObject(void)
 	{
 		m_uReference = 1;			// 当创建对象时，该对象的引用计数为1
-
+		m_bManaged = false;
 		//////////////////////////////////////////////////////////////////////////测试CCMutableArray的各个方法编译错误,待测试工程建立后再考虑内存释放
 		CCObject* obj1 = new CCObject;
 		CCObject* obj2 = new CCObject;
@@ -47,7 +48,11 @@ namespace cocos2d
 
 	CCObject::~CCObject(void)
 	{
-
+		// 如果本对象被内存池管理，则在析构时应从管理队列中移除，以免内存池指针成为野指针
+		if (m_bManaged)
+		{
+			CCPoolManager::getInstance()->removeObject(this);
+		}
 	}
 
 	void CCObject::release(void)
@@ -66,6 +71,13 @@ namespace cocos2d
 		assert(m_uReference > 0);			//引用计数应比0大
 
 		++m_uReference;
+	}
+
+	CCObject* CCObject::autorelease(void)
+	{
+		CCPoolManager::getInstance()->addObject(this);
+		m_bManaged = true;
+		return this;
 	}
 
 	CCObject* CCObject::copy(void)
