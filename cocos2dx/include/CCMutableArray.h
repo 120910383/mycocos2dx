@@ -25,7 +25,7 @@ namespace cocos2d
 
 		virtual ~CCMutableArray(void)
 		{
-
+			removeAllObjects();
 		}
 
 		// 返回数组个数
