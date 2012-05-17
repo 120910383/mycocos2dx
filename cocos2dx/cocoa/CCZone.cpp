@@ -1,9 +1,8 @@
 ﻿#include "CCZone.h"
 
-namespace cocos2d
+NS_CC_BEGIN;
+CCZone::CCZone(CCObject* pObject /* = NULL */)
 {
-	CCZone::CCZone(CCObject* pObject /* = NULL */)
-	{
-		m_pCopyObject = pObject;
-	}
+	m_pCopyObject = pObject;
 }
+NS_CC_END;

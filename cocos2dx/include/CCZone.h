@@ -1,15 +1,15 @@
 ﻿#pragma once
 #include <cstdio>		// use NULL macro
+#include "ccMacros.h"
 
-namespace cocos2d
+NS_CC_BEGIN;
+class CCObject;
+class CCZone
 {
-	class CCObject;
-	class CCZone
-	{
-	public:
-		CCZone(CCObject* pObject = NULL);
+public:
+	CCZone(CCObject* pObject = NULL);
 
-	public:
-		CCObject* m_pCopyObject;
-	};
-}
+public:
+	CCObject* m_pCopyObject;
+};
+NS_CC_END;
