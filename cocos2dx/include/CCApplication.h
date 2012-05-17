@@ -17,9 +17,11 @@ public:
 	virtual bool applicationDidFinishLaunching() = 0;
 	virtual void applicationDidEnterBackground() = 0;
 	virtual void applicationWillEnterForeground() = 0;
+	void setAnimationInterval(double interval);
 	int run();
 
 protected:
 	static CCApplication* sm_pSharedApplication;
+	LARGE_INTEGER m_nAnimationInterval;
 };
 NS_CC_END;
