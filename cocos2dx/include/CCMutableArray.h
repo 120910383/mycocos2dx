@@ -256,7 +256,8 @@ public:
 	// 根据不定个数的元素创建数组
 	static CCMutableArray<T>* arrayWithObjects(T pObject1, ...)
 	{
-		CCMutableArray<T> *pArray = new CCMutableArray<T>();		//此处暂不可使用内存池自动释放功能，mark，外部需手动delete
+		CCMutableArray<T> *pArray = new CCMutableArray<T>();
+		pArray->autorelease();
 
 		va_list params;
 		va_start(params, pObject1);
@@ -279,10 +280,11 @@ public:
 		CCMutableArray<T> *pDestArray = 0;
 
 		if (pSrcArray == 0)
-			pDestArray = new CCMutableArray<T>();		//此处暂不可使用内存池自动释放功能，mark，外部需手动delete
+			pDestArray = new CCMutableArray<T>();
 		else
 			pDestArray = pSrcArray->copy();
 
+		pDestArray->autorelease();
 		return pDestArray;
 	}
 
