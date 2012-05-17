@@ -8,11 +8,7 @@ CCAutoreleasePool::CCAutoreleasePool(void)
 
 CCAutoreleasePool::~CCAutoreleasePool(void)
 {
-	if (NULL != m_pManagedObjectArray)
-	{
-		delete m_pManagedObjectArray;
-		m_pManagedObjectArray = NULL;
-	}
+	CC_SAFE_DELETE(m_pManagedObjectArray);
 }
 
 void CCAutoreleasePool::addObject(CCObject* pObject)
@@ -34,8 +30,7 @@ void CCAutoreleasePool::clear()
 		CCMutableArray<CCObject*>::CCMutableArrayRevIterator it;
 		for (it = m_pManagedObjectArray->rbegin(); it != m_pManagedObjectArray->rend(); ++it)
 		{
-			if (NULL == *it)
-				break;
+			CC_BREAK_IF(NULL == *it);
 			(*it)->m_bManaged = false;
 		}
 		m_pManagedObjectArray->removeAllObjects();
@@ -78,8 +73,7 @@ void CCPoolManager::finalize()
 		CCMutableArray<CCAutoreleasePool*>::CCMutableArrayIterator it;
 		for (it = m_pReleasePoolStack->begin(); it != m_pReleasePoolStack->end(); ++it)
 		{
-			if (NULL == *it)
-				break;
+			CC_BREAK_IF(NULL == *it);
 			(*it)->clear();
 		}
 	}
