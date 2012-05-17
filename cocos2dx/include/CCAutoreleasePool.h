@@ -5,7 +5,7 @@
 
 NS_CC_BEGIN;
 // 自动释放内存池
-class CCAutoreleasePool : public CCObject
+class CC_DLL CCAutoreleasePool : public CCObject
 {
 public:
 	CCAutoreleasePool(void);
@@ -20,7 +20,7 @@ private:
 };
 
 // 自动释放内存池的管理类，由于在游戏运行中可以根据不同场景或条件使用多个内存池，因此增加一个管理类对内存池进行包装管理
-class CCPoolManager
+class CC_DLL CCPoolManager
 {
 public:
 	CCPoolManager(void);

@@ -4,7 +4,7 @@
 #include <Windows.h>
 
 NS_CC_BEGIN;
-class CCEGLView
+class CC_DLL CCEGLView
 {
 public:
 	static CCEGLView& sharedOpenGLView();

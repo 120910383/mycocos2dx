@@ -4,7 +4,7 @@
 #include <Windows.h>
 
 NS_CC_BEGIN;
-class CCApplication
+class CC_DLL CCApplication
 {
 public:
 	static CCApplication& sharedApplication();

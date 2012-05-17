@@ -4,7 +4,7 @@
 #define CC_ASSERT(cond)                assert(cond)
 
 #ifndef CCAssert
-#define CCAssert(cond, msg)         CC_ASSERT(cond)
+	#define CCAssert(cond, msg)         CC_ASSERT(cond)
 #endif  // CCAssert
 
 // namespace cocos2d {}
@@ -19,3 +19,10 @@
 #define CC_SAFE_RELEASE_NULL(p)       if(p) { (p)->release(); (p) = 0; }
 #define CC_SAFE_RETAIN(p)                     if(p) { (p)->retain(); }
 #define CC_BREAK_IF(cond)                      if(cond) break;
+
+#undef CC_DLL
+#if defined(_USRDLL)
+	#define CC_DLL     __declspec(dllexport)
+#else
+	#define CC_DLL     __declspec(dllimport)
+#endif
