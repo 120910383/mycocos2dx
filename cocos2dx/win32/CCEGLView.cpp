@@ -3,6 +3,18 @@
 NS_CC_BEGIN;
 static CCEGLView* s_pMainWindow;
 static const WCHAR * kWindowClassName = L"Cocos2dxWin32";
+static LRESULT CALLBACK _WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	if (s_pMainWindow && s_pMainWindow->getHWnd() == hWnd)
+	{
+		return s_pMainWindow->WindowProc(uMsg, wParam, lParam);
+	}
+	else
+	{
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
+}
+
 CCEGLView& CCEGLView::sharedOpenGLView()
 {
 	CCAssert(NULL != s_pMainWindow, "");
@@ -31,7 +43,7 @@ bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
 		WNDCLASS wc;
 
 		wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		wc.lpfnWndProc = DefWindowProc;
+		wc.lpfnWndProc = _WindowProc;
 		wc.cbClsExtra = 0;
 		wc.cbWndExtra = 0;
 		wc.hInstance = hInstance;
@@ -65,6 +77,24 @@ bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
 	} while (0);
 
 	return bRet;
+}
+
+LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	PAINTSTRUCT ps;
+	switch (message)
+	{
+	case WM_PAINT:
+		BeginPaint(m_hWnd, &ps);
+		EndPaint(m_hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(m_hWnd, message, wParam, lParam);
+	}
+	return 0;
 }
 
 HWND CCEGLView::getHWnd()

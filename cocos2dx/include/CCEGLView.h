@@ -12,6 +12,7 @@ public:
 	virtual ~CCEGLView();
 
 	virtual bool Create(LPCTSTR pTitle, int w, int h);
+	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	HWND getHWnd();
 	void resize(int width, int height);
 	void centerWindow();
