@@ -1,5 +1,5 @@
 ﻿#include "CCAutoreleasePool.h"
-#include <cassert>
+#include "ccMacros.h"
 
 namespace cocos2d
 {
@@ -20,7 +20,7 @@ namespace cocos2d
 	void CCAutoreleasePool::addObject(CCObject* pObject)
 	{
 		m_pManagedObjectArray->addObject(pObject);		// 引用计数加一，此时对象被内存池管理
-		assert(pObject->m_uReference > 1);
+		CCAssert(pObject->m_uReference > 1, "reference count should greager than 1");
 		pObject->release();		// 为保持原有对象的引用计数，引用计数减一，也即内存池不应影响原有引用计数，而只是在恰当的时间使其减一（可能释放可能不释放）
 	}
 
@@ -67,7 +67,7 @@ namespace cocos2d
 		finalize();	
 		// 由于pop函数每帧都会调用，而该类只保留最后一个内存池对象，因此这里也只处理唯一的一个内存池对象
 		// 个人认为应该断言一下其count不大于1
-		assert(m_pReleasePoolStack->count() <= 1);
+		CCAssert(m_pReleasePoolStack->count() <= 1, "");
 		m_pCurReleasePool = NULL;
 		m_pReleasePoolStack->removeObjectAtIndex(0);
 	}
@@ -115,7 +115,7 @@ namespace cocos2d
 
 	void CCPoolManager::removeObject(CCObject* pObject)
 	{
-		assert(NULL != m_pCurReleasePool);
+		CCAssert(NULL != m_pCurReleasePool, "current auto release pool should not be null");
 		m_pCurReleasePool->removeObject(pObject);
 	}
 
@@ -131,7 +131,7 @@ namespace cocos2d
 			push();
 		}
 
-		assert(NULL != m_pCurReleasePool);
+		CCAssert(NULL != m_pCurReleasePool, "current auto release pool should not be null");
 		return m_pCurReleasePool;
 	}
 }

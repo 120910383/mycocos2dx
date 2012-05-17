@@ -190,6 +190,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\ccMacros.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCMutableArray.h"
 				>
 			</File>

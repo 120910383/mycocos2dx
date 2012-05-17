@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <stdio.h>
+#include <cstdio>		// use NULL macro
 
 namespace cocos2d
 {

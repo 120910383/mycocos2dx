@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "CCObject.h"
+#include "ccMacros.h"
 #include <vector>
 #include <stdarg.h>
-#include <cassert>
 
 namespace cocos2d
 {
@@ -70,7 +70,7 @@ namespace cocos2d
 		// 获取指定索引值的元素
 		T getObjectAtIndex(unsigned int uIndex)
 		{
-			assert(uIndex < count());
+			CCAssert(uIndex < count(), "");
 
 			if (uIndex >= count())
 			{
@@ -109,7 +109,7 @@ namespace cocos2d
 		// 将元素插入到数组指定位置
 		void insertObjectAtIndex(T pObject, unsigned int uIndex)
 		{
-			assert(uIndex <= count());
+			CCAssert(uIndex <= count(), "");
 			if (pObject == 0)
 				return;
 
