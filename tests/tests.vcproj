@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\cocos2dx\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -165,6 +166,22 @@
 	<References>
 	</References>
 	<Files>
+		<File
+			RelativePath=".\AppDelegate.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\AppDelegate.h"
+			>
+		</File>
+		<File
+			RelativePath=".\main.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\main.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
