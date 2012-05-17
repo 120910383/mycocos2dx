@@ -186,6 +186,10 @@
 			Name="include"
 			>
 			<File
+				RelativePath=".\include\CCApplication.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCAutoreleasePool.h"
 				>
 			</File>
@@ -203,6 +207,14 @@
 			</File>
 			<File
 				RelativePath=".\include\CCZone.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="win32"
+			>
+			<File
+				RelativePath=".\win32\CCApplication.cpp"
 				>
 			</File>
 		</Filter>
