@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCEGLView.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\ccMacros.h"
 				>
 			</File>
@@ -215,6 +219,10 @@
 			>
 			<File
 				RelativePath=".\win32\CCApplication.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\win32\CCEGLView.cpp"
 				>
 			</File>
 		</Filter>
