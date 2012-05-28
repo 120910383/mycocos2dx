@@ -58,18 +58,16 @@ void CCDirector::setGLDefaultValues()
 	// 这个成员方法只能在CCEGLView初始化成功后被调用
 	CCAssert(m_pobOpenGLView, "opengl view should not be null");
 
-	// opengl es init 
+	// opengl es init todo...
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);		// 设置每次opengl es清除背景默认颜色为黑色
 }
 
 void CCDirector::drawScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glPushMatrix();
+	// opengl es draw todo...
 
-	// todo...
-
-	glPopMatrix();
 	if (m_pobOpenGLView)
 	{
 		m_pobOpenGLView->swapBuffers();

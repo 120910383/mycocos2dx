@@ -58,7 +58,7 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
-				CommandLine="if not exist &quot;$(OutDir)&quot; mkdir &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /Y /Q &quot;$(ProjectDir)\third_party\libraries\*.*&quot; &quot;$(OutDir)&quot;"
+				CommandLine="if not exist &quot;$(OutDir)&quot; mkdir &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /Y /Q &quot;$(ProjectDir)\third_party\libraries\*.*&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCLinkerTool"
@@ -218,6 +218,10 @@
 			</File>
 			<File
 				RelativePath=".\include\CCZone.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\cocos2d.h"
 				>
 			</File>
 		</Filter>

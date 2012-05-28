@@ -1,5 +1,5 @@
 ﻿#include "AppDelegate.h"
-#include "CCEGLView.h"
+#include "cocos2d.h"
 
 AppDelegate::AppDelegate()
 {
@@ -28,6 +28,8 @@ bool AppDelegate::initInstance()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
+	cocos2d::CCDirector *pDirector = cocos2d::CCDirector::sharedDirector();
+	pDirector->setOpenGLView(&cocos2d::CCEGLView::sharedOpenGLView());
 	return true;
 }
 

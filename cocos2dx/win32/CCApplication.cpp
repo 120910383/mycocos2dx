@@ -1,5 +1,6 @@
 ﻿#include "CCApplication.h"
 #include "CCEGLView.h"
+#include "CCDirector.h"
 
 NS_CC_BEGIN;
 CCApplication* CCApplication::sm_pSharedApplication = NULL;
@@ -57,7 +58,7 @@ int CCApplication::run()
 			if (nNow.QuadPart - nLast.QuadPart > m_nAnimationInterval.QuadPart)
 			{
 				nLast.QuadPart = nNow.QuadPart;
-				// mainloop todo...
+				CCDirector::sharedDirector()->mainLoop();
 			}
 			else
 			{
