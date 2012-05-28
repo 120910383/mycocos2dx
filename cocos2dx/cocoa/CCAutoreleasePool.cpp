@@ -91,7 +91,7 @@ void CCPoolManager::push()
 void CCPoolManager::pop()
 {
 	// 销毁一个内存池对象，并释放其所有元素，至少保留一个内存池对象（保留的内存池对象其所有元素仍销毁）
-	if (NULL != m_pCurReleasePool)
+	if (NULL == m_pCurReleasePool)
 	{
 		return;
 	}
