@@ -197,6 +197,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCDirector.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCEGLView.h"
 				>
 			</File>
@@ -229,6 +233,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\CCDirector.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
