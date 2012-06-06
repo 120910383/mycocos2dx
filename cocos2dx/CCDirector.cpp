@@ -25,6 +25,8 @@ bool CCDirector::init()
 	// 创建内存池管理对象
 	CCPoolManager::getInstance()->push();
 
+	m_obWinSizeInPoints = CCSizeZero;
+
 	return true;
 }
 
@@ -32,6 +34,11 @@ CCDirector::~CCDirector()
 {
 	// 释放管理的对象内存
 	CCPoolManager::getInstance()->pop();
+}
+
+CCSize CCDirector::getWinSize()
+{
+	return m_obWinSizeInPoints;
 }
 
 void CCDirector::mainLoop()
@@ -49,6 +56,8 @@ void CCDirector::setOpenGLView(CCEGLView *pobOpenGLView)
 		// 由于CCEGLView不是从CCObject继承，因此没有内存自动释放功能，需手动delete
 		delete m_pobOpenGLView;
 		m_pobOpenGLView = pobOpenGLView;
+
+		m_obWinSizeInPoints = m_pobOpenGLView->getSize();
 		setGLDefaultValues();
 	}
 }
@@ -59,6 +68,20 @@ void CCDirector::setGLDefaultValues()
 	CCAssert(m_pobOpenGLView, "opengl view should not be null");
 
 	// opengl es init todo...
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+	glClearDepthf(1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
+	glViewport(0, 0, (GLsizei)(m_obWinSizeInPoints.width), (GLsizei)(m_obWinSizeInPoints.height));
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrthof(0, m_obWinSizeInPoints.width, 0, m_obWinSizeInPoints.height, -1024, 1024);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);		// 设置每次opengl es清除背景默认颜色为黑色
 }
 
@@ -66,7 +89,19 @@ void CCDirector::drawScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glPushMatrix();
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
+
 	// opengl es draw todo...
+
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glPopMatrix();
 
 	if (m_pobOpenGLView)
 	{

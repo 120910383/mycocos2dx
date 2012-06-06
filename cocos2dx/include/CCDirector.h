@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "CCObject.h"
+#include "CCGeometry.h"
 
 NS_CC_BEGIN;
 
@@ -12,6 +13,7 @@ public:
 	virtual ~CCDirector();
 	virtual void mainLoop();
 
+	CCSize getWinSize();
 	inline CCEGLView* getOpenGLView(void) { return m_pobOpenGLView; }
 	void setOpenGLView(CCEGLView *pobOpenGLView);
 	void drawScene();
@@ -19,6 +21,7 @@ public:
 
 protected:
 	CCEGLView* m_pobOpenGLView;
+	CCSize m_obWinSizeInPoints;
 };
 
 NS_CC_END;

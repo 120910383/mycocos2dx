@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include "ccMacros.h"
+#include "CCGeometry.h"
 
 NS_CC_BEGIN;
 class CCEGL;
@@ -12,7 +13,7 @@ public:
 	CCEGLView();
 	virtual ~CCEGLView();
 
-	SIZE getSize();
+	CCSize getSize();
 	virtual bool Create(LPCTSTR pTitle, int w, int h);
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool isOpenGLReady();

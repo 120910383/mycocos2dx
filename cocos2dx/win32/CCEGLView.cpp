@@ -143,9 +143,9 @@ CCEGLView::~CCEGLView()
 
 }
 
-SIZE CCEGLView::getSize()
+CCSize CCEGLView::getSize()
 {
-	return m_tSizeInPoints;
+	return CCSize((float)(m_tSizeInPoints.cx), (float)(m_tSizeInPoints.cy));
 }
 
 bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
