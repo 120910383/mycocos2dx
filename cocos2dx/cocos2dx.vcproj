@@ -221,11 +221,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCNode.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCObject.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\CCPointExtension.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\CCScene.h"
 				>
 			</File>
 			<File
@@ -254,6 +262,22 @@
 			>
 			<File
 				RelativePath=".\support\CCPointExtension.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="base_nodes"
+			>
+			<File
+				RelativePath=".\base_nodes\CCNode.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="layers_scenes_transitions_nodes"
+			>
+			<File
+				RelativePath=".\layers_scenes_transitions_nodes\CCScene.cpp"
 				>
 			</File>
 		</Filter>
