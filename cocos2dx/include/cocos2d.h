@@ -11,6 +11,8 @@
 #include "CCMutableArray.h"
 #include "CCObject.h"
 #include "CCZone.h"
+#include "CCGeometry.h"
+#include "CCPointExtension.h"
 
 //
 // platform specific

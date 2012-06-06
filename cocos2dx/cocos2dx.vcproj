@@ -177,6 +177,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\cocoa\CCGeometry.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\cocoa\CCObject.cpp"
 				>
 			</File>
@@ -205,6 +209,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCGeometry.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\ccMacros.h"
 				>
 			</File>
@@ -214,6 +222,10 @@
 			</File>
 			<File
 				RelativePath=".\include\CCObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\CCPointExtension.h"
 				>
 			</File>
 			<File
@@ -234,6 +246,14 @@
 			</File>
 			<File
 				RelativePath=".\win32\CCEGLView.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="support"
+			>
+			<File
+				RelativePath=".\support\CCPointExtension.cpp"
 				>
 			</File>
 		</Filter>
