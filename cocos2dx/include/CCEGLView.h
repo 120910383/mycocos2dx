@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "ccMacros.h"
 #include <Windows.h>
+#include "ccMacros.h"
 
 NS_CC_BEGIN;
 class CCEGL;
@@ -12,6 +12,7 @@ public:
 	CCEGLView();
 	virtual ~CCEGLView();
 
+	SIZE getSize();
 	virtual bool Create(LPCTSTR pTitle, int w, int h);
 	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	bool isOpenGLReady();
@@ -24,5 +25,6 @@ public:
 private:
 	CCEGL* m_pEGL;
 	HWND m_hWnd;
+	SIZE m_tSizeInPoints;
 };
 NS_CC_END;

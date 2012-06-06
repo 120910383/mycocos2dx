@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <cstdio>		// use NULL macro
 #include "ccMacros.h"
 
 NS_CC_BEGIN;

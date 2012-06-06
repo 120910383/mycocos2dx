@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <cstdio>		// use NULL macro
 #include <assert.h>
 #define CC_ASSERT(cond)                assert(cond)
 

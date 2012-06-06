@@ -135,12 +135,17 @@ CCEGLView::CCEGLView()
 	: m_pEGL(NULL)
 	, m_hWnd(NULL)
 {
-
+	m_tSizeInPoints.cx = m_tSizeInPoints.cy = 0;
 }
 
 CCEGLView::~CCEGLView()
 {
 
+}
+
+SIZE CCEGLView::getSize()
+{
+	return m_tSizeInPoints;
 }
 
 bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
@@ -180,6 +185,9 @@ bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
 			NULL);
 
 		CC_BREAK_IF(NULL == m_hWnd);
+
+		m_tSizeInPoints.cx = w;
+		m_tSizeInPoints.cy = h;
 		resize(w, h);
 
 		// init egl
