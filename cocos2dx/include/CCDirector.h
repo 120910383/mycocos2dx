@@ -1,10 +1,12 @@
 ﻿#pragma once
 #include "CCObject.h"
 #include "CCGeometry.h"
+#include "CCMutableArray.h"
 
 NS_CC_BEGIN;
 
 class CCEGLView;
+class CCScene;
 class CC_DLL CCDirector : public CCObject
 {
 public:
@@ -15,12 +17,19 @@ public:
 
 	CCSize getWinSize();
 	inline CCEGLView* getOpenGLView(void) { return m_pobOpenGLView; }
+	inline CCScene* getRunningScene(void) { return m_pRunningScene; }
 	void setOpenGLView(CCEGLView *pobOpenGLView);
 	void drawScene();
 	void setGLDefaultValues();
 	inline bool isPaused(void) { return m_bPaused; }
 	inline double getAnimationInterval(void) { return m_dAnimationInterval; }
 	virtual void setAnimationInterval(double dValue);
+
+public:
+	void runWithScene(CCScene* pScene);
+	void pushScene(CCScene* pScene);
+	void popScene(CCScene* pScene);
+	void replaceScene(CCScene* pScene);
 
 public:
 	void end();
@@ -31,6 +40,7 @@ public:
 
 protected:
 	void purgeDirector();
+	void setNextScene();
 
 protected:
 	CCEGLView* m_pobOpenGLView;
@@ -40,6 +50,10 @@ protected:
 	double m_dAnimationInterval;
 	double m_dOldAnimationInterval;
 	bool m_bPurgeDirecotorInNextLoop;
+
+	CCMutableArray<CCScene*> *m_pobScenesStack;
+	CCScene* m_pRunningScene;
+	CCScene* m_pNextScene;
 };
 
 NS_CC_END;

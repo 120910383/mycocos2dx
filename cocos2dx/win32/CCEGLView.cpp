@@ -1,6 +1,7 @@
 ﻿#include "CCEGLView.h"
 #include "CCDirector.h"
 #include "EGL/egl.h"
+#include "CCScene.h"
 
 NS_CC_BEGIN;
 //////////////////////////////////////////////////////////////////////////
@@ -227,6 +228,8 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+	case WM_LBUTTONUP:
+		CCDirector::sharedDirector()->getRunningScene()->setPosition(CCPointZero);
 	default:
 		return DefWindowProc(m_hWnd, message, wParam, lParam);
 	}

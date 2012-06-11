@@ -1,6 +1,7 @@
 ﻿#include "CCDirector.h"
 #include "CCAutoreleasePool.h"
 #include "CCApplication.h"
+#include "CCScene.h"
 #include "CCEGLView.h"
 #include "GLES/gl.h"
 
@@ -20,6 +21,10 @@ CCDirector* CCDirector::sharedDirector()
 
 bool CCDirector::init()
 {
+	// 场景相关变量
+	m_pRunningScene = NULL;
+	m_pNextScene = NULL;
+
 	// 初始化成员变量
 	m_pobOpenGLView = NULL;
 
@@ -31,12 +36,14 @@ bool CCDirector::init()
 	m_bInvalid = false;
 	m_bPaused = false;
 	m_bPurgeDirecotorInNextLoop = false;
+	m_pobScenesStack = new CCMutableArray<CCScene*>();
 
 	return true;
 }
 
 CCDirector::~CCDirector()
 {
+	CC_SAFE_RELEASE(m_pobScenesStack);
 	// 释放管理的对象内存
 	CCPoolManager::getInstance()->pop();
 }
@@ -102,13 +109,21 @@ void CCDirector::drawScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	if (NULL != m_pNextScene)
+	{
+		setNextScene();
+	}
+
 	glPushMatrix();
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
 
-	// opengl es draw todo...
+	if (NULL != m_pRunningScene)
+	{
+		m_pRunningScene->visit();
+	}
 
 	glDisable(GL_TEXTURE_2D);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -129,6 +144,63 @@ void CCDirector::setAnimationInterval(double dValue)
 	{
 		stopAnimation();
 		startAnimation();
+	}
+}
+
+void CCDirector::runWithScene(CCScene* pScene)
+{
+	CCAssert(pScene != NULL, "the scene should not be null");
+	CCAssert(m_pRunningScene == NULL, "m_pRunningScene should be null");
+
+	pushScene(pScene);
+	startAnimation();
+}
+
+void CCDirector::pushScene(CCScene* pScene)
+{
+	CCAssert(pScene != NULL, "the scene should not be null");
+	m_pobScenesStack->addObject(pScene);
+	m_pNextScene = pScene;
+}
+
+void CCDirector::popScene(CCScene* pScene)
+{
+	CCAssert(m_pRunningScene != NULL, "running scene should not be null");
+	m_pobScenesStack->removeLastObject();
+	unsigned int c = m_pobScenesStack->count();
+	if (c == 0)
+	{
+		end();
+	}
+	else
+	{
+		m_pNextScene = m_pobScenesStack->getObjectAtIndex(c - 1);
+	}
+}
+
+void CCDirector::replaceScene(CCScene* pScene)
+{
+	CCAssert(pScene != NULL, "the scene should not be null");
+	unsigned int index = m_pobScenesStack->count();
+	CCAssert(index != 0, "replaceScene must be used after runWithScene");
+	m_pobScenesStack->replaceObjectAtIndex(index - 1, pScene);
+	m_pNextScene = pScene;
+}
+
+void CCDirector::setNextScene()
+{
+	if (NULL != m_pRunningScene)
+	{
+		m_pRunningScene->onExit();
+		m_pRunningScene->release();
+	}
+	m_pRunningScene = m_pNextScene;
+	m_pNextScene->retain();
+	m_pNextScene = NULL;
+
+	if (NULL != m_pRunningScene)
+	{
+		m_pRunningScene->onEnter();
 	}
 }
 
