@@ -14,13 +14,13 @@ public:
 
 public:
 	virtual const CCPoint& getPosition();
-	virtual void setPosition(CCPoint& newPosition);
+	virtual void setPosition(const CCPoint& newPosition);
 
 	virtual const CCPoint& getAnchorPoint();
-	virtual void setAnchorPoint(CCPoint& point);
+	virtual void setAnchorPoint(const CCPoint& point);
 
 	virtual const CCSize& getContentSize();
-	virtual void setContentSize(CCSize& size);
+	virtual void setContentSize(const CCSize& size);
 
 	virtual bool getIsRunning();
 	virtual int getZOrder();

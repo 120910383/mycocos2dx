@@ -30,7 +30,7 @@ const CCPoint& CCNode::getPosition()
 	return m_tPosition;
 }
 
-void CCNode::setPosition(CCPoint& newPosition)
+void CCNode::setPosition(const CCPoint& newPosition)
 {
 	m_tPosition = newPosition;
 }
@@ -40,7 +40,7 @@ const CCPoint& CCNode::getAnchorPoint()
 	return m_tAnchorPoint;
 }
 
-void CCNode::setAnchorPoint(CCPoint& point)
+void CCNode::setAnchorPoint(const CCPoint& point)
 {
 	m_tAnchorPoint = point;
 }
@@ -50,7 +50,7 @@ const CCSize& CCNode::getContentSize()
 	return m_tContentSize;
 }
 
-void CCNode::setContentSize(CCSize& size)
+void CCNode::setContentSize(const CCSize& size)
 {
 	m_tContentSize = size;
 }

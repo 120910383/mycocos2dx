@@ -4,6 +4,8 @@
 // all cocos2d include files
 //
 #include "CCDirector.h"
+#include "CCNode.h"
+#include "CCScene.h"
 
 //
 // cocoa includes
