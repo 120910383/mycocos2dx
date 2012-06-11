@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\cocos2dx\include"
+				AdditionalIncludeDirectories="..\cocos2dx\include;..\cocos2dx\third_party\OGLES"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,7 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="libEGL.lib libgles_cm.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -180,6 +182,14 @@
 		</File>
 		<File
 			RelativePath=".\main.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TestScene.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TestScene.h"
 			>
 		</File>
 	</Files>

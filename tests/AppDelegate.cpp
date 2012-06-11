@@ -1,5 +1,9 @@
 ﻿#include "AppDelegate.h"
+
 #include "cocos2d.h"
+#include "TestScene.h"
+
+USING_NS_CC;
 
 AppDelegate::AppDelegate()
 {
@@ -16,7 +20,7 @@ bool AppDelegate::initInstance()
 	bool bRet = false;
 	do 
 	{
-		cocos2d::CCEGLView* pMainWnd = new cocos2d::CCEGLView;
+		CCEGLView* pMainWnd = new CCEGLView;
 		if (!pMainWnd || !pMainWnd->Create(TEXT("mycocos2dx"), 480, 320))
 			break;
 
@@ -28,8 +32,11 @@ bool AppDelegate::initInstance()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-	cocos2d::CCDirector *pDirector = cocos2d::CCDirector::sharedDirector();
-	pDirector->setOpenGLView(&cocos2d::CCEGLView::sharedOpenGLView());
+	CCDirector *pDirector = CCDirector::sharedDirector();
+	pDirector->setOpenGLView(&CCEGLView::sharedOpenGLView());
+
+	CCScene* pScene = TestScene::node();
+	pDirector->runWithScene(pScene);
 	return true;
 }
 
