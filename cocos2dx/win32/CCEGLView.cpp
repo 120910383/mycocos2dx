@@ -1,4 +1,5 @@
 ﻿#include "CCEGLView.h"
+#include "CCDirector.h"
 #include "EGL/egl.h"
 
 NS_CC_BEGIN;
@@ -215,6 +216,13 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 		BeginPaint(m_hWnd, &ps);
 		EndPaint(m_hWnd, &ps);
+		break;
+	case WM_CHAR:
+		if (VK_ESCAPE == wParam)
+			CCDirector::sharedDirector()->end();
+		break;
+	case WM_CLOSE:
+		CCDirector::sharedDirector()->end();
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

@@ -18,10 +18,28 @@ public:
 	void setOpenGLView(CCEGLView *pobOpenGLView);
 	void drawScene();
 	void setGLDefaultValues();
+	inline bool isPaused(void) { return m_bPaused; }
+	inline double getAnimationInterval(void) { return m_dAnimationInterval; }
+	virtual void setAnimationInterval(double dValue);
+
+public:
+	void end();
+	void pause();
+	void resume();
+	void stopAnimation();
+	void startAnimation();
+
+protected:
+	void purgeDirector();
 
 protected:
 	CCEGLView* m_pobOpenGLView;
 	CCSize m_obWinSizeInPoints;
+	bool m_bPaused;
+	bool m_bInvalid;
+	double m_dAnimationInterval;
+	double m_dOldAnimationInterval;
+	bool m_bPurgeDirecotorInNextLoop;
 };
 
 NS_CC_END;

@@ -1,5 +1,6 @@
 ﻿#include "CCDirector.h"
 #include "CCAutoreleasePool.h"
+#include "CCApplication.h"
 #include "CCEGLView.h"
 #include "GLES/gl.h"
 
@@ -25,7 +26,11 @@ bool CCDirector::init()
 	// 创建内存池管理对象
 	CCPoolManager::getInstance()->push();
 
+	m_dOldAnimationInterval = m_dAnimationInterval = 1.0 / 60;
 	m_obWinSizeInPoints = CCSizeZero;
+	m_bInvalid = false;
+	m_bPaused = false;
+	m_bPurgeDirecotorInNextLoop = false;
 
 	return true;
 }
@@ -43,9 +48,17 @@ CCSize CCDirector::getWinSize()
 
 void CCDirector::mainLoop()
 {
-	drawScene();
-	// 释放管理的对象内存
-	CCPoolManager::getInstance()->pop();
+	if (m_bPurgeDirecotorInNextLoop)
+	{
+		purgeDirector();
+		m_bPurgeDirecotorInNextLoop = false;
+	}
+	else if (!m_bInvalid)
+	{
+		drawScene();
+		// 释放管理的对象内存
+		CCPoolManager::getInstance()->pop();
+	}
 }
 
 void CCDirector::setOpenGLView(CCEGLView *pobOpenGLView)
@@ -107,6 +120,60 @@ void CCDirector::drawScene()
 	{
 		m_pobOpenGLView->swapBuffers();
 	}
+}
+
+void CCDirector::setAnimationInterval(double dValue)
+{
+	m_dAnimationInterval = dValue;
+	if (!m_bInvalid)
+	{
+		stopAnimation();
+		startAnimation();
+	}
+}
+
+void CCDirector::end()
+{
+	m_bPurgeDirecotorInNextLoop = true;
+}
+
+void CCDirector::pause()
+{
+	if (m_bPaused)
+		return;
+
+	m_dOldAnimationInterval = m_dAnimationInterval;
+
+	setAnimationInterval(1 / 4.0f);
+	m_bPaused = true;
+}
+
+void CCDirector::resume()
+{
+	if (!m_bPaused)
+		return;
+
+	setAnimationInterval(m_dOldAnimationInterval);
+	m_bPaused = false;
+}
+
+void CCDirector::stopAnimation()
+{
+	m_bInvalid = true;
+}
+
+void CCDirector::startAnimation()
+{
+	m_bInvalid = false;
+	CCApplication::sharedApplication().setAnimationInterval(m_dAnimationInterval);
+}
+
+void CCDirector::purgeDirector()
+{
+	stopAnimation();
+
+	m_pobOpenGLView->release();
+	m_pobOpenGLView = NULL;
 }
 
 NS_CC_END;
