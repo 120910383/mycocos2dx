@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\include;.\third_party\OGLES"
+				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
