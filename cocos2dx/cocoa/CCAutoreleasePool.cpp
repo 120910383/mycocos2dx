@@ -63,6 +63,7 @@ CCPoolManager::~CCPoolManager(void)
 	CCAssert(m_pReleasePoolStack->count() <= 1, "");
 	m_pCurReleasePool = NULL;
 	m_pReleasePoolStack->removeObjectAtIndex(0);
+	CC_SAFE_DELETE(m_pReleasePoolStack);
 }
 
 void CCPoolManager::finalize()
