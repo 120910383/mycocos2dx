@@ -7,6 +7,11 @@ CCScene* TestScene::node()
 	if (pRet && pRet->init())
 	{
 		pRet->autorelease();
+		CCScene* pChild = new TestScene1();
+		if (pChild && pChild->init())
+		{
+			pRet->addChild(pChild, 1, 0);
+		}
 		return pRet;
 	}
 	else
