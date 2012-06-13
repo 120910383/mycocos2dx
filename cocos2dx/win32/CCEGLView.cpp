@@ -214,6 +214,15 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	switch (message)
 	{
+	case WM_LBUTTONDOWN:
+		// todo...
+		break;
+	case WM_MOUSEMOVE:
+		// todo...
+		break;
+	case WM_LBUTTONUP:
+		// todo...
+		break;
 	case WM_PAINT:
 		BeginPaint(m_hWnd, &ps);
 		EndPaint(m_hWnd, &ps);
@@ -221,22 +230,20 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CHAR:
 		if (VK_ESCAPE == wParam)
 			CCDirector::sharedDirector()->end();
+		else if (VK_RETURN == wParam)
+			// 测试场景转换的代码，随后删除，功能表现为，在按回车时调用setPosition模拟函数，该函数为虚函数(这也是为什么要用这个函数测试的原因)
+			// setPosition测试虚函数由当前运行的场景类实现，这里实现为切换场景操作，见TestScene.cpp
+			CCDirector::sharedDirector()->getRunningScene()->setPosition(CCPointZero);
+		else if (VK_SPACE == wParam)
+			// 测试场景暂停恢复的代码，随后删除，功能表现为，在按空格时调用setAnchorPoint模拟函数，该函数为虚函数(这也是为什么要用这个函数测试的原因)
+			// setAnchorPoint测试虚函数由当前运行的场景类实现，这里实现为暂停恢复场景操作，见TestScene.cpp
+			CCDirector::sharedDirector()->getRunningScene()->setAnchorPoint(CCPointZero);
 		break;
 	case WM_CLOSE:
 		CCDirector::sharedDirector()->end();
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		break;
-	case WM_LBUTTONUP:
-		// 测试场景转换的代码，随后删除，功能表现为，在鼠标左键弹起时调用setPosition模拟函数，该函数为虚函数(这也是为什么要用这个函数测试的原因)
-		// setPosition测试虚函数由当前运行的场景类实现，这里实现为切换场景操作，见TestScene.cpp
-		CCDirector::sharedDirector()->getRunningScene()->setPosition(CCPointZero);
-		break;
-	case WM_RBUTTONUP:
-		// 测试场景转换的代码，随后删除，功能表现为，在鼠标右键弹起时调用setAnchorPoint模拟函数，该函数为虚函数(这也是为什么要用这个函数测试的原因)
-		// setAnchorPoint测试虚函数由当前运行的场景类实现，这里实现为暂停恢复场景操作，见TestScene.cpp
-		CCDirector::sharedDirector()->getRunningScene()->setAnchorPoint(CCPointZero);
 		break;
 	default:
 		return DefWindowProc(m_hWnd, message, wParam, lParam);

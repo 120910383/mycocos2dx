@@ -1,6 +1,5 @@
 ﻿#include "TestScene.h"
 #include "gles/gl.h"		//测试
-USING_NS_CC;
 
 CCScene* TestScene::node()
 {

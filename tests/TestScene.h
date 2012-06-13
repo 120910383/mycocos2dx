@@ -1,21 +1,22 @@
 ﻿#pragma once
 
 #include "cocos2d.h"
+USING_NS_CC;
 
-class TestScene : public cocos2d::CCScene
+class TestScene : public CCScene
 {
 public:
-	static cocos2d::CCScene* node();
+	static CCScene* node();
 	virtual void draw();
-	virtual void setPosition(const cocos2d::CCPoint& newPosition);
-	virtual void setAnchorPoint(const cocos2d::CCPoint& point);
+	virtual void setPosition(const CCPoint& newPosition);
+	virtual void setAnchorPoint(const CCPoint& point);
 };
 
-class TestScene1 : public cocos2d::CCScene
+class TestScene1 : public CCScene
 {
 public:
-	static cocos2d::CCScene* node();
+	static CCScene* node();
 	virtual void draw();
-	virtual void setPosition(const cocos2d::CCPoint& newPosition);
-	virtual void setAnchorPoint(const cocos2d::CCPoint& point);
+	virtual void setPosition(const CCPoint& newPosition);
+	virtual void setAnchorPoint(const CCPoint& point);
 };
