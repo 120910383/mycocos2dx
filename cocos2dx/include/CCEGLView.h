@@ -6,6 +6,8 @@
 
 NS_CC_BEGIN;
 class CCEGL;
+class CCTouch;
+class EGLTouchDelegate;
 class CC_DLL CCEGLView
 {
 public:
@@ -23,9 +25,14 @@ public:
 	void resize(int width, int height);
 	void centerWindow();
 
+	void setTouchDelegate(EGLTouchDelegate* pDelegate);
+
 private:
 	CCEGL* m_pEGL;
 	HWND m_hWnd;
 	SIZE m_tSizeInPoints;
+	bool m_bCaptured;
+	CCTouch* m_pTouch;
+	EGLTouchDelegate* m_pDelegate;
 };
 NS_CC_END;

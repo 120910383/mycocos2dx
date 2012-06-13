@@ -1,5 +1,7 @@
 ﻿#include "CCEGLView.h"
 #include "CCDirector.h"
+#include "CCTouch.h"
+#include "CCTouchDispatcher.h"
 #include "EGL/egl.h"
 #include "CCScene.h"	// 测试场景转换的代码，随后删除
 
@@ -136,7 +138,10 @@ CCEGLView& CCEGLView::sharedOpenGLView()
 CCEGLView::CCEGLView()
 	: m_pEGL(NULL)
 	, m_hWnd(NULL)
+	, m_pDelegate(NULL)
+	, m_bCaptured(false)
 {
+	m_pTouch = new CCTouch();
 	m_tSizeInPoints.cx = m_tSizeInPoints.cy = 0;
 }
 
@@ -215,13 +220,30 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_LBUTTONDOWN:
-		// todo...
+		if (NULL != m_pDelegate && NULL != m_pTouch && MK_LBUTTON == wParam)
+		{
+			POINT pt = {(short)LOWORD(lParam), (short)HIWORD(lParam)};
+			m_bCaptured = true;
+			SetCapture(m_hWnd);
+			m_pTouch->SetTouchInfo(0, (float)(pt.x), (float)(pt.y));
+			m_pDelegate->toucheBegan(m_pTouch, NULL);
+		}
 		break;
 	case WM_MOUSEMOVE:
-		// todo...
+		if (MK_LBUTTON == wParam && m_bCaptured)
+		{
+			m_pTouch->SetTouchInfo(0, (float)(LOWORD(lParam)), (float)(HIWORD(lParam)));
+			m_pDelegate->toucheMoved(m_pTouch, NULL);
+		}
 		break;
 	case WM_LBUTTONUP:
-		// todo...
+		if (m_bCaptured)
+		{
+			m_pTouch->SetTouchInfo(0, (float)(LOWORD(lParam)), (float)(HIWORD(lParam)));
+			m_pDelegate->toucheEnded(m_pTouch, NULL);
+			ReleaseCapture();
+			m_bCaptured = false;
+		}
 		break;
 	case WM_PAINT:
 		BeginPaint(m_hWnd, &ps);
@@ -271,6 +293,8 @@ void CCEGLView::release()
 	s_pMainWindow = NULL;
 	UnregisterClass(kWindowClassName, GetModuleHandle(NULL));
 
+	CC_SAFE_DELETE(m_pTouch);
+	CC_SAFE_DELETE(m_pDelegate);
 	CC_SAFE_DELETE(m_pEGL);
 	delete this;
 }
@@ -333,4 +357,10 @@ void CCEGLView::centerWindow()
 
 	SetWindowPos(m_hWnd, 0, offsetX, offsetY, 0, 0, SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 }
+
+void CCEGLView::setTouchDelegate(EGLTouchDelegate* pDelegate)
+{
+	m_pDelegate = pDelegate;
+}
+
 NS_CC_END;

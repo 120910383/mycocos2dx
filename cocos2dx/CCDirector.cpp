@@ -2,6 +2,7 @@
 #include "CCAutoreleasePool.h"
 #include "CCApplication.h"
 #include "CCScene.h"
+#include "CCTouchDispatcher.h"
 #include "CCEGLView.h"
 #include "GLES/gl.h"
 
@@ -79,6 +80,13 @@ void CCDirector::setOpenGLView(CCEGLView *pobOpenGLView)
 
 		m_obWinSizeInPoints = m_pobOpenGLView->getSize();
 		setGLDefaultValues();
+
+		CCTouchDispatcher* pTouchDispatcher = CCTouchDispatcher::sharedDispatcher();
+		if (NULL != pTouchDispatcher)
+		{
+			m_pobOpenGLView->setTouchDelegate(pTouchDispatcher);
+			pTouchDispatcher->setDispatchEvents(true);
+		}
 	}
 }
 

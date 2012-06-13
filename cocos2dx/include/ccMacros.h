@@ -27,3 +27,5 @@
 #else
 	#define CC_DLL     __declspec(dllimport)
 #endif
+
+#define CC_UNUSED_PARAM(unusedparam)   (void)unusedparam

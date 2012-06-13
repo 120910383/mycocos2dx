@@ -237,6 +237,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCTouch.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\CCTouchDispatcher.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCZone.h"
 				>
 			</File>
@@ -278,6 +286,14 @@
 			>
 			<File
 				RelativePath=".\layers_scenes_transitions_nodes\CCScene.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="touch_dispatcher"
+			>
+			<File
+				RelativePath=".\touch_dispatcher\CCTouchDispatcher.cpp"
 				>
 			</File>
 		</Filter>
