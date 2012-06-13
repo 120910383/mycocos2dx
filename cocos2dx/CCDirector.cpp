@@ -242,6 +242,17 @@ void CCDirector::startAnimation()
 
 void CCDirector::purgeDirector()
 {
+	if (NULL != m_pRunningScene)
+	{
+		m_pRunningScene->onExit();
+		m_pRunningScene->release();
+	}
+
+	m_pRunningScene = NULL;
+	m_pNextScene = NULL;
+
+	m_pobScenesStack->removeAllObjects();
+
 	stopAnimation();
 
 	m_pobOpenGLView->release();
