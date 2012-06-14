@@ -241,7 +241,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCTouchDelegateProtocol.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCTouchDispatcher.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\CCTouchHandler.h"
 				>
 			</File>
 			<File
@@ -294,6 +302,10 @@
 			>
 			<File
 				RelativePath=".\touch_dispatcher\CCTouchDispatcher.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\touch_dispatcher\CCTouchHandler.cpp"
 				>
 			</File>
 		</Filter>
