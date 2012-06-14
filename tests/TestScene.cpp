@@ -1,7 +1,7 @@
 ﻿#include "TestScene.h"
 #include "gles/gl.h"		//测试
 
-CCScene* TestScene::node()
+CCScene* TestScene::scene()
 {
 	CCScene *pRet = new TestScene();
 	if (pRet && pRet->init())
@@ -23,7 +23,7 @@ CCScene* TestScene::node()
 
 void TestScene::setPosition(const CCPoint& newPosition)
 {
-	CCDirector::sharedDirector()->replaceScene(TestScene1::node());
+	CCDirector::sharedDirector()->replaceScene(TestScene1::scene());
 }
 
 void TestScene::setAnchorPoint(const CCPoint& point)
@@ -81,7 +81,7 @@ void TestScene::draw()
 }
 
 //////////////////////////////////////////////////////////////////////////
-CCScene* TestScene1::node()
+CCScene* TestScene1::scene()
 {
 	CCScene *pRet = new TestScene1();
 	if (pRet && pRet->init())
@@ -98,7 +98,7 @@ CCScene* TestScene1::node()
 
 void TestScene1::setPosition(const CCPoint& newPosition)
 {
-	CCDirector::sharedDirector()->replaceScene(TestScene::node());
+	CCDirector::sharedDirector()->replaceScene(TestScene2::scene());
 }
 
 void TestScene1::setAnchorPoint(const CCPoint& point)
@@ -139,6 +139,142 @@ void TestScene1::draw()
 	glDrawElements(GL_LINES, 24, GL_UNSIGNED_BYTE, mIndices);
 
 	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
+}
+
+//////////////////////////////////////////////////////////////////////////
+CCScene* TestScene2::scene()
+{
+	CCScene *pRet = new TestScene2();
+	if (pRet && pRet->init())
+	{
+		pRet->autorelease();
+
+		TestLayer2* layer = TestLayer2::node();
+		if (NULL != layer)
+			pRet->addChild(layer, 1, 0);
+
+		return pRet;
+	}
+	else
+	{
+		CC_SAFE_DELETE(pRet);
+		return NULL;
+	}
+}
+
+void TestScene2::setPosition(const CCPoint& newPosition)
+{
+	CCDirector::sharedDirector()->replaceScene(TestScene::scene());
+}
+
+void TestScene2::setAnchorPoint(const CCPoint& point)
+{
+	if (CCDirector::sharedDirector()->isPaused())
+		CCDirector::sharedDirector()->resume();
+	else
+		CCDirector::sharedDirector()->pause();
+}
+
+
+TestLayer2* TestLayer2::node()
+{
+	TestLayer2* layer = new TestLayer2();
+	if (NULL != layer && layer->init())
+	{
+		layer->autorelease();
+		return layer;
+	}
+	else
+	{
+		CC_SAFE_DELETE(layer);
+		return NULL;
+	}
+}
+
+bool TestLayer2::init()
+{
+	m_rotate = 0;
+	bool result = false;
+	do 
+	{
+		CC_BREAK_IF( !CCLayer::init() );
+		setIsTouchEnabled(true);
+
+		//todo...
+
+		result = true;
+	} while (0);
+	return result;
+}
+
+void TestLayer2::registerWithTouchDispatcher()
+{
+	CCTouchDispatcher::sharedDispatcher()->addDelegate(this, -128, true);
+}
+
+bool TestLayer2::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
+{
+	m_touch_pos = pTouch->locationInView(pTouch->view());
+	m_touch_pos = CCDirector::sharedDirector()->convertToGL(m_touch_pos);
+	return true;
+}
+
+void TestLayer2::ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent)
+{
+	CCPoint move_pos = pTouch->locationInView(pTouch->view());
+	move_pos = CCDirector::sharedDirector()->convertToGL(move_pos);
+	m_perp = ccpPerp(ccpSub(move_pos, m_touch_pos));
+	m_rotate = ccpDistance(move_pos, m_touch_pos) / 2.0f;
+}
+
+void TestLayer2::ccTouchEnded(CCTouch* pTouch, CCEvent* pEvent)
+{
+	//m_perp = CCPointZero;
+	//m_rotate = 0;
+}
+
+void TestLayer2::draw()
+{
+	CCLayer::draw();
+
+	unsigned char mIndices[] = { 0, 1, 1, 2, 2, 3, 3, 0, 4, 5, 5, 6, 6, 7, 7, 4, 0, 4, 1, 5, 2, 6, 3, 7};
+	unsigned char mIndices1[] = {0, 1, 3, 2, 6, 1, 5, 0, 4, 3, 7, 6, 4, 5};
+	const GLfloat cube[] = 
+	{
+		-100.0f, -100.0f, 100.0f,
+		100.0f, -100.0f, 100.0f,
+		100.0f, 100.0f, 100.0f,
+		-100.0f, 100.0f, 100.0f,
+		-100.0f, -100.0f, -100.0f,
+		100.0f, -100.0f, -100.0f,
+		100.0f, 100.0f, -100.0f,
+		-100.0f, 100.0f, -100.0f,
+	};
+	const GLfloat color[] = 
+	{
+		1.0f, 0.0f, 0.0f, 100.0f,
+		0.0f, 1.0f, 0.0f, 100.0f,
+		0.0f, 0.0f, 1.0f, 100.0f,
+		0.0f, 1.0f, 1.0f, 100.0f,
+		1.0f, 0.0f, 1.0f, 100.0f,
+		1.0f, 1.0f, 0.0f, 100.0f,
+		0.0f, 0.0f, 0.0f, 100.0f,
+		1.0f, 1.0f, 1.0f, 100.0f,
+	};
+
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	glColorPointer(4, GL_FLOAT, 0, color);
+	glVertexPointer(3, GL_FLOAT, 0, &cube);
+	glTranslatef(200.0f, 150.0f, 0.0f);
+	glRotatef(m_rotate, m_perp.x, m_perp.y, 0.0f);
+	glBlendFunc(GL_ONE, GL_ZERO);
+	glDrawElements(GL_TRIANGLE_STRIP, 14, GL_UNSIGNED_BYTE, mIndices1);
+	glDrawElements(GL_LINES, 24, GL_UNSIGNED_BYTE, mIndices);
+
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
 }

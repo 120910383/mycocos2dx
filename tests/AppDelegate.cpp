@@ -35,7 +35,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	CCDirector *pDirector = CCDirector::sharedDirector();
 	pDirector->setOpenGLView(&CCEGLView::sharedOpenGLView());
 
-	CCScene* pScene = TestScene::node();
+	CCScene* pScene = TestScene2::scene();
 	pDirector->runWithScene(pScene);
 	return true;
 }

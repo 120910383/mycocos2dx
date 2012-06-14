@@ -6,6 +6,11 @@
 #include "CCDirector.h"
 #include "CCNode.h"
 #include "CCScene.h"
+#include "CCLayer.h"
+#include "CCTouchHandler.h"
+#include "CCTouchDelegateProtocol.h"
+#include "CCTouchDispatcher.h"
+#include "CCTouch.h"
 
 //
 // cocoa includes
