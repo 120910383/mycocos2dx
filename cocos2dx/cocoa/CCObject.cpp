@@ -4,6 +4,7 @@
 NS_CC_BEGIN;
 CCObject* CCCopying::copyWithZone(CCZone* pZone)
 {
+	CC_UNUSED_PARAM(pZone);
 	CCAssert(0, "not implement");
 	return 0;
 }

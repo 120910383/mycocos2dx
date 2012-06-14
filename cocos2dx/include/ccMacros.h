@@ -29,3 +29,6 @@
 #endif
 
 #define CC_UNUSED_PARAM(unusedparam)   (void)unusedparam
+
+// close warning "Conditional expression is constant"
+#pragma warning (disable:4127)

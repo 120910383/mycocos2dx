@@ -31,7 +31,7 @@ public:
 public:
 	void runWithScene(CCScene* pScene);
 	void pushScene(CCScene* pScene);
-	void popScene(CCScene* pScene);
+	void popScene();
 	void replaceScene(CCScene* pScene);
 
 public:

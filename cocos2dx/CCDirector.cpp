@@ -187,7 +187,7 @@ void CCDirector::pushScene(CCScene* pScene)
 	m_pNextScene = pScene;
 }
 
-void CCDirector::popScene(CCScene* pScene)
+void CCDirector::popScene()
 {
 	CCAssert(m_pRunningScene != NULL, "running scene should not be null");
 	m_pobScenesStack->removeLastObject();
