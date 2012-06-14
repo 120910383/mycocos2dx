@@ -1,4 +1,6 @@
 ﻿#include "CCTouchDispatcher.h"
+#include "CCTouchHandler.h"
+#include "CCTouchDelegateProtocol.h"
 #include "CCTouch.h"
 
 NS_CC_BEGIN;
@@ -15,20 +17,20 @@ CCTouchDispatcher* CCTouchDispatcher::sharedDispatcher()
 }
 
 CCTouchDispatcher::CCTouchDispatcher() 
+	: m_pHandlers(NULL)
 {
 
 }
 
 CCTouchDispatcher::~CCTouchDispatcher()
 {
-
+	CC_SAFE_DELETE(m_pHandlers);
 }
 
 bool CCTouchDispatcher::init()
 {
 	m_bDispatchEvents = true;
-
-	// todo...
+	m_pHandlers = new CCMutableArray<CCTouchHandler*>(8);
 
 	return true;
 }
@@ -43,11 +45,107 @@ void CCTouchDispatcher::setDispatchEvents(bool bDispatchEvents)
 	m_bDispatchEvents = bDispatchEvents;
 }
 
+void CCTouchDispatcher::addDelegate(CCTouchDelegate* pDelegate, int nPriority, bool bSwallowsTouches)
+{
+	CCTouchHandler* pHandler = CCTouchHandler::handlerWithDelegate(pDelegate, nPriority, bSwallowsTouches);
+	
+	unsigned int u = 0;
+	CCMutableArray<CCTouchHandler*>::CCMutableArrayIterator iter;
+	for (iter = m_pHandlers->begin(); iter != m_pHandlers->end(); ++iter)
+	{
+		CCTouchHandler* handler = *iter;
+		if (NULL != handler)
+		{
+			if (handler->getPriority() < pHandler->getPriority())
+			{
+				++u;
+			}
+
+			if (handler->getDelegate() == pHandler->getDelegate())
+			{
+				CCAssert(false, "the delegate is already added");
+				return;
+			}
+		}
+	}
+
+	m_pHandlers->insertObjectAtIndex(pHandler, u);
+}
+
+void CCTouchDispatcher::removeDelegate(CCTouchDelegate* pDelegate)
+{
+	if (NULL == pDelegate)
+		return;
+
+	CCTouchHandler* pHandler;
+	CCMutableArray<CCTouchHandler*>::CCMutableArrayIterator iter;
+	for (iter = m_pHandlers->begin(); iter != m_pHandlers->end(); ++iter)
+	{
+		pHandler = *iter;
+		if (NULL != pHandler && pHandler->getDelegate() == pDelegate)
+		{
+			m_pHandlers->removeObject(pHandler);
+			break;
+		}
+	}
+}
+
+void CCTouchDispatcher::removeAllDelegates()
+{
+	m_pHandlers->removeAllObjects();
+}
+
 void CCTouchDispatcher::touch(CCTouch* pTouch, CCEvent* pEvent, unsigned int uIndex)
 {
 	CCAssert(uIndex >= CCTOUCHBEGAN && uIndex < ccTouchMax, "");
-	// 事件分配
-	// todo...
+
+	if (m_pHandlers->count() > 0)
+	{
+		CCTouchHandler* pHandler;
+		CCMutableArray<CCTouchHandler*>::CCMutableArrayIterator arrayIter;
+		for (arrayIter = m_pHandlers->begin(); arrayIter != m_pHandlers->end(); ++arrayIter)
+		{
+			pHandler = *arrayIter;
+			if (NULL == pHandler)
+			{
+				break;
+			}
+
+			bool bClaimed = false;
+			if (uIndex = CCTOUCHBEGAN)
+			{
+				bClaimed = pHandler->getDelegate()->ccTouchBegan(pTouch, pEvent);
+				if (bClaimed)
+				{
+					pHandler->getClaimedTouches()->addObject(pTouch);
+				}
+			}
+			else if (pHandler->getClaimedTouches()->containsObject(pTouch))
+			{
+				bClaimed = true;
+				switch (uIndex)
+				{
+				case CCTOUCHMOVED:
+					pHandler->getDelegate()->ccTouchMoved(pTouch, pEvent);
+					break;
+				case CCTOUCHENDED:
+					pHandler->getDelegate()->ccTouchEnded(pTouch, pEvent);
+					pHandler->getClaimedTouches()->removeObject(pTouch);
+					break;
+				default:
+					CCAssert(false, "undefed type");
+					pHandler->getClaimedTouches()->removeObject(pTouch);
+					break;
+				}
+			}
+
+			// 如果该消息被拦截(上层CCTouchBegan返回true)，则不再投递消息
+			if (bClaimed)
+			{
+				break;
+			}
+		}
+	}
 }
 
 void CCTouchDispatcher::toucheBegan(CCTouch* pTouch, CCEvent* pEvent)

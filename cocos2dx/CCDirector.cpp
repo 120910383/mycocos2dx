@@ -250,6 +250,10 @@ void CCDirector::startAnimation()
 
 void CCDirector::purgeDirector()
 {
+	// don't release the event handlers
+	// They are needed in case the director is run again
+	CCTouchDispatcher::sharedDispatcher()->removeAllDelegates();
+
 	if (NULL != m_pRunningScene)
 	{
 		m_pRunningScene->onExit();
