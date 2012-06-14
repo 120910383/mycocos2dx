@@ -25,6 +25,9 @@ public:
 	inline double getAnimationInterval(void) { return m_dAnimationInterval; }
 	virtual void setAnimationInterval(double dValue);
 
+	CCPoint convertToGL(const CCPoint& obPoint);
+	CCPoint convertToUI(const CCPoint& obPoint);
+
 public:
 	void runWithScene(CCScene* pScene);
 	void pushScene(CCScene* pScene);

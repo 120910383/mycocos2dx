@@ -155,6 +155,22 @@ void CCDirector::setAnimationInterval(double dValue)
 	}
 }
 
+CCPoint CCDirector::convertToGL(const CCPoint& obPoint)
+{
+	CCPoint ret;
+	ret.x = obPoint.x;
+	ret.y = m_obWinSizeInPoints.height - obPoint.y;
+	return ret;
+}
+
+CCPoint CCDirector::convertToUI(const CCPoint& obPoint)
+{
+	CCPoint ret;
+	ret.x = obPoint.x;
+	ret.y = m_obWinSizeInPoints.height - obPoint.y;
+	return ret;
+}
+
 void CCDirector::runWithScene(CCScene* pScene)
 {
 	CCAssert(pScene != NULL, "the scene should not be null");
