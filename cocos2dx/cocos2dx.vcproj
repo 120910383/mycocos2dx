@@ -213,6 +213,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCLayer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\ccMacros.h"
 				>
 			</File>
@@ -292,6 +296,10 @@
 		<Filter
 			Name="layers_scenes_transitions_nodes"
 			>
+			<File
+				RelativePath=".\layers_scenes_transitions_nodes\CCLayer.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\layers_scenes_transitions_nodes\CCScene.cpp"
 				>

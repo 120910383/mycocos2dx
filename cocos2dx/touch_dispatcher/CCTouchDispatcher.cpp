@@ -111,6 +111,8 @@ void CCTouchDispatcher::touch(CCTouch* pTouch, CCEvent* pEvent, unsigned int uIn
 				break;
 			}
 
+			// mark:在响应节点的ccTouchBegan、ccTouchMoved、ccTouchEnded中不可调用addDelegate、removeDelegate等改变m_pHandlers元素的函数，否则会导致循环错乱
+			// 有关这个特性将在以后遇到问题时修正，cocos2d-x使用的是缓存增加元素和缓存删除元素，即本次循环结束后统一增加或删除m_pHandlers元素。
 			bool bClaimed = false;
 			if (uIndex = CCTOUCHBEGAN)
 			{
