@@ -2,7 +2,14 @@
 #include "CCEGLView.h"
 #include "CCDirector.h"
 
+/**
+@brief	This function change the PVRFrame show/hide setting in register.
+@param  bEnable If true show the PVRFrame window, otherwise hide.
+*/
+static void PVRFrameEnableControlWindow(bool bEnable);
+
 NS_CC_BEGIN;
+
 CCApplication* CCApplication::sm_pSharedApplication = NULL;
 CCApplication& CCApplication::sharedApplication()
 {
@@ -32,6 +39,8 @@ void CCApplication::setAnimationInterval(double interval)
 
 int CCApplication::run()
 {
+	PVRFrameEnableControlWindow(true);
+
 	MSG msg;
 	LARGE_INTEGER nFreq;
 	LARGE_INTEGER nLast;
@@ -78,4 +87,42 @@ int CCApplication::run()
 
 	return (int)msg.wParam;
 }
+
 NS_CC_END;
+
+//////////////////////////////////////////////////////////////////////////
+// Local function
+//////////////////////////////////////////////////////////////////////////
+static void PVRFrameEnableControlWindow(bool bEnable)
+{
+	HKEY hKey = 0;
+
+	// Open PVRFrame control key, if not exist create it.
+	if(ERROR_SUCCESS != RegCreateKeyExW(HKEY_CURRENT_USER,
+		L"Software\\Imagination Technologies\\PVRVFRame\\STARTUP\\",
+		0,
+		0,
+		REG_OPTION_NON_VOLATILE,
+		KEY_ALL_ACCESS,
+		0,
+		&hKey,
+		NULL))
+	{
+		return;
+	}
+
+	const wchar_t * wszValue = L"hide_gui";
+	const wchar_t * wszNewData = (bEnable) ? L"NO" : L"YES";
+	wchar_t wszOldData[256] = {0};
+	DWORD   dwSize = sizeof(wszOldData);
+	LSTATUS status = RegQueryValueExW(hKey, wszValue, 0, NULL, (LPBYTE)wszOldData, &dwSize);
+	if (ERROR_FILE_NOT_FOUND == status              // the key not exist
+		|| (ERROR_SUCCESS == status                 // or the hide_gui value is exist
+		&& 0 != wcscmp(wszNewData, wszOldData)))    // but new data and old data not equal
+	{
+		dwSize = sizeof(wchar_t) * (wcslen(wszNewData) + 1);
+		RegSetValueEx(hKey, wszValue, 0, REG_SZ, (const BYTE *)wszNewData, dwSize);
+	}
+
+	RegCloseKey(hKey);
+}
