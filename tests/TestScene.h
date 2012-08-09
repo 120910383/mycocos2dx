@@ -48,3 +48,25 @@ private:
 	CCPoint m_perp;
 	float m_rotate;
 };
+
+//////////////////////////////////////////////////////////////////////////
+class TestScene3 : public CCScene
+{
+public:
+	static CCScene* scene();
+	virtual void setPosition(const CCPoint& newPosition);
+	virtual void setAnchorPoint(const CCPoint& point);
+};
+
+class TestLayer3 : public CCLayer
+{
+public:
+	static TestLayer3* node();
+	TestLayer3();
+	virtual bool init();
+	virtual bool ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent);
+	void ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent);
+
+private:
+	CCSprite* m_sprite;
+};

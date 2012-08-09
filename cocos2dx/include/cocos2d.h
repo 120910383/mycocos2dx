@@ -11,6 +11,7 @@
 #include "CCTouchDelegateProtocol.h"
 #include "CCTouchDispatcher.h"
 #include "CCTouch.h"
+#include "CCSprite.h"
 
 //
 // cocoa includes
@@ -26,6 +27,7 @@
 //
 #include "CCApplication.h"
 #include "CCEGLView.h"
+#include "CCFileUtils.h"
 
 //
 // cocos2d macros

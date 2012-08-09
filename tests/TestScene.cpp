@@ -166,7 +166,7 @@ CCScene* TestScene2::scene()
 
 void TestScene2::setPosition(const CCPoint& newPosition)
 {
-	CCDirector::sharedDirector()->replaceScene(TestScene::scene());
+	CCDirector::sharedDirector()->replaceScene(TestScene3::scene());
 }
 
 void TestScene2::setAnchorPoint(const CCPoint& point)
@@ -277,4 +277,90 @@ void TestLayer2::draw()
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
+}
+
+//////////////////////////////////////////////////////////////////////////
+CCScene* TestScene3::scene()
+{
+	CCScene *pRet = new TestScene3();
+	if (pRet && pRet->init())
+	{
+		pRet->autorelease();
+
+		TestLayer3* layer = TestLayer3::node();
+		if (NULL != layer)
+			pRet->addChild(layer, 1, 0);
+
+		return pRet;
+	}
+	else
+	{
+		CC_SAFE_DELETE(pRet);
+		return NULL;
+	}
+}
+
+void TestScene3::setPosition(const CCPoint& newPosition)
+{
+	CCDirector::sharedDirector()->replaceScene(TestScene::scene());
+}
+
+void TestScene3::setAnchorPoint(const CCPoint& point)
+{
+	if (CCDirector::sharedDirector()->isPaused())
+		CCDirector::sharedDirector()->resume();
+	else
+		CCDirector::sharedDirector()->pause();
+}
+
+TestLayer3* TestLayer3::node()
+{
+	TestLayer3* layer = new TestLayer3();
+	if (NULL != layer && layer->init())
+	{
+		layer->autorelease();
+		return layer;
+	}
+	else
+	{
+		CC_SAFE_DELETE(layer);
+		return NULL;
+	}
+}
+
+TestLayer3::TestLayer3()
+	: m_sprite(NULL)
+{
+
+}
+
+bool TestLayer3::init()
+{
+	bool result = false;
+	do 
+	{
+		CC_BREAK_IF( !CCLayer::init() );
+		setIsTouchEnabled(true);
+
+		//todo...
+		m_sprite = CCSprite::spriteWithFile("Images\\blocks.png");
+		CC_BREAK_IF(NULL == m_sprite);
+		m_sprite->setPosition(ccp(100, 100));
+		addChild(m_sprite, 1, 0);
+
+		result = true;
+	} while (0);
+	return result;
+}
+
+bool TestLayer3::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
+{
+	return true;
+}
+
+void TestLayer3::ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent)
+{
+	CCPoint move_pos = pTouch->locationInView(pTouch->view());
+	move_pos = CCDirector::sharedDirector()->convertToGL(move_pos);
+	m_sprite->setPosition(move_pos);
 }
