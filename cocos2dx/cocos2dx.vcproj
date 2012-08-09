@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -209,6 +209,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCFileUtils.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCGeometry.h"
 				>
 			</File>
@@ -238,6 +242,10 @@
 			</File>
 			<File
 				RelativePath=".\include\CCScene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\CCString.h"
 				>
 			</File>
 			<File
@@ -274,6 +282,10 @@
 			</File>
 			<File
 				RelativePath=".\win32\CCEGLView.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\win32\CCFileUtils.cpp"
 				>
 			</File>
 		</Filter>
