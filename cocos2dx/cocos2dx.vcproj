@@ -253,6 +253,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCTexture2D.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCTouch.h"
 				>
 			</File>
@@ -334,6 +338,14 @@
 			</File>
 			<File
 				RelativePath=".\touch_dispatcher\CCTouchHandler.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="textures"
+			>
+			<File
+				RelativePath=".\textures\CCTexture2D.cpp"
 				>
 			</File>
 		</Filter>
