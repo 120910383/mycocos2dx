@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld"
+				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libEGL.lib libgles_cm.lib"
+				AdditionalDependencies="libEGL.lib libgles_cm.lib libzlib.lib libpng.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
 				GenerateDebugInformation="true"
@@ -217,6 +217,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCImage.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCLayer.h"
 				>
 			</File>
@@ -286,6 +290,10 @@
 			</File>
 			<File
 				RelativePath=".\win32\CCFileUtils.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\win32\CCImage.cpp"
 				>
 			</File>
 		</Filter>
