@@ -249,6 +249,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCSprite.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCString.h"
 				>
 			</File>
@@ -346,6 +350,14 @@
 			>
 			<File
 				RelativePath=".\textures\CCTexture2D.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="sprite_nodes"
+			>
+			<File
+				RelativePath=".\sprite_nodes\CCSprite.cpp"
 				>
 			</File>
 		</Filter>
