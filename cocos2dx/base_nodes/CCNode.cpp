@@ -285,6 +285,18 @@ void CCNode::visit(void)
 	glPopMatrix();
 }
 
+void CCNode::addChild(CCNode* child)
+{
+	CCAssert(child != NULL, "Argument must be non-nil");
+	this->addChild(child, child->m_nZOrder, child->m_nTag);
+}
+
+void CCNode::addChild(CCNode* child, int zOrder)
+{
+	CCAssert(child != NULL, "Argument must be non-nil");
+	this->addChild(child, zOrder, child->m_nTag);
+}
+
 void CCNode::addChild(CCNode* child, int zOrder, int tag)
 {
 	CCAssert( child != NULL, "Argument must be non-nil");
@@ -303,6 +315,101 @@ void CCNode::addChild(CCNode* child, int zOrder, int tag)
 	{
 		child->onEnter();
 	}
+}
+
+void CCNode::reorderChild(CCNode* child, int zOrder)
+{
+	CCAssert(NULL != child, "Child must be non-nil");
+
+	child->retain();
+	m_pChildren->removeObject(child);
+	insertChild(child, zOrder);
+	child->release();
+}
+
+CCNode* CCNode::getChildByTag(int tag)
+{
+	CCAssert(tag != kCCNodeTagInvalid, "Invalid tag");
+
+	if (NULL != m_pChildren && m_pChildren->count() > 0)
+	{
+		CCMutableArray<CCNode*>::CCMutableArrayIterator iter;
+		for (iter = m_pChildren->begin(); iter != m_pChildren->end(); ++iter)
+		{
+			CCNode* pChild = *iter;
+			if (NULL != pChild && pChild->m_nTag == tag)
+				return pChild;
+		}
+	}
+	return NULL;
+}
+
+unsigned int CCNode::getChildrenCount()
+{
+	return m_pChildren ? m_pChildren->count() : 0;
+}
+
+void CCNode::removeFromParentAndCleanup(bool cleanup)
+{
+	this->m_pParent->removeChild(this, cleanup);
+}
+
+void CCNode::removeChildByTag(int tag, bool cleanup)
+{
+	CCAssert(tag != kCCNodeTagInvalid, "Invalid tag");
+
+	CCNode* child = this->getChildByTag(tag);
+	if (NULL == child)
+	{
+		//CCLOG("cocos2d: removeChildByTag: child not found!");
+	}
+	else
+	{
+		this->removeChild(child, cleanup);
+	}
+}
+
+void CCNode::removeChild(CCNode* child, bool cleanup)
+{
+	if (NULL != m_pChildren && m_pChildren->containsObject(child))
+		this->detachChild(child, cleanup);
+}
+
+void CCNode::removeAllChildrenWithCleanup(bool cleanup)
+{
+	// 为了使用removeAllObjects代替removeObjects循环来提高效率，因此不使用detachChild
+	if (NULL != m_pChildren && m_pChildren->count() > 0)
+	{
+		CCMutableArray<CCNode*>::CCMutableArrayIterator iter;
+		for (iter = m_pChildren->begin(); iter != m_pChildren->end(); ++iter)
+		{
+			CCNode* pChild = *iter;
+			if (NULL != pChild)
+			{
+				if (m_bIsRunning)
+				{
+					pChild->onExit();
+				}
+
+				if (cleanup)
+				{
+					pChild->cleanup();
+				}
+
+				pChild->setParent(NULL);
+			}
+		}
+		m_pChildren->removeAllObjects();
+	}
+}
+
+void CCNode::cleanup()
+{
+	// 停止所有本节点的动作和定时器
+	// TODO...
+
+	// 递归执行子节点
+	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::cleanup);
 }
 
 void CCNode::childrenAlloc()
@@ -334,6 +441,22 @@ void CCNode::insertChild(CCNode* child, int z)
 	}
 
 	child->setZOrder(z);
+}
+
+void CCNode::detachChild(CCNode* child, bool doCleanup)
+{
+	if (m_bIsRunning)
+	{
+		child->onExit();
+	}
+
+	if (doCleanup)
+	{
+		child->cleanup();
+	}
+
+	child->setParent(NULL);
+	m_pChildren->removeObject(child);
 }
 
 void CCNode::arrayMakeObjectsPerformSelector(CCMutableArray<CCNode*>* pArray, callbackFunc func)

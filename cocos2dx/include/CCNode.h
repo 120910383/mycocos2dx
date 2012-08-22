@@ -72,12 +72,26 @@ public:
 	virtual void draw(void);
 	virtual void visit(void);
 
+	virtual void addChild(CCNode* child);
+	virtual void addChild(CCNode* child, int zOrder);
 	virtual void addChild(CCNode* child, int zOrder, int tag);
+
+	virtual void reorderChild(CCNode* child, int zOrder);
+	CCNode* getChildByTag(int tag);
+	unsigned int getChildrenCount();
+
+	void removeFromParentAndCleanup(bool cleanup);
+	void removeChildByTag(int tag, bool cleanup);
+	virtual void removeChild(CCNode* child, bool cleanup);
+	virtual void removeAllChildrenWithCleanup(bool cleanup);
+
+	virtual void cleanup();
 
 private:
 	void childrenAlloc();
 	void insertChild(CCNode* child, int z);
 	void setZOrder(int z);
+	void detachChild(CCNode* child, bool doCleanup);
 
 	typedef void (CCNode::*callbackFunc)();
 	void arrayMakeObjectsPerformSelector(CCMutableArray<CCNode*>* pArray, callbackFunc func);
