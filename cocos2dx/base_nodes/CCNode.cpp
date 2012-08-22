@@ -5,12 +5,20 @@ NS_CC_BEGIN;
 
 CCNode::CCNode()
 	: m_nZOrder(0)
+	, m_fVertexZ(0.0f)
+	, m_fRotation(0.0f)
+	, m_fScaleX(1.0f)
+	, m_fScaleY(1.0f)
+	, m_fSkewX(0.0)
+	, m_fSkewY(0.0)
 	, m_tPosition(CCPointZero)
 	, m_tAnchorPoint(CCPointZero)
 	, m_tContentSize(CCSizeZero)
 	, m_bIsRunning(false)
 	, m_bIsVisible(true)
+	, m_bIsRelativeAnchorPoint(true)
 	, m_nTag(kCCNodeTagInvalid)
+	, m_pUserData(NULL)
 	, m_pParent(NULL)
 	, m_pChildren(NULL)
 {
@@ -72,6 +80,77 @@ void CCNode::setContentSize(const CCSize& size)
 	m_tContentSize = size;
 }
 
+float CCNode::getVertexZ()
+{
+	return m_fVertexZ;
+}
+
+void CCNode::setVertexZ(float var)
+{
+	m_fVertexZ = var;
+}
+
+float CCNode::getRotation()
+{
+	return m_fRotation;
+}
+
+void CCNode::setRotation(float var)
+{
+	m_fRotation = var;
+}
+
+float CCNode::getScale()
+{
+	CCAssert(m_fScaleX == m_fScaleY, "CCNode#scale. ScaleX != ScaleY. Don't know which one to return");
+	return m_fScaleX;
+}
+
+void CCNode::setScale(float scale)
+{
+	m_fScaleX = m_fScaleY = scale;
+}
+
+float CCNode::getScaleX()
+{
+	return m_fScaleX;
+}
+
+void CCNode::setScaleX(float var)
+{
+	m_fScaleX = var;
+}
+
+float CCNode::getScaleY()
+{
+	return m_fScaleY;
+}
+
+void CCNode::setScaleY(float var)
+{
+	m_fScaleY = var;
+}
+
+float CCNode::getSkewX()
+{
+	return m_fSkewX;
+}
+
+void CCNode::setSkewX(float var)
+{
+	m_fSkewX = var;
+}
+
+float CCNode::getSkewY()
+{
+	return m_fSkewY;
+}
+
+void CCNode::setSkewY(float var)
+{
+	m_fSkewY = var;
+}
+
 bool CCNode::getIsVisible()
 {
 	return m_bIsVisible;
@@ -82,6 +161,16 @@ void CCNode::setIsVisible(bool var)
 	m_bIsVisible = var;
 }
 
+bool CCNode::getIsRelativeAnchorPoint()
+{
+	return m_bIsRelativeAnchorPoint;
+}
+
+void CCNode::setIsRelativeAnchorPoint(bool var)
+{
+	m_bIsRelativeAnchorPoint = var;
+}
+
 int CCNode::getTag()
 {
 	return m_nTag;
@@ -90,6 +179,16 @@ int CCNode::getTag()
 void CCNode::setTag(int var)
 {
 	m_nTag = var;
+}
+
+void* CCNode::getUserData()
+{
+	return m_pUserData;
+}
+
+void CCNode::setUserData(void* var)
+{
+	m_pUserData = var;
 }
 
 CCNode* CCNode::getParent()
