@@ -106,6 +106,8 @@ public:
 	CCPoint convertTouchToNodeSpace(CCTouch* touch);
 
 	void transform();
+	void transformAncestors();
+	CCRect boundingBox();
 
 private:
 	void childrenAlloc();

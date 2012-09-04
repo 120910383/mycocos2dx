@@ -571,6 +571,21 @@ void CCNode::transform()
 	//TODO...Camera转换，目前暂无Camera设置
 }
 
+void CCNode::transformAncestors()
+{
+	if (NULL != m_pParent)
+	{
+		m_pParent->transformAncestors();
+		m_pParent->transform();
+	}
+}
+
+CCRect CCNode::boundingBox()
+{
+	CCRect rect = CCRectMake(0, 0, m_tContentSize.width, m_tContentSize.height);
+	return CCRectApplyAffineTransform(rect, nodeToParentTransform());
+}
+
 void CCNode::childrenAlloc()
 {
 	m_pChildren = new CCMutableArray<CCNode*>(4);
