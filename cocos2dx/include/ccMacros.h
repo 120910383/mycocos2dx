@@ -32,5 +32,8 @@
 
 #define CC_UNUSED_PARAM(unusedparam)   (void)unusedparam
 
+#define CC_DEGREES_TO_RADIANS(__ANGLE__) ((__ANGLE__) * 0.01745329252f) // PI / 180
+#define CC_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
+
 // close warning "Conditional expression is constant"
 #pragma warning (disable:4127)

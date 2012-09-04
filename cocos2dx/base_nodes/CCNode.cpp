@@ -1,5 +1,7 @@
 ﻿#include "CCNode.h"
+#include "TransformUtils.h"
 #include "gles/gl.h"
+#include <math.h>
 
 NS_CC_BEGIN;
 
@@ -12,6 +14,7 @@ CCNode::CCNode()
 	, m_fSkewX(0.0)
 	, m_fSkewY(0.0)
 	, m_tPosition(CCPointZero)
+	, m_tAnchorPointInPoints(CCPointZero)
 	, m_tAnchorPoint(CCPointZero)
 	, m_tContentSize(CCSizeZero)
 	, m_bIsRunning(false)
@@ -58,6 +61,11 @@ const CCPoint& CCNode::getPosition()
 void CCNode::setPosition(const CCPoint& newPosition)
 {
 	m_tPosition = newPosition;
+}
+
+const CCPoint& CCNode::getAnchorPointInPoints()
+{
+	return m_tAnchorPointInPoints;
 }
 
 const CCPoint& CCNode::getAnchorPoint()
@@ -225,10 +233,12 @@ void CCNode::onEnter()
 {
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::onEnter);
 	m_bIsRunning = true;
+	//TODO... 动作、日程和脚本处理
 }
 
 void CCNode::onExit()
 {
+	//TODO... 动作、日程和脚本处理
 	m_bIsRunning = false;
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::onExit);
 }
@@ -246,6 +256,8 @@ void CCNode::visit(void)
 	}
 
 	glPushMatrix();
+
+	this->transform();
 
 	CCMutableArray<CCNode*>::CCMutableArrayIterator iter;
 	// 绘制zOrder<0的child
@@ -410,6 +422,79 @@ void CCNode::cleanup()
 
 	// 递归执行子节点
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::cleanup);
+}
+
+CCAffineTransform CCNode::nodeToParentTransform()
+{
+	CCAffineTransform transform = CCAffineTransformIdentity;
+	// 根据position,rotation,skew,scale属性计算仿射矩阵
+	if (!m_bIsRelativeAnchorPoint && !CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero))
+	{
+		transform = CCAffineTransformTranslate(transform, m_tAnchorPointInPoints.x, m_tAnchorPointInPoints.y);
+	}
+
+	if (!CCPoint::CCPointEqualToPoint(m_tPosition, CCPointZero))
+	{
+		transform = CCAffineTransformTranslate(transform, m_tPosition.x, m_tPosition.y);
+	}
+
+	if (m_fRotation != 0)
+	{
+		transform = CCAffineTransformRotate(transform, -CC_DEGREES_TO_RADIANS(m_fRotation));
+	}
+
+	if (m_fSkewX != 0 || m_fSkewY != 0)
+	{
+		CCAffineTransform skew = CCAffineTransformMake(1.0f, tanf(CC_DEGREES_TO_RADIANS(m_fSkewY)), tanf(CC_DEGREES_TO_RADIANS(m_fSkewX)), 1.0f, 0.0f, 0.0f);
+		transform = CCAffineTransformConcat(skew, transform);
+	}
+
+	if (!(m_fScaleX == 1 && m_fScaleY == 1))
+	{
+		transform = CCAffineTransformScale(transform, m_fScaleX, m_fScaleY);
+	}
+
+	if (!CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero))
+	{
+		transform = CCAffineTransformTranslate(transform, -m_tAnchorPointInPoints.x, -m_tAnchorPointInPoints.y);
+	}
+
+	return transform;
+}
+
+CCAffineTransform CCNode::parentToNodeTransform()
+{
+	return CCAffineTransformInvert(this->nodeToParentTransform());
+}
+
+CCAffineTransform CCNode::nodeToWorldTransform()
+{
+	CCAffineTransform t = this->nodeToParentTransform();
+	for (CCNode* p = m_pParent; p != NULL; p = p->getParent())
+	{
+		t = CCAffineTransformConcat(t, p->nodeToParentTransform());
+	}
+	return t;
+}
+
+CCAffineTransform CCNode::worldToNodeTransform()
+{
+	return CCAffineTransformInvert(this->nodeToWorldTransform());
+}
+
+void CCNode::transform()
+{
+	GLfloat transformGL[16];
+	CCAffineTransform t = this->nodeToParentTransform();
+	CGAffineToGL(&t, transformGL);
+
+	glMultMatrixf(transformGL);
+	if (m_fVertexZ)
+	{
+		glTranslatef(0, 0, m_fVertexZ);
+	}
+
+	//TODO...Camera转换，目前暂无Camera设置
 }
 
 void CCNode::childrenAlloc()

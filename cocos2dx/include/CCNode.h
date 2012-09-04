@@ -3,6 +3,7 @@
 #include "CCObject.h"
 #include "CCGeometry.h"
 #include "CCMutableArray.h"
+#include "CCAffineTransform.h"
 
 NS_CC_BEGIN;
 
@@ -22,6 +23,7 @@ public:
 	virtual const CCPoint& getPosition();
 	virtual void setPosition(const CCPoint& newPosition);
 
+	virtual const CCPoint& getAnchorPointInPoints();
 	virtual const CCPoint& getAnchorPoint();
 	virtual void setAnchorPoint(const CCPoint& point);
 
@@ -87,6 +89,13 @@ public:
 
 	virtual void cleanup();
 
+	CCAffineTransform nodeToParentTransform();
+	CCAffineTransform parentToNodeTransform();
+	CCAffineTransform nodeToWorldTransform();
+	CCAffineTransform worldToNodeTransform();
+
+	void transform();
+
 private:
 	void childrenAlloc();
 	void insertChild(CCNode* child, int z);
@@ -99,6 +108,7 @@ private:
 protected:
 	int m_nZOrder;
 	CCPoint m_tPosition;
+	CCPoint m_tAnchorPointInPoints;
 	CCPoint m_tAnchorPoint;
 	CCSize m_tContentSize;
 	float m_fVertexZ;
