@@ -1,4 +1,5 @@
 ﻿#include "CCNode.h"
+#include "CCPointExtension.h"
 #include "TransformUtils.h"
 #include "CCDirector.h"
 #include "CCTouch.h"
@@ -25,6 +26,9 @@ CCNode::CCNode()
 	, m_pUserData(NULL)
 	, m_pParent(NULL)
 	, m_pChildren(NULL)
+	, m_bIsTransformDirty(true)
+	, m_bIsInverseDirty(true)
+	, m_bIsTransformGLDirty(true)
 {
 
 }
@@ -62,6 +66,9 @@ const CCPoint& CCNode::getPosition()
 void CCNode::setPosition(const CCPoint& newPosition)
 {
 	m_tPosition = newPosition;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 const CCPoint& CCNode::getAnchorPointInPoints()
@@ -76,7 +83,14 @@ const CCPoint& CCNode::getAnchorPoint()
 
 void CCNode::setAnchorPoint(const CCPoint& point)
 {
-	m_tAnchorPoint = point;
+	if (!CCPoint::CCPointEqualToPoint(point, m_tAnchorPoint))
+	{
+		m_tAnchorPoint = point;
+		m_tAnchorPointInPoints = ccp(m_tContentSize.width * m_tAnchorPoint.x, m_tContentSize.height * m_tAnchorPoint.y);
+		m_bIsTransformDirty = true;
+		m_bIsInverseDirty = true;
+		m_bIsTransformGLDirty = true;
+	}
 }
 
 const CCSize& CCNode::getContentSize()
@@ -86,7 +100,14 @@ const CCSize& CCNode::getContentSize()
 
 void CCNode::setContentSize(const CCSize& size)
 {
-	m_tContentSize = size;
+	if (!CCSize::CCSizeEqualToSize(size, m_tContentSize))
+	{
+		m_tContentSize = size;
+		m_tAnchorPointInPoints = ccp(m_tContentSize.width * m_tAnchorPoint.x, m_tContentSize.height * m_tAnchorPoint.y);
+		m_bIsTransformDirty = true;
+		m_bIsInverseDirty = true;
+		m_bIsTransformGLDirty = true;
+	}
 }
 
 float CCNode::getVertexZ()
@@ -107,6 +128,9 @@ float CCNode::getRotation()
 void CCNode::setRotation(float var)
 {
 	m_fRotation = var;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 float CCNode::getScale()
@@ -117,7 +141,11 @@ float CCNode::getScale()
 
 void CCNode::setScale(float scale)
 {
-	m_fScaleX = m_fScaleY = scale;
+	m_fScaleX = scale;
+	m_fScaleY = scale;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 float CCNode::getScaleX()
@@ -128,6 +156,9 @@ float CCNode::getScaleX()
 void CCNode::setScaleX(float var)
 {
 	m_fScaleX = var;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 float CCNode::getScaleY()
@@ -138,6 +169,9 @@ float CCNode::getScaleY()
 void CCNode::setScaleY(float var)
 {
 	m_fScaleY = var;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 float CCNode::getSkewX()
@@ -148,6 +182,9 @@ float CCNode::getSkewX()
 void CCNode::setSkewX(float var)
 {
 	m_fSkewX = var;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 float CCNode::getSkewY()
@@ -158,6 +195,9 @@ float CCNode::getSkewY()
 void CCNode::setSkewY(float var)
 {
 	m_fSkewY = var;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 bool CCNode::getIsVisible()
@@ -178,6 +218,9 @@ bool CCNode::getIsRelativeAnchorPoint()
 void CCNode::setIsRelativeAnchorPoint(bool var)
 {
 	m_bIsRelativeAnchorPoint = var;
+	m_bIsTransformDirty = true;
+	m_bIsInverseDirty = true;
+	m_bIsTransformGLDirty = true;
 }
 
 int CCNode::getTag()
@@ -427,45 +470,55 @@ void CCNode::cleanup()
 
 CCAffineTransform CCNode::nodeToParentTransform()
 {
-	CCAffineTransform transform = CCAffineTransformIdentity;
-	// 根据position,rotation,skew,scale属性计算仿射矩阵
-	if (!m_bIsRelativeAnchorPoint && !CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero))
+	if (m_bIsTransformDirty)
 	{
-		transform = CCAffineTransformTranslate(transform, m_tAnchorPointInPoints.x, m_tAnchorPointInPoints.y);
+		m_tTransform = CCAffineTransformIdentity;
+		// 根据position,rotation,skew,scale属性计算仿射矩阵
+		if (!m_bIsRelativeAnchorPoint && !CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero))
+		{
+			m_tTransform = CCAffineTransformTranslate(m_tTransform, m_tAnchorPointInPoints.x, m_tAnchorPointInPoints.y);
+		}
+
+		if (!CCPoint::CCPointEqualToPoint(m_tPosition, CCPointZero))
+		{
+			m_tTransform = CCAffineTransformTranslate(m_tTransform, m_tPosition.x, m_tPosition.y);
+		}
+
+		if (m_fRotation != 0)
+		{
+			m_tTransform = CCAffineTransformRotate(m_tTransform, -CC_DEGREES_TO_RADIANS(m_fRotation));
+		}
+
+		if (m_fSkewX != 0 || m_fSkewY != 0)
+		{
+			CCAffineTransform skew = CCAffineTransformMake(1.0f, tanf(CC_DEGREES_TO_RADIANS(m_fSkewY)), tanf(CC_DEGREES_TO_RADIANS(m_fSkewX)), 1.0f, 0.0f, 0.0f);
+			m_tTransform = CCAffineTransformConcat(skew, m_tTransform);
+		}
+
+		if (!(m_fScaleX == 1 && m_fScaleY == 1))
+		{
+			m_tTransform = CCAffineTransformScale(m_tTransform, m_fScaleX, m_fScaleY);
+		}
+
+		if (!CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero))
+		{
+			m_tTransform = CCAffineTransformTranslate(m_tTransform, -m_tAnchorPointInPoints.x, -m_tAnchorPointInPoints.y);
+		}
+
+		m_bIsTransformDirty = false;
 	}
 
-	if (!CCPoint::CCPointEqualToPoint(m_tPosition, CCPointZero))
-	{
-		transform = CCAffineTransformTranslate(transform, m_tPosition.x, m_tPosition.y);
-	}
-
-	if (m_fRotation != 0)
-	{
-		transform = CCAffineTransformRotate(transform, -CC_DEGREES_TO_RADIANS(m_fRotation));
-	}
-
-	if (m_fSkewX != 0 || m_fSkewY != 0)
-	{
-		CCAffineTransform skew = CCAffineTransformMake(1.0f, tanf(CC_DEGREES_TO_RADIANS(m_fSkewY)), tanf(CC_DEGREES_TO_RADIANS(m_fSkewX)), 1.0f, 0.0f, 0.0f);
-		transform = CCAffineTransformConcat(skew, transform);
-	}
-
-	if (!(m_fScaleX == 1 && m_fScaleY == 1))
-	{
-		transform = CCAffineTransformScale(transform, m_fScaleX, m_fScaleY);
-	}
-
-	if (!CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero))
-	{
-		transform = CCAffineTransformTranslate(transform, -m_tAnchorPointInPoints.x, -m_tAnchorPointInPoints.y);
-	}
-
-	return transform;
+	return m_tTransform;
 }
 
 CCAffineTransform CCNode::parentToNodeTransform()
 {
-	return CCAffineTransformInvert(this->nodeToParentTransform());
+	if (m_bIsInverseDirty)
+	{
+		m_tInverse = CCAffineTransformInvert(this->nodeToParentTransform());
+		m_bIsInverseDirty = false;
+	}
+	return m_tInverse;
 }
 
 CCAffineTransform CCNode::nodeToWorldTransform()
@@ -502,11 +555,14 @@ CCPoint CCNode::convertTouchToNodeSpace(CCTouch* touch)
 
 void CCNode::transform()
 {
-	GLfloat transformGL[16];
-	CCAffineTransform t = this->nodeToParentTransform();
-	CGAffineToGL(&t, transformGL);
+	if (m_bIsTransformGLDirty)
+	{
+		CCAffineTransform t = this->nodeToParentTransform();
+		CGAffineToGL(&t, m_pTransformGL);
+		m_bIsTransformGLDirty = false;
+	}
 
-	glMultMatrixf(transformGL);
+	glMultMatrixf(m_pTransformGL);
 	if (m_fVertexZ)
 	{
 		glTranslatef(0, 0, m_fVertexZ);

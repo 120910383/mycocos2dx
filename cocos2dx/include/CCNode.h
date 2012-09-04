@@ -4,6 +4,7 @@
 #include "CCGeometry.h"
 #include "CCMutableArray.h"
 #include "CCAffineTransform.h"
+#include "GLES/gl.h"
 
 NS_CC_BEGIN;
 
@@ -134,6 +135,13 @@ protected:
 	void* m_pUserData;
 	CCNode* m_pParent;
 	CCMutableArray<CCNode*>* m_pChildren;
+
+	CCAffineTransform m_tTransform;
+	CCAffineTransform m_tInverse;
+	GLfloat m_pTransformGL[16];
+	bool m_bIsTransformDirty;
+	bool m_bIsInverseDirty;
+	bool m_bIsTransformGLDirty;
 };
 
 NS_CC_END;
