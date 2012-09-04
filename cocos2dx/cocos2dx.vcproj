@@ -285,6 +285,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\ccTypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCZone.h"
 				>
 			</File>
