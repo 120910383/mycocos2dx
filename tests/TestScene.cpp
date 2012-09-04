@@ -1,5 +1,5 @@
 ﻿#include "TestScene.h"
-#include "gles/gl.h"		//测试
+#include "GLES/gl.h"		//测试
 
 CCScene* TestScene::scene()
 {
@@ -345,6 +345,7 @@ bool TestLayer3::init()
 		//todo...
 		m_sprite = CCSprite::spriteWithFile("Images\\blocks.png");
 		CC_BREAK_IF(NULL == m_sprite);
+		m_sprite->setAnchorPoint(CCPointZero);
 		m_sprite->setPosition(ccp(100, 100));
 		addChild(m_sprite, 1, 0);
 
@@ -360,7 +361,6 @@ bool TestLayer3::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
 
 void TestLayer3::ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent)
 {
-	CCPoint move_pos = pTouch->locationInView(pTouch->view());
-	move_pos = CCDirector::sharedDirector()->convertToGL(move_pos);
+	CCPoint move_pos = convertTouchToNodeSpace(pTouch);
 	m_sprite->setPosition(move_pos);
 }

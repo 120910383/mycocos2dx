@@ -1,6 +1,7 @@
 ﻿#include "CCNode.h"
 #include "TransformUtils.h"
-#include "gles/gl.h"
+#include "CCDirector.h"
+#include "CCTouch.h"
 #include <math.h>
 
 NS_CC_BEGIN;
@@ -480,6 +481,23 @@ CCAffineTransform CCNode::nodeToWorldTransform()
 CCAffineTransform CCNode::worldToNodeTransform()
 {
 	return CCAffineTransformInvert(this->nodeToWorldTransform());
+}
+
+CCPoint CCNode::convertToNodeSpace(const CCPoint& worldPoint)
+{
+	return CCPointApplyAffineTransform(worldPoint, worldToNodeTransform());
+}
+
+CCPoint CCNode::convertToWorldSpace(const CCPoint& nodePoint)
+{
+	return CCPointApplyAffineTransform(nodePoint, nodeToWorldTransform());
+}
+
+CCPoint CCNode::convertTouchToNodeSpace(CCTouch* touch)
+{
+	CCPoint point = touch->locationInView(touch->view());
+	point = CCDirector::sharedDirector()->convertToGL(point);
+	return convertToNodeSpace(point);
 }
 
 void CCNode::transform()

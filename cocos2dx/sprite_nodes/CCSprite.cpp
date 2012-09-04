@@ -24,19 +24,19 @@ void CCSprite::draw()
 	
 	GLfloat vertices[] = 
 	{
-		m_tPosition.x, m_tPosition.y + m_tContentSize.height, 0,
-		m_tPosition.x, m_tPosition.y, 0,
-		m_tPosition.x + m_tContentSize.width, m_tPosition.y + m_tContentSize.height, 0,
-		m_tPosition.x + m_tContentSize.width, m_tPosition.y, 0,
+		0, m_tContentSize.height, 0,
+		0, 0, 0,
+		m_tContentSize.width, m_tContentSize.height, 0,
+		m_tContentSize.width, 0, 0,
 	};
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 
 	GLfloat coordinates[] = 
 	{
-		0, 2, 
-		0, 0, 
-		2, 2, 
-		2, 0,
+		0, 1,
+		0, 0,
+		1, 1,
+		1, 0,
 	};
 	glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

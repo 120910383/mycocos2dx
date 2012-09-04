@@ -7,6 +7,8 @@
 
 NS_CC_BEGIN;
 
+class CCTouch;
+
 enum
 {
 	kCCNodeTagInvalid = -1,
@@ -93,6 +95,10 @@ public:
 	CCAffineTransform parentToNodeTransform();
 	CCAffineTransform nodeToWorldTransform();
 	CCAffineTransform worldToNodeTransform();
+
+	CCPoint convertToNodeSpace(const CCPoint& worldPoint);
+	CCPoint convertToWorldSpace(const CCPoint& nodePoint);
+	CCPoint convertTouchToNodeSpace(CCTouch* touch);
 
 	void transform();
 
