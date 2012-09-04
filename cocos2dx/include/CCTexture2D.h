@@ -2,7 +2,7 @@
 
 #include "CCObject.h"
 #include "CCGeometry.h"
-#include "gles/gl.h"
+#include "GLES/gl.h"
 #include <string>
 
 NS_CC_BEGIN;

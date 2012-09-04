@@ -53,6 +53,10 @@ public:
 	virtual bool getIsVisible();
 	virtual void setIsVisible(bool var);
 
+	// m_bIsRelativeAnchorPoint如果为true，则transform则会使用anchorpoint计算node的左下角位置，然后做参考点转换
+	// 如果为false，则transform直接把position当作参考点进行转换，对于scene layer menu等全屏幕的节点，默认为false，
+	// 即如果放置一个子节点在其上面的话，指定的位置是相对于anchorpoint位置的，对于sprite,label的带指定尺寸的
+	// 节点，默认为true，即如果放置一个字节点在其上的话，指定的位置是相对于parent的左下角而言
 	virtual bool getIsRelativeAnchorPoint();
 	virtual void setIsRelativeAnchorPoint(bool var);
 

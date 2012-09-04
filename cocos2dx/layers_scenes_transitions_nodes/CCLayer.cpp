@@ -8,6 +8,7 @@ NS_CC_BEGIN;
 CCLayer::CCLayer()
 	: m_bIsTouchEnabled(false)
 {
+	m_bIsRelativeAnchorPoint = false;
 	setAnchorPoint(ccp(0.5f, 0.5f));
 }
 
