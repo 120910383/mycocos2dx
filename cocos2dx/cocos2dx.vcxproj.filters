@@ -10,6 +10,52 @@
     <ClCompile Include="cocoa\CCAutoreleasePool.cpp">
       <Filter>cocoa</Filter>
     </ClCompile>
+    <ClCompile Include="base_nodes\CCNode.cpp">
+      <Filter>base_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCAffineTransform.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCGeometry.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="layers_scenes_transitions_nodes\CCLayer.cpp">
+      <Filter>layers_scenes_transitions_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="layers_scenes_transitions_nodes\CCScene.cpp">
+      <Filter>layers_scenes_transitions_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite_nodes\CCSprite.cpp">
+      <Filter>sprite_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="support\CCPointExtension.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="support\TransformUtils.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="textures\CCTexture2D.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="touch_dispatcher\CCTouchDispatcher.cpp">
+      <Filter>touch_dispatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="touch_dispatcher\CCTouchHandler.cpp">
+      <Filter>touch_dispatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\CCApplication.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\CCEGLView.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\CCFileUtils.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="win32\CCImage.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="CCDirector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CCMutableArray.h">
@@ -24,6 +70,72 @@
     <ClInclude Include="include\CCAutoreleasePool.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\CCAffineTransform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCApplication.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCDirector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCEGLView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCFileUtils.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCGeometry.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCImage.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ccMacros.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCPointExtension.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCSprite.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCString.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTexture2D.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouch.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouchDelegateProtocol.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouchDispatcher.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouchHandler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ccTypes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cocos2d.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TransformUtils.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -31,6 +143,27 @@
     </Filter>
     <Filter Include="cocoa">
       <UniqueIdentifier>{cc0df4d6-0cfd-4b89-8903-ee09d9566b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base_nodes">
+      <UniqueIdentifier>{4221fbd7-43c9-4e68-a733-aa478d8c50f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="layers_scenes_transitions_nodes">
+      <UniqueIdentifier>{100806d6-4e76-4438-8762-48cdfcadb6d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sprite_nodes">
+      <UniqueIdentifier>{34915f6b-ad4f-4c0c-a036-8b93c68cfb65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{cb12ee69-c56c-45bd-bce2-4fa7a27fe090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="textures">
+      <UniqueIdentifier>{07d67677-5448-4baa-919d-25f87ebcd086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="touch_dispatcher">
+      <UniqueIdentifier>{cfb87674-36a4-4733-81b9-e709f6e0fe4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{38b730f8-8dd0-4c1f-af90-fbd5d6f8a8d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
