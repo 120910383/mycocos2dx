@@ -44,6 +44,55 @@ void CCSprite::draw()
 	glEnableClientState(GL_COLOR_ARRAY);
 }
 
+GLubyte CCSprite::getOpacity()
+{
+	return m_nOpacity;
+}
+
+void CCSprite::setOpacity(GLubyte opacity)
+{
+	m_nOpacity = opacity;
+
+	if (m_bOpacityModifyRGB)
+	{
+		m_sColor.r = m_sColorUnmodified.r * m_nOpacity / 255;
+		m_sColor.g = m_sColorUnmodified.g * m_nOpacity / 255;
+		m_sColor.b = m_sColorUnmodified.b * m_nOpacity / 255;
+	}
+}
+
+const ccColor3B& CCSprite::getColor()
+{
+	if (m_bOpacityModifyRGB)
+	{
+		return m_sColorUnmodified;
+	}
+
+	return m_sColor;
+}
+
+void CCSprite::setColor(const ccColor3B& color3)
+{
+	m_sColor = m_sColorUnmodified = color3;
+
+	if (m_bOpacityModifyRGB)
+	{
+		m_sColor.r = m_sColorUnmodified.r * m_nOpacity / 255;
+		m_sColor.g = m_sColorUnmodified.g * m_nOpacity / 255;
+		m_sColor.b = m_sColorUnmodified.b * m_nOpacity / 255;
+	}
+}
+
+bool CCSprite::getIsOpacityModifyRGB()
+{
+	return m_bOpacityModifyRGB;
+}
+
+void CCSprite::setIsOpacityModifyRGB(bool bValue)
+{
+	m_bOpacityModifyRGB = bValue;
+}
+
 CCSprite* CCSprite::spriteWithFile(const char *pszFileName)
 {
 	CCSprite* pobSprite = new CCSprite();
@@ -70,6 +119,10 @@ CCSprite::~CCSprite()
 bool CCSprite::init()
 {
 	setTexture(NULL);
+
+	m_bOpacityModifyRGB = true;
+	m_nOpacity = 255;
+	m_sColor = m_sColorUnmodified = ccWHITE;
 
 	setAnchorPoint(ccp(0.5f, 0.5f));
 
