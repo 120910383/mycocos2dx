@@ -44,7 +44,7 @@ public:
 
 	bool initWithTexture(CCTexture2D *pTexture);
 	bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect);
-	
+
 	virtual void setTexture(CCTexture2D *texture);
 	virtual CCTexture2D* getTexture();
 

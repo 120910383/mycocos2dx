@@ -196,9 +196,7 @@ bool CCSprite::initWithFile(const char *pszFilename)
 
 	if (NULL != pTexture)
 	{
-		CCRect rect = CCRectZero;
-		rect.size = pTexture->getContentSize();
-		return initWithTexture(pTexture, rect);
+		return initWithTexture(pTexture);
 	}
 
 	return false;
