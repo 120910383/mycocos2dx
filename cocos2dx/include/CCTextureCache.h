@@ -15,7 +15,8 @@ public:
 	static CCTextureCache* sharedTextureCache();
 	static void purgeSharedTextureCache();
 
-	CCTextureCache* addImage(const char* path);
+	CCTexture2D* addImage(const char* path);
+	void removeUnusedTextures();
 
 protected:
 	CCMutableDictionary<std::string, CCTexture2D*>* m_pTextures;

@@ -87,7 +87,7 @@ public:
 	// 添加键值对，不对已有元素修改，key已有则返回false
 	bool setObject(_ValueT pObject, const _KeyT& key)
 	{
-		pair<CCObjectMapIter, bool>  pr;
+		std::pair<CCObjectMapIter, bool>  pr;
 
 		pr = m_map.insert(Int_Pair(key, pObject));
 

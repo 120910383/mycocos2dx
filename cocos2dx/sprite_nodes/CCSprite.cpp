@@ -2,7 +2,7 @@
 #include "CCPointExtension.h"
 #include "CCTexture2D.h"
 #include "CCFileUtils.h"
-#include "CCImage.h"
+#include "CCTextureCache.h"
 
 NS_CC_BEGIN;
 
@@ -163,84 +163,29 @@ bool CCSprite::init()
 bool CCSprite::initWithFile(const char *pszFilename)
 {
 	CCAssert(NULL != pszFilename, "");
-	CCTexture2D* pTexture = NULL;
-
-	// 根据文件名创建纹理对象
-	{
-		std::string fullpath = CCFileUtils::fullPathFromRelativePath(pszFilename);
-		std::string lowerCase(pszFilename);
-		for (unsigned int i = 0; i < lowerCase.length(); ++i)
-		{
-			lowerCase[i] = (char)tolower(lowerCase[i]);
-		}
-
-		do 
-		{
-			CCImage image;
-			CCFileData data(fullpath.c_str(), "rb");
-			unsigned long nSize = data.getSize();
-			unsigned char* pBuffer = data.getBuffer();
-			CC_BREAK_IF( !image.initWithImageData((void*)pBuffer, nSize, CCImage::kFmtPng));
-
-			pTexture = new CCTexture2D;
-			if (NULL != pTexture && pTexture->initWithImage(&image))
-			{
-				pTexture->autorelease();
-			}
-			else
-			{
-				CC_SAFE_DELETE(pTexture);
-			}
-		} while (0);
-	}
-
+	CCTexture2D* pTexture = CCTextureCache::sharedTextureCache()->addImage(pszFilename);
 	if (NULL != pTexture)
 	{
 		return initWithTexture(pTexture);
 	}
 
+	// 若载入纹理失败，这里不去释放，默认仍然是个有效的CCSprite，只不过看作透明的而已
+	// 由外界根据返回值来决定是否要释放清理
 	return false;
 }
 
 bool CCSprite::initWithFile(const char *pszFilename, const CCRect& rect)
 {
 	CCAssert(NULL != pszFilename, "");
-	CCTexture2D* pTexture = NULL;
-
-	// 根据文件名创建纹理对象
-	{
-		std::string fullpath = CCFileUtils::fullPathFromRelativePath(pszFilename);
-		std::string lowerCase(pszFilename);
-		for (unsigned int i = 0; i < lowerCase.length(); ++i)
-		{
-			lowerCase[i] = (char)tolower(lowerCase[i]);
-		}
-
-		do 
-		{
-			CCImage image;
-			CCFileData data(fullpath.c_str(), "rb");
-			unsigned long nSize = data.getSize();
-			unsigned char* pBuffer = data.getBuffer();
-			CC_BREAK_IF( !image.initWithImageData((void*)pBuffer, nSize, CCImage::kFmtPng));
-
-			pTexture = new CCTexture2D;
-			if (NULL != pTexture && pTexture->initWithImage(&image))
-			{
-				pTexture->autorelease();
-			}
-			else
-			{
-				CC_SAFE_DELETE(pTexture);
-			}
-		} while (0);
-	}
+	CCTexture2D* pTexture = CCTextureCache::sharedTextureCache()->addImage(pszFilename);
 
 	if (NULL != pTexture)
 	{
 		return initWithTexture(pTexture, rect);
 	}
 
+	// 若载入纹理失败，这里不去释放，默认仍然是个有效的CCSprite，只不过看作透明的而已
+	// 由外界根据返回值来决定是否要释放清理
 	return false;
 }
 
