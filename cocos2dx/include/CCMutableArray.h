@@ -2,7 +2,6 @@
 
 #include "CCObject.h"
 #include <vector>
-#include <stdarg.h>
 
 NS_CC_BEGIN;
 // 从代码可以看出，本类型所接受的元素类型只能是CCObject及其派生类型，而不是任意类型，因为元素带有release retain等使用方法

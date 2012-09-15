@@ -12,14 +12,17 @@
 #include "CCTouchDispatcher.h"
 #include "CCTouch.h"
 #include "CCSprite.h"
+#include "CCTextureCache.h"
 
 //
 // cocoa includes
 //
 #include "CCMutableArray.h"
+#include "CCMutableDictionary.h"
 #include "CCObject.h"
 #include "CCZone.h"
 #include "CCGeometry.h"
+#include "CCAffineTransform.h"
 #include "CCPointExtension.h"
 
 //
@@ -32,4 +35,5 @@
 //
 // cocos2d macros
 //
+#include "ccTypes.h"
 #include "ccMacros.h"
