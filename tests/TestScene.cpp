@@ -343,10 +343,11 @@ bool TestLayer3::init()
 		setIsTouchEnabled(true);
 
 		//todo...
-		m_sprite = CCSprite::spriteWithFile("Images\\blocks.png");
+		m_sprite = CCSprite::spriteWithFile("Images\\blocks.png", CCRectMake(16, 16, 96, 96));
 		CC_BREAK_IF(NULL == m_sprite);
 		m_sprite->setAnchorPoint(CCPointZero);
 		m_sprite->setPosition(ccp(100, 100));
+		m_sprite->setColor(ccc3(180, 180, 255));
 		addChild(m_sprite, 1, 0);
 
 		result = true;
@@ -356,6 +357,8 @@ bool TestLayer3::init()
 
 bool TestLayer3::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
 {
+	CCPoint move_pos = convertTouchToNodeSpace(pTouch);
+	m_sprite->setPosition(move_pos);
 	return true;
 }
 
