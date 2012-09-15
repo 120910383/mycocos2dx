@@ -50,6 +50,14 @@ public:
 
 	void setTextureRect(const CCRect& rect);
 
+	void updateColor();
+
+	void useSelfRender();
+
+protected:
+	void updateTextureCoords(const CCRect& rect);
+	void updateBlendFunc();
+
 protected:
 	CCTexture2D* m_pobTexture;
 
