@@ -22,25 +22,45 @@ public:
 	virtual void setIsOpacityModifyRGB(bool bVaule);
 
 public:
+	inline ccV3F_C4B_T2F_Quad getQuad() { return m_sQuad; }
+
+	inline const CCRect& getTextureRect() { return m_obRect; }
+
+	inline ccBlendFunc getBlendFunc() { return m_sBlendFunc; }
+	inline void setBlendFunc(ccBlendFunc blendFunc) { m_sBlendFunc = blendFunc; }
+
+public:
 	static CCSprite* spriteWithFile(const char *pszFileName);
+	static CCSprite* spriteWithFile(const char *pszFileName, const CCRect& rect);
 
 public:
 	CCSprite();
 	virtual ~CCSprite();
+
 	virtual bool init();
+
 	bool initWithFile(const char *pszFilename);
-	bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect);
+	bool initWithFile(const char *pszFilename, const CCRect& rect);
+
 	bool initWithTexture(CCTexture2D *pTexture);
+	bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect);
+	
 	virtual void setTexture(CCTexture2D *texture);
 	virtual CCTexture2D* getTexture();
+
 	void setTextureRect(const CCRect& rect);
 
 protected:
 	CCTexture2D* m_pobTexture;
+
 	GLubyte m_nOpacity;
 	ccColor3B m_sColor;
 	ccColor3B m_sColorUnmodified;
 	bool m_bOpacityModifyRGB;
+
+	ccV3F_C4B_T2F_Quad m_sQuad;
+	CCRect m_obRect;
+	ccBlendFunc m_sBlendFunc;
 };
 
 NS_CC_END;

@@ -105,6 +105,18 @@ CCSprite* CCSprite::spriteWithFile(const char *pszFileName)
 	return NULL;
 }
 
+CCSprite* CCSprite::spriteWithFile(const char *pszFileName, const CCRect& rect)
+{
+	CCSprite* pobSprite = new CCSprite();
+	if (NULL != pobSprite && pobSprite->initWithFile(pszFileName, rect))
+	{
+		pobSprite->autorelease();
+		return pobSprite;
+	}
+	CC_SAFE_DELETE(pobSprite);
+	return NULL;
+}
+
 CCSprite::CCSprite()
 	: m_pobTexture(NULL)
 {
@@ -173,14 +185,46 @@ bool CCSprite::initWithFile(const char *pszFilename)
 	return false;
 }
 
-bool CCSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect)
+bool CCSprite::initWithFile(const char *pszFilename, const CCRect& rect)
 {
-	CCAssert(NULL != pTexture, "");
-	init();
-	setTexture(pTexture);
-	setTextureRect(rect);
+	CCAssert(NULL != pszFilename, "");
+	CCTexture2D* pTexture = NULL;
 
-	return true;
+	// 根据文件名创建纹理对象
+	{
+		std::string fullpath = CCFileUtils::fullPathFromRelativePath(pszFilename);
+		std::string lowerCase(pszFilename);
+		for (unsigned int i = 0; i < lowerCase.length(); ++i)
+		{
+			lowerCase[i] = (char)tolower(lowerCase[i]);
+		}
+
+		do 
+		{
+			CCImage image;
+			CCFileData data(fullpath.c_str(), "rb");
+			unsigned long nSize = data.getSize();
+			unsigned char* pBuffer = data.getBuffer();
+			CC_BREAK_IF( !image.initWithImageData((void*)pBuffer, nSize, CCImage::kFmtPng));
+
+			pTexture = new CCTexture2D;
+			if (NULL != pTexture && pTexture->initWithImage(&image))
+			{
+				pTexture->autorelease();
+			}
+			else
+			{
+				CC_SAFE_DELETE(pTexture);
+			}
+		} while (0);
+	}
+
+	if (NULL != pTexture)
+	{
+		return initWithTexture(pTexture, rect);
+	}
+
+	return false;
 }
 
 bool CCSprite::initWithTexture(CCTexture2D *pTexture)
@@ -191,6 +235,16 @@ bool CCSprite::initWithTexture(CCTexture2D *pTexture)
 	rect.size = pTexture->getContentSize();
 
 	return initWithTexture(pTexture, rect);
+}
+
+bool CCSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect)
+{
+	CCAssert(NULL != pTexture, "");
+	init();
+	setTexture(pTexture);
+	setTextureRect(rect);
+
+	return true;
 }
 
 void CCSprite::setTexture(CCTexture2D *texture)
