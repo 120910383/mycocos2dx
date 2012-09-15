@@ -94,6 +94,7 @@ xcopy /Y /Q "$(ProjectDir)\third_party\libraries\*.*" "$(OutDir)"</Command>
     <ClInclude Include="include\CCLayer.h" />
     <ClInclude Include="include\ccMacros.h" />
     <ClInclude Include="include\CCMutableArray.h" />
+    <ClInclude Include="include\CCMutableDictionary.h" />
     <ClInclude Include="include\CCNode.h" />
     <ClInclude Include="include\CCObject.h" />
     <ClInclude Include="include\CCPointExtension.h" />
@@ -101,6 +102,7 @@ xcopy /Y /Q "$(ProjectDir)\third_party\libraries\*.*" "$(OutDir)"</Command>
     <ClInclude Include="include\CCSprite.h" />
     <ClInclude Include="include\CCString.h" />
     <ClInclude Include="include\CCTexture2D.h" />
+    <ClInclude Include="include\CCTextureCache.h" />
     <ClInclude Include="include\CCTouch.h" />
     <ClInclude Include="include\CCTouchDelegateProtocol.h" />
     <ClInclude Include="include\CCTouchDispatcher.h" />
@@ -124,6 +126,7 @@ xcopy /Y /Q "$(ProjectDir)\third_party\libraries\*.*" "$(OutDir)"</Command>
     <ClCompile Include="support\CCPointExtension.cpp" />
     <ClCompile Include="support\TransformUtils.cpp" />
     <ClCompile Include="textures\CCTexture2D.cpp" />
+    <ClCompile Include="textures\CCTextureCache.cpp" />
     <ClCompile Include="touch_dispatcher\CCTouchDispatcher.cpp" />
     <ClCompile Include="touch_dispatcher\CCTouchHandler.cpp" />
     <ClCompile Include="win32\CCApplication.cpp" />

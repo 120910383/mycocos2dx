@@ -56,6 +56,9 @@
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="CCDirector.cpp" />
+    <ClCompile Include="textures\CCTextureCache.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CCMutableArray.h">
@@ -134,6 +137,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\TransformUtils.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCMutableDictionary.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTextureCache.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
