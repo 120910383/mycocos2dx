@@ -20,6 +20,7 @@ public:
 	inline CCScene* getRunningScene(void) { return m_pRunningScene; }
 	void setOpenGLView(CCEGLView *pobOpenGLView);
 	void drawScene();
+	void purgeCachedData();
 	void setGLDefaultValues();
 	inline bool isPaused(void) { return m_bPaused; }
 	inline double getAnimationInterval(void) { return m_dAnimationInterval; }

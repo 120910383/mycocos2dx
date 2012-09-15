@@ -4,6 +4,7 @@
 #include "CCScene.h"
 #include "CCTouchDispatcher.h"
 #include "CCEGLView.h"
+#include "CCTextureCache.h"
 #include "GLES/gl.h"
 
 NS_CC_BEGIN;
@@ -145,6 +146,11 @@ void CCDirector::drawScene()
 	}
 }
 
+void CCDirector::purgeCachedData()
+{
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+}
+
 void CCDirector::setAnimationInterval(double dValue)
 {
 	m_dAnimationInterval = dValue;
@@ -282,6 +288,9 @@ void CCDirector::purgeDirector()
 	m_pobScenesStack->removeAllObjects();
 
 	stopAnimation();
+
+	// purge all managers:todo...
+	CCTextureCache::purgeSharedTextureCache();
 
 	m_pobOpenGLView->release();
 	m_pobOpenGLView = NULL;
