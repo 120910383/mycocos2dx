@@ -1,5 +1,6 @@
 ﻿#include "CCTexture2D.h"
 #include "CCImage.h"
+#include "CCConfiguration.h"
 
 NS_CC_BEGIN;
 
@@ -21,11 +22,12 @@ unsigned long ccNextPOT(unsigned long x)
 	return x + 1;
 }
 
-static CCTexture2DPixelFormat g_defaultAlphaPixelFormat = kCCTexture2DPixelFormat_Default;
+static CCTexture2DPixelFormat g_defaultAlphaPixelFormat = kCCTexture2DPixelFormat_RGBA8888;
 CCTexture2D::CCTexture2D()
-: m_uPixelsWide(0)
-, m_uPixelsHigh(0)
-, m_uName(0)
+	: m_uPixelsWide(0)
+	, m_uPixelsHigh(0)
+	, m_uName(0)
+	, m_bHasPremultipliedAlpha(false)
 {
 
 }
@@ -43,62 +45,58 @@ bool CCTexture2D::initWithData(const void* data, CCTexture2DPixelFormat pixelFor
 
 	this->setAntiAliasTexParameters();
 
-	// Specify OpenGL texture image
-
 	switch(pixelFormat)
 	{
 	case kCCTexture2DPixelFormat_RGBA8888:
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		break;
-	case kCCTexture2DPixelFormat_RGB888:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		break;
-	case kCCTexture2DPixelFormat_RGBA4444:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4, data);
-		break;
-	case kCCTexture2DPixelFormat_RGB5A1:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1, data);
-		break;
-	case kCCTexture2DPixelFormat_RGB565:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, data);
-		break;
-	case kCCTexture2DPixelFormat_AI88:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE_ALPHA, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, data);
-		break;
-	case kCCTexture2DPixelFormat_A8:
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_ALPHA, GL_UNSIGNED_BYTE, data);
-		break;
 	default:
-		CCAssert(0, "NSInternalInconsistencyException");
-
+		CCAssert(false, "NSInternalInconsistencyException");
+		break;
 	}
 
 	m_tContentSize = contentSize;
 	m_uPixelsWide = pixelsWide;
 	m_uPixelsHigh = pixelsHigh;
-	//m_ePixelFormat = pixelFormat;
-	//m_fMaxS = contentSize.width / (float)(pixelsWide);
-	//m_fMaxT = contentSize.height / (float)(pixelsHigh);
 
-	//m_bHasPremultipliedAlpha = false;
+	m_bHasPremultipliedAlpha = false;
 
 	return true;
 }
 
 bool CCTexture2D::initWithImage(CCImage* uiImage)
 {
+	unsigned int POTWide, POTHigh;
+
 	if (NULL == uiImage)
 	{
 		this->release();
 		return false;
 	}
 
-	//unsigned int POTWide = ccNextPOT(uiImage->getWidth());
-	//unsigned int POTHigh = ccNextPOT(uiImage->getHeight());
-	unsigned int imageWidth = uiImage->getWidth();
-	unsigned int imageHeight = uiImage->getHeight();
+	CCConfiguration* conf = CCConfiguration::sharedConfiguration();
 
-	return initPremultipliedATextureWithImage(uiImage, imageWidth, imageHeight);
+	// 根据是否支持NPOT，决定是否使用NPOT尺寸的纹理（目前暂不适用NPOT）
+	if (false && NULL != conf && conf->isSupportsNPOT())
+	{
+		POTWide = uiImage->getWidth();
+		POTHigh = uiImage->getHeight();
+	}
+	else
+	{
+		POTWide = ccNextPOT(uiImage->getWidth());
+		POTHigh = ccNextPOT(uiImage->getHeight());
+	}
+
+	unsigned int maxTextureSize = conf->getMaxTextureSize();
+	if (POTHigh > maxTextureSize || POTWide > maxTextureSize)
+	{
+		CCAssert(false, "Image is bigger than the supported size");
+		this->release();
+		return false;
+	}
+
+	return initPremultipliedATextureWithImage(uiImage, POTWide, POTHigh);
 }
 
 void CCTexture2D::setTexParameters(ccTexParams* texParams)
@@ -146,62 +144,37 @@ const CCSize& CCTexture2D::getContentSize()
 	return m_tContentSize;
 }
 
+bool CCTexture2D::getHasPremultipliedAlpha()
+{
+	return m_bHasPremultipliedAlpha;
+}
+
 bool CCTexture2D::initPremultipliedATextureWithImage(cocos2d::CCImage *image, unsigned int POTWide, unsigned int POTHigh)
 {
-	unsigned char*			data = NULL;
-	unsigned char*			tempData =NULL;
-	unsigned int*			inPixel32 = NULL;
-	unsigned short*			outPixel16 = NULL;
-	bool					hasAlpha;
-	CCSize					imageSize;
-	CCTexture2DPixelFormat	pixelFormat;
+	unsigned char* data = NULL;
+	unsigned char* tempData =NULL;
+	CCSize imageSize = CCSizeMake((float)(image->getWidth()), (float)(image->getHeight()));
 
-	hasAlpha = image->hasAlpha();
-
-	size_t bpp = image->getBitsPerComponent();
-
-	// compute pixel format
-	if(hasAlpha)
+	CCTexture2DPixelFormat pixelFormat = g_defaultAlphaPixelFormat;
+	// 处理image成为POT尺寸的纹理
+	switch(pixelFormat)
 	{
-		pixelFormat = g_defaultAlphaPixelFormat;
-	}
-	else
-	{
-		if (bpp >= 8)
+	case kCCTexture2DPixelFormat_RGBA8888:
 		{
-			pixelFormat = kCCTexture2DPixelFormat_RGB888;
-		}
-		else
-		{
-			//CCLOG("cocos2d: CCTexture2D: Using RGB565 texture since image has no alpha");
-			pixelFormat = kCCTexture2DPixelFormat_RGB565;
-		}
-	}
-
-
-	imageSize = CCSizeMake((float)(image->getWidth()), (float)(image->getHeight()));
-
-	switch(pixelFormat) {          
-		case kCCTexture2DPixelFormat_RGBA8888:
-		case kCCTexture2DPixelFormat_RGBA4444:
-		case kCCTexture2DPixelFormat_RGB5A1:
-		case kCCTexture2DPixelFormat_RGB565:
-		case kCCTexture2DPixelFormat_A8:
 			tempData = (unsigned char*)(image->getData());
 			CCAssert(tempData != NULL, "NULL image data.");
 
+			data = new unsigned char[POTHigh * POTWide * 4];
+			memset(data, 0, POTHigh * POTWide * 4);
+
 			if(image->getWidth() == (short)POTWide && image->getHeight() == (short)POTHigh)
 			{
-				data = new unsigned char[POTHigh * POTWide * 4];
 				memcpy(data, tempData, POTHigh * POTWide * 4);
 			}
 			else
 			{
-				data = new unsigned char[POTHigh * POTWide * 4];
-				memset(data, 0, POTHigh * POTWide * 4);
-
-				unsigned char* pPixelData = (unsigned char*) tempData;
-				unsigned char* pTargetData = (unsigned char*) data;
+				unsigned char* pPixelData = (unsigned char*)tempData;
+				unsigned char* pTargetData = (unsigned char*)data;
 
 				int imageHeight = image->getHeight();
 				for(int y = 0; y < imageHeight; ++y)
@@ -209,124 +182,27 @@ bool CCTexture2D::initPremultipliedATextureWithImage(cocos2d::CCImage *image, un
 					memcpy(pTargetData+POTWide*4*y, pPixelData+(image->getWidth())*4*y, (image->getWidth())*4);
 				}
 			}
-
-			break;    
-		case kCCTexture2DPixelFormat_RGB888:
-			tempData = (unsigned char*)(image->getData());
-			CCAssert(tempData != NULL, "NULL image data.");
-			if(image->getWidth() == (short)POTWide && image->getHeight() == (short)POTHigh)
-			{
-				data = new unsigned char[POTHigh * POTWide * 3];
-				memcpy(data, tempData, POTHigh * POTWide * 3);
-			}
-			else
-			{
-				data = new unsigned char[POTHigh * POTWide * 3];
-				memset(data, 0, POTHigh * POTWide * 3);
-
-				unsigned char* pPixelData = (unsigned char*) tempData;
-				unsigned char* pTargetData = (unsigned char*) data;
-
-				int imageHeight = image->getHeight();
-				for(int y = 0; y < imageHeight; ++y)
-				{
-					memcpy(pTargetData+POTWide*3*y, pPixelData+(image->getWidth())*3*y, (image->getWidth())*3);
-				}
-			}
-			break;   
-		default:
-			CCAssert(0, "Invalid pixel format");
-	}
-
-	// Repack the pixel data into the right format
-
-	if(pixelFormat == kCCTexture2DPixelFormat_RGB565) {
-		//Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRRGGGGGGBBBBB"
-		tempData = new unsigned char[POTHigh * POTWide * 2];
-		inPixel32 = (unsigned int*)data;
-		outPixel16 = (unsigned short*)tempData;
-
-		unsigned int length = POTWide * POTHigh;
-		for(unsigned int i = 0; i < length; ++i, ++inPixel32)
-		{
-			*outPixel16++ = 
-				((((*inPixel32 >> 0) & 0xFF) >> 3) << 11) |  // R
-				((((*inPixel32 >> 8) & 0xFF) >> 2) << 5) |   // G
-				((((*inPixel32 >> 16) & 0xFF) >> 3) << 0);   // B
 		}
-
-		delete [] data;
-		data = tempData;
+		break;
+	default:
+		CCAssert(false, "Invalid pixel format");
+		break;
 	}
-	else if (pixelFormat == kCCTexture2DPixelFormat_RGBA4444) {
-		//Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRGGGGBBBBAAAA"
-		tempData = new unsigned char[POTHigh * POTWide * 2];
-		inPixel32 = (unsigned int*)data;
-		outPixel16 = (unsigned short*)tempData;
 
-		unsigned int length = POTWide * POTHigh;
-		for(unsigned int i = 0; i < length; ++i, ++inPixel32)
-		{
-			*outPixel16++ = 
-				((((*inPixel32 >> 0) & 0xFF) >> 4) << 12) | // R
-				((((*inPixel32 >> 8) & 0xFF) >> 4) << 8) | // G
-				((((*inPixel32 >> 16) & 0xFF) >> 4) << 4) | // B
-				((((*inPixel32 >> 24) & 0xFF) >> 4) << 0); // A
-		}
-
-		delete [] data;
-		data = tempData;
-	}
-	else if (pixelFormat == kCCTexture2DPixelFormat_RGB5A1) {
-		//Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRRGGGGGBBBBBA"
-		tempData = new unsigned char[POTHigh * POTWide * 2];
-		inPixel32 = (unsigned int*)data;
-		outPixel16 = (unsigned short*)tempData;
-
-		unsigned int length = POTWide * POTHigh;
-		for(unsigned int i = 0; i < length; ++i, ++inPixel32)
-		{
-			*outPixel16++ = 
-				((((*inPixel32 >> 0) & 0xFF) >> 3) << 11) | // R
-				((((*inPixel32 >> 8) & 0xFF) >> 3) << 6) | // G
-				((((*inPixel32 >> 16) & 0xFF) >> 3) << 1) | // B
-				((((*inPixel32 >> 24) & 0xFF) >> 7) << 0); // A
-		}
-
-		delete []data;
-		data = tempData;
-	}
-	else if (pixelFormat == kCCTexture2DPixelFormat_A8)
-	{
-		// fix me, how to convert to A8
-		pixelFormat = kCCTexture2DPixelFormat_RGBA8888;
-
-		/*
-		* The code can not work, how to convert to A8?
-		*
-		tempData = new unsigned char[POTHigh * POTWide];
-		inPixel32 = (unsigned int*)data;
-		outPixel8 = tempData;
-
-		unsigned int length = POTWide * POTHigh;
-		for(unsigned int i = 0; i < length; ++i, ++inPixel32)
-		{
-		*outPixel8++ = (*inPixel32 >> 24) & 0xFF;
-		}
-
-		delete []data;
-		data = tempData;
-		*/
-	}
+	// 根据指定的颜色格式，重新编码
+	// 对于kCCTexture2DPixelFormat_RGBA8888无需重新编码
+	// 其他格式TODO...
+	// RGB565: RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA ==>RRRRRGGGGGGBBBBB
+	// RGBA4444: RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA ==> RRRRGGGGBBBBAAAA
+	// RGB5A1: RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA ==> RRRRRGGGGGBBBBBA
 
 	if (data)
 	{
 		this->initWithData(data, pixelFormat, POTWide, POTHigh, imageSize);
 
-		// should be after calling super init
-		//m_bHasPremultipliedAlpha = image->isPremultipliedAlpha();
+		// initWithData默认设置预乘变量为false，如果image的RGB数据已经预乘，则在init之后赋值
+		m_bHasPremultipliedAlpha = image->isPremultipliedAlpha();
 
-		//CGContextRelease(context);
 		delete [] data;
 	}
 	return true;

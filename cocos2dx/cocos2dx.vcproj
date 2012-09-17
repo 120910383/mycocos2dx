@@ -210,6 +210,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCConfiguration.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCDirector.h"
 				>
 			</File>
@@ -394,6 +398,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\CCConfiguration.cpp"
+			>
+		</File>
 		<File
 			RelativePath=".\CCDirector.cpp"
 			>
