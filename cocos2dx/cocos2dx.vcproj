@@ -234,6 +234,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCLabelTTF.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCLayer.h"
 				>
 			</File>
@@ -395,6 +399,14 @@
 			>
 			<File
 				RelativePath=".\sprite_nodes\CCSprite.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="label_nodes"
+			>
+			<File
+				RelativePath=".\label_nodes\CCLabelTTF.cpp"
 				>
 			</File>
 		</Filter>

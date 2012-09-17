@@ -13,6 +13,7 @@
 #include "CCTouch.h"
 #include "CCSprite.h"
 #include "CCTextureCache.h"
+#include "CCLabelTTF.h"
 
 //
 // cocoa includes

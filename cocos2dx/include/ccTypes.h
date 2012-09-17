@@ -108,4 +108,11 @@ typedef struct _ccBlendFunc
 	GLenum dst;
 } ccBlendFunc;
 
+typedef enum
+{
+	CCTextAlignmentLeft,
+	CCTextAlignmentCenter,
+	CCTextAlignmentRight,
+} CCTextAlignment;
+
 NS_CC_END;
