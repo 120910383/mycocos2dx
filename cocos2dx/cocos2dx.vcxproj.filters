@@ -59,6 +59,10 @@
     <ClCompile Include="textures\CCTextureCache.cpp">
       <Filter>textures</Filter>
     </ClCompile>
+    <ClCompile Include="CCConfiguration.cpp" />
+    <ClCompile Include="label_nodes\CCLabelTTF.cpp">
+      <Filter>label_nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CCMutableArray.h">
@@ -145,6 +149,12 @@
     <ClInclude Include="include\CCTextureCache.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\CCConfiguration.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCLabelTTF.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -173,6 +183,9 @@
     </Filter>
     <Filter Include="win32">
       <UniqueIdentifier>{38b730f8-8dd0-4c1f-af90-fbd5d6f8a8d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="label_nodes">
+      <UniqueIdentifier>{4032b4aa-ec5b-45ee-80c3-0123d36733a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
