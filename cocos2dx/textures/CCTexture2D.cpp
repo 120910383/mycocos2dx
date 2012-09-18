@@ -99,6 +99,25 @@ bool CCTexture2D::initWithImage(CCImage* uiImage)
 	return initPremultipliedATextureWithImage(uiImage, POTWide, POTHigh);
 }
 
+bool CCTexture2D::initWithString(const char* text, const char* fontName, float fontSize)
+{
+	return initWithString(text, CCSizeZero, CCTextAlignmentCenter, fontName, fontSize);
+}
+
+bool CCTexture2D::initWithString(const char* text, const CCSize& dimensions, CCTextAlignment alignment, const char* fontName, float fontSize)
+{
+	CCImage image;
+	CCImage::ETextAlign eAlign = (CCTextAlignmentCenter == alignment) ? CCImage::kAlignCenter
+		: (CCTextAlignmentLeft == alignment) ? CCImage::kAlignLeft : CCImage::kAlignRight;
+
+	if (!image.initWithString(text, (int)dimensions.width, (int)dimensions.height, eAlign, fontName, (int)fontSize))
+	{
+		return false;
+	}
+
+	return initWithImage(&image);
+}
+
 void CCTexture2D::setTexParameters(ccTexParams* texParams)
 {
 	CCAssert( m_uPixelsWide == ccNextPOT(m_uPixelsWide) && m_uPixelsHigh == ccNextPOT(m_uPixelsHigh)

@@ -1,4 +1,5 @@
 ﻿#include "CCLabelTTF.h"
+#include "CCTexture2D.h"
 
 NS_CC_BEGIN;
 
@@ -80,8 +81,24 @@ void CCLabelTTF::setString(const char* label)
 {
 	CC_SAFE_DELETE(m_pString);
 	m_pString = new std::string(label);
+	
+	CCTexture2D* texture = NULL;
+	if (CCSize::CCSizeEqualToSize(m_tDimensions, CCSizeZero))
+	{
+		texture = new CCTexture2D();
+		texture->initWithString(label, m_pFontName->c_str(), m_fFontSize);
+	}
+	else
+	{
+		texture = new CCTexture2D();
+		texture->initWithString(label, m_tDimensions, m_eAlignment, m_pFontName->c_str(), m_fFontSize);
+	}
+	this->setTexture(texture);
+	texture->release();
 
-	// CCTexture2D::initWithString()  TODO...
+	CCRect rect = CCRectZero;
+	rect.size = m_pobTexture->getContentSize();
+	this->setTextureRect(rect);
 }
 
 const char* CCLabelTTF::getString()

@@ -3,6 +3,7 @@
 #include "CCObject.h"
 #include "CCGeometry.h"
 #include "GLES/gl.h"
+#include "ccTypes.h"
 #include <string>
 
 NS_CC_BEGIN;
@@ -30,6 +31,8 @@ public:
 
 	bool initWithData(const void* data, CCTexture2DPixelFormat pixelFormat, unsigned int pixelsWide, unsigned int pixelsHigh, const CCSize& contentSize);
 	bool initWithImage(CCImage* uiImage);
+	bool initWithString(const char* text, const char* fontName, float fontSize);
+	bool initWithString(const char* text, const CCSize& dimensions, CCTextAlignment alignment, const char* fontName, float fontSize);
 
 	void setTexParameters(ccTexParams* texParams);
 	void setAntiAliasTexParameters();

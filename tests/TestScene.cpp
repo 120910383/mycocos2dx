@@ -342,7 +342,13 @@ bool TestLayer3::init()
 		CC_BREAK_IF( !CCLayer::init() );
 		setIsTouchEnabled(true);
 
-		//todo...
+		CCLabelTTF* label = CCLabelTTF::labelWithString("Hello World!", "none", 32);
+		CC_BREAK_IF(NULL == label);
+		label->setAnchorPoint(ccp(0.5, 1));
+		label->setPosition(ccp(240, 320));
+		label->setColor(ccc3(255, 0, 255));
+		addChild(label, 2, 0);
+
 		m_sprite = CCSprite::spriteWithFile("Images\\blocks.png", CCRectMake(16, 16, 96, 96));
 		CC_BREAK_IF(NULL == m_sprite);
 		m_sprite->setAnchorPoint(CCPointZero);
