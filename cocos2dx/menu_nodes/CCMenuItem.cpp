@@ -117,6 +117,8 @@ CCMenuItemLabel::~CCMenuItemLabel()
 bool CCMenuItemLabel::initWithLabel(CCNode* label, CCObject* target, SEL_MenuHandler selector)
 {
 	initWithTarget(target, selector);
+	m_tColorBackup = ccWHITE;
+	m_tDisabledColor = ccc3(126, 126, 126);
 	setLabel(label);
 	return true;
 }
@@ -157,6 +159,40 @@ CCNode* CCMenuItemLabel::getLabel()
 	return m_pLabel;
 }
 
+void CCMenuItemLabel::setDisabledColor(const ccColor3B& disabled_color)
+{
+	m_tDisabledColor = disabled_color;
+}
+
+const ccColor3B& CCMenuItemLabel::getDisabledColor()
+{
+	return m_tDisabledColor;
+}
+
+void CCMenuItemLabel::setIsEnabled(bool enabled)
+{
+	if (m_bIsEnabled != enabled)
+	{
+		if (!enabled)
+		{
+			CCLabelTTF* label_ttf = dynamic_cast<CCLabelTTF*>(m_pLabel);
+			if (NULL != label_ttf)
+			{
+				m_tColorBackup = label_ttf->getColor();
+				label_ttf->setColor(m_tDisabledColor);
+			}
+		}
+		else
+		{
+			CCLabelTTF* label_ttf = dynamic_cast<CCLabelTTF*>(m_pLabel);
+			if (NULL != label_ttf)
+			{
+				label_ttf->setColor(m_tColorBackup);
+			}
+		}
+	}
+	CCMenuItem::setIsEnabled(enabled);
+}
 
 //////////////////////////////////////////////////////////////////////////
 // 精灵菜单，可呈现三种状态精灵(正常，选中，非使能)

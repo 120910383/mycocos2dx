@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CCNode.h"
+#include "ccTypes.h"
 
 NS_CC_BEGIN;
 
@@ -53,8 +54,15 @@ public:
 	virtual void setLabel(CCNode* label);
 	virtual CCNode* getLabel();
 
+	virtual void setDisabledColor(const ccColor3B& disabled_color);
+	virtual const ccColor3B& getDisabledColor();
+
+	virtual void setIsEnabled(bool enabled);
+
 protected:
 	CCNode* m_pLabel;
+	ccColor3B m_tDisabledColor;
+	ccColor3B m_tColorBackup;
 };
 
 

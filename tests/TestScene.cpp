@@ -330,6 +330,7 @@ TestLayer3* TestLayer3::node()
 
 TestLayer3::TestLayer3()
 	: m_sprite(NULL)
+	, m_item_label(NULL)
 {
 
 }
@@ -360,12 +361,12 @@ bool TestLayer3::init()
 		CC_BREAK_IF(NULL == label);
 		label->setColor(ccc3(255, 255, 0));
 
-		CCMenuItemLabel* item_label = CCMenuItemLabel::itemWithLabel(label);
-		CC_BREAK_IF(NULL == item_label);
-		item_label->setAnchorPoint(ccp(1, 0));
-		item_label->setPosition(ccp(480, 0));
-		item_label->setTarget(this, menu_selector(TestLayer3::on_click_label_item));
-		CCMenu* menu = CCMenu::menuWithItem(item_label);
+		m_item_label = CCMenuItemLabel::itemWithLabel(label);
+		CC_BREAK_IF(NULL == m_item_label);
+		m_item_label->setAnchorPoint(ccp(1, 0));
+		m_item_label->setPosition(ccp(480, 0));
+		m_item_label->setTarget(this, menu_selector(TestLayer3::on_click_label_item));
+		CCMenu* menu = CCMenu::menuWithItem(m_item_label);
 		CC_BREAK_IF(NULL == menu);
 		menu->setPosition(CCPointZero);
 		addChild(menu, 2, 0);
@@ -379,6 +380,12 @@ bool TestLayer3::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
 {
 	CCPoint move_pos = convertTouchToNodeSpace(pTouch);
 	m_sprite->setPosition(move_pos);
+	if (!CCPoint::CCPointEqualToPoint(move_pos, CCPointZero))
+	{
+		if (NULL != m_item_label)
+			m_item_label->setIsEnabled(true);
+	}
+
 	return true;
 }
 
@@ -386,12 +393,20 @@ void TestLayer3::ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent)
 {
 	CCPoint move_pos = convertTouchToNodeSpace(pTouch);
 	m_sprite->setPosition(move_pos);
+	if (!CCPoint::CCPointEqualToPoint(move_pos, CCPointZero))
+	{
+		if (NULL != m_item_label)
+			m_item_label->setIsEnabled(true);
+	}
 }
 
 void TestLayer3::on_click_label_item(CCObject* sender)
 {
 	CCMenuItemLabel* item_label = dynamic_cast<CCMenuItemLabel*>(sender);
 	if (NULL != item_label)
+	{
 		item_label->setString("Clicked again!");
+		item_label->setIsEnabled(false);
+	}
 	m_sprite->setPosition(CCPointZero);
 }

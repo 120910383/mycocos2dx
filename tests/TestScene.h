@@ -71,4 +71,5 @@ public:
 
 private:
 	CCSprite* m_sprite;
+	CCMenuItemLabel* m_item_label;
 };
