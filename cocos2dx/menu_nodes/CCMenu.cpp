@@ -124,7 +124,7 @@ void CCMenu::ccTouchEnded(CCTouch* pTouch, CCEvent* pEvent)
 	if (NULL != m_pSelectedItem)
 	{
 		m_pSelectedItem->unselected();
-		// 通知外界按钮激活事件TODO...
+		m_pSelectedItem->activate();
 	}
 	m_eState = kCCMenuStateWaiting;
 }

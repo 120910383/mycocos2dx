@@ -1,9 +1,25 @@
 ﻿#include "CCMenuItem.h"
+#include "CCPointExtension.h"
 
 NS_CC_BEGIN;
 
+CCMenuItem* CCMenuItem::itemWithTarget(CCObject* rec, SEL_MenuHandler selector)
+{
+	CCMenuItem* item = new CCMenuItem();
+	if (NULL != item && item->initWithTarget(rec, selector))
+	{
+		item->autorelease();
+		return item;
+	}
+
+	CC_SAFE_DELETE(item);
+	return NULL;
+}
+
 CCMenuItem::CCMenuItem()
 	: m_bIsSelected(false)
+	, m_pListener(NULL)
+	, m_pfnSelector(NULL)
 {
 
 }
@@ -11,6 +27,22 @@ CCMenuItem::CCMenuItem()
 CCMenuItem::~CCMenuItem()
 {
 
+}
+
+bool CCMenuItem::initWithTarget(CCObject* rec, SEL_MenuHandler selector)
+{
+	setAnchorPoint(ccp(0.5f, 0.5f));
+	setTarget(rec, selector);
+	m_bIsSelected = false;
+	return true;
+}
+
+void CCMenuItem::activate()
+{
+	if (NULL != m_pListener && NULL != m_pfnSelector)
+	{
+		(m_pListener->*m_pfnSelector)(this);
+	}
 }
 
 void CCMenuItem::selected()
@@ -26,6 +58,12 @@ void CCMenuItem::unselected()
 bool CCMenuItem::getIsSelected()
 {
 	return m_bIsSelected;
+}
+
+void CCMenuItem::setTarget(CCObject* rec, SEL_MenuHandler selector)
+{
+	m_pListener = rec;
+	m_pfnSelector = selector;
 }
 
 NS_CC_END;
