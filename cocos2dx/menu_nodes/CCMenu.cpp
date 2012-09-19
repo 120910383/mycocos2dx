@@ -153,7 +153,7 @@ CCMenuItem* CCMenu::itemForTouch(CCTouch* touch)
 		for (iter = m_pChildren->begin(); iter != m_pChildren->end(); ++iter)
 		{
 			CCMenuItem* child_item = dynamic_cast<CCMenuItem*>(*iter);
-			if (NULL != child_item && child_item->getIsVisible())
+			if (NULL != child_item && child_item->getIsVisible() && child_item->getIsEnabled())
 			{
 				CCPoint local = child_item->convertToNodeSpace(touchLocation);
 				CCRect range = CCRectZero;

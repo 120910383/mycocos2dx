@@ -20,10 +20,14 @@ public:
 	virtual void unselected();
 	virtual bool getIsSelected();
 
+	virtual void setIsEnabled(bool enabled);
+	virtual bool getIsEnabled();
+
 	void setTarget(CCObject* rec, SEL_MenuHandler selector);
 
 protected:
 	bool m_bIsSelected;
+	bool m_bIsEnabled;
 	CCObject* m_pListener;
 	SEL_MenuHandler m_pfnSelector;
 };

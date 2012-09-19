@@ -18,6 +18,7 @@ CCMenuItem* CCMenuItem::itemWithTarget(CCObject* rec, SEL_MenuHandler selector)
 
 CCMenuItem::CCMenuItem()
 	: m_bIsSelected(false)
+	, m_bIsEnabled(true)
 	, m_pListener(NULL)
 	, m_pfnSelector(NULL)
 {
@@ -34,14 +35,18 @@ bool CCMenuItem::initWithTarget(CCObject* rec, SEL_MenuHandler selector)
 	setAnchorPoint(ccp(0.5f, 0.5f));
 	setTarget(rec, selector);
 	m_bIsSelected = false;
+	m_bIsEnabled = true;
 	return true;
 }
 
 void CCMenuItem::activate()
 {
-	if (NULL != m_pListener && NULL != m_pfnSelector)
+	if (m_bIsEnabled)
 	{
-		(m_pListener->*m_pfnSelector)(this);
+		if (NULL != m_pListener && NULL != m_pfnSelector)
+		{
+			(m_pListener->*m_pfnSelector)(this);
+		}
 	}
 }
 
@@ -58,6 +63,16 @@ void CCMenuItem::unselected()
 bool CCMenuItem::getIsSelected()
 {
 	return m_bIsSelected;
+}
+
+void CCMenuItem::setIsEnabled(bool enabled)
+{
+	m_bIsEnabled = enabled;
+}
+
+bool CCMenuItem::getIsEnabled()
+{
+	return m_bIsEnabled;
 }
 
 void CCMenuItem::setTarget(CCObject* rec, SEL_MenuHandler selector)
