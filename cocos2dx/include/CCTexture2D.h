@@ -13,6 +13,7 @@ class CCImage;
 typedef enum {
 	kCCTexture2DPixelFormat_Automatic = 0,
 	kCCTexture2DPixelFormat_RGBA8888,
+	kCCTexture2DPixelFormat_RGB888,
 } CCTexture2DPixelFormat;
 
 typedef struct _ccTexParams 

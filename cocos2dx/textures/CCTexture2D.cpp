@@ -50,6 +50,9 @@ bool CCTexture2D::initWithData(const void* data, CCTexture2DPixelFormat pixelFor
 	case kCCTexture2DPixelFormat_RGBA8888:
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		break;
+	case kCCTexture2DPixelFormat_RGB888:
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, (GLsizei)pixelsWide, (GLsizei)pixelsHigh, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		break;
 	default:
 		CCAssert(false, "NSInternalInconsistencyException");
 		break;
@@ -174,7 +177,7 @@ bool CCTexture2D::initPremultipliedATextureWithImage(cocos2d::CCImage *image, un
 	unsigned char* tempData =NULL;
 	CCSize imageSize = CCSizeMake((float)(image->getWidth()), (float)(image->getHeight()));
 
-	CCTexture2DPixelFormat pixelFormat = g_defaultAlphaPixelFormat;
+	CCTexture2DPixelFormat pixelFormat = image->hasAlpha() ? g_defaultAlphaPixelFormat : kCCTexture2DPixelFormat_RGB888;
 	// 处理image成为POT尺寸的纹理
 	switch(pixelFormat)
 	{
@@ -198,7 +201,32 @@ bool CCTexture2D::initPremultipliedATextureWithImage(cocos2d::CCImage *image, un
 				int imageHeight = image->getHeight();
 				for(int y = 0; y < imageHeight; ++y)
 				{
-					memcpy(pTargetData+POTWide*4*y, pPixelData+(image->getWidth())*4*y, (image->getWidth())*4);
+					memcpy(pTargetData+POTWide * 4 * y, pPixelData+(image->getWidth()) * 4 * y, (image->getWidth()) * 4);
+				}
+			}
+		}
+		break;
+	case kCCTexture2DPixelFormat_RGB888:
+		{
+			tempData = (unsigned char*)(image->getData());
+			CCAssert(tempData != NULL, "NULL image data.");
+
+			data = new unsigned char[POTHigh * POTWide * 3];
+			memset(data, 0, POTHigh * POTWide * 3);
+
+			if(image->getWidth() == (short)POTWide && image->getHeight() == (short)POTHigh)
+			{
+				memcpy(data, tempData, POTHigh * POTWide * 3);
+			}
+			else
+			{
+				unsigned char* pPixelData = (unsigned char*)tempData;
+				unsigned char* pTargetData = (unsigned char*)data;
+
+				int imageHeight = image->getHeight();
+				for(int y = 0; y < imageHeight; ++y)
+				{
+					memcpy(pTargetData+POTWide * 3 * y, pPixelData+(image->getWidth()) * 3 * y, (image->getWidth()) * 3);
 				}
 			}
 		}
@@ -222,7 +250,7 @@ bool CCTexture2D::initPremultipliedATextureWithImage(cocos2d::CCImage *image, un
 		// initWithData默认设置预乘变量为false，如果image的RGB数据已经预乘，则在init之后赋值
 		m_bHasPremultipliedAlpha = image->isPremultipliedAlpha();
 
-		delete [] data;
+		delete []data;
 	}
 	return true;
 }
