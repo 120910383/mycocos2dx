@@ -66,6 +66,8 @@ public:
 	virtual bool init();
 	virtual bool ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent);
 	void ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent);
+	
+	void on_click_label_item(CCObject* sender);
 
 private:
 	CCSprite* m_sprite;

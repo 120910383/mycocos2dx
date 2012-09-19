@@ -1,5 +1,6 @@
 ﻿#include "CCMenuItem.h"
 #include "CCPointExtension.h"
+#include "CCLabelTTF.h"
 
 NS_CC_BEGIN;
 
@@ -91,35 +92,64 @@ CCMenuItemLabel* CCMenuItemLabel::itemWithLabel(CCNode* label)
 }
 CCMenuItemLabel* CCMenuItemLabel::itemWithLabel(CCNode* label, CCObject* target, SEL_MenuHandler selector)
 {
-	//TODO...
+	CCMenuItemLabel* item = new CCMenuItemLabel();
+	if (NULL != item && item->initWithLabel(label, target, selector))
+	{
+		item->autorelease();
+		return item;
+	}
+
+	CC_SAFE_DELETE(item);
 	return NULL;
 }
 
 CCMenuItemLabel::CCMenuItemLabel()
 	: m_pLabel(NULL)
 {
-	//TODO...
+
 }
 
 CCMenuItemLabel::~CCMenuItemLabel()
 {
-	//TODO...
+
 }
 
 bool CCMenuItemLabel::initWithLabel(CCNode* label, CCObject* target, SEL_MenuHandler selector)
 {
-	//TODO...
-	return false;
+	initWithTarget(target, selector);
+	setLabel(label);
+	return true;
 }
 
 void CCMenuItemLabel::setString(const char* label)
 {
-	//TODO...
+	CCLabelTTF* label_ttf = dynamic_cast<CCLabelTTF*>(m_pLabel);
+	if (NULL != label_ttf)
+	{
+		label_ttf->setString(label);
+		setContentSize(label_ttf->getContentSize());
+	}
+	else
+	{
+		CCAssert(false, "m_pLabel is not a CCLabelTTF ?");
+	}
 }
 
 void CCMenuItemLabel::setLabel(CCNode* label)
 {
-	//TODO...
+	if (NULL != label)
+	{
+		addChild(label);
+		label->setAnchorPoint(ccp(0, 0));
+		setContentSize(label->getContentSize());
+	}
+
+	if (NULL != m_pLabel)
+	{
+		removeChild(m_pLabel, true);
+	}
+
+	m_pLabel = label;
 }
 
 CCNode* CCMenuItemLabel::getLabel()

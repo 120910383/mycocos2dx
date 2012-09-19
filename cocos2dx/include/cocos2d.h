@@ -14,6 +14,8 @@
 #include "CCSprite.h"
 #include "CCTextureCache.h"
 #include "CCLabelTTF.h"
+#include "CCMenu.h"
+#include "CCMenuItem.h"
 
 //
 // cocoa includes

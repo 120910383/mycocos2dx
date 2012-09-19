@@ -356,6 +356,20 @@ bool TestLayer3::init()
 		m_sprite->setColor(ccc3(180, 180, 255));
 		addChild(m_sprite, 1, 0);
 
+		label = CCLabelTTF::labelWithString("Click Me!", "none", 26);
+		CC_BREAK_IF(NULL == label);
+		label->setColor(ccc3(255, 255, 0));
+
+		CCMenuItemLabel* item_label = CCMenuItemLabel::itemWithLabel(label);
+		CC_BREAK_IF(NULL == item_label);
+		item_label->setAnchorPoint(ccp(1, 0));
+		item_label->setPosition(ccp(480, 0));
+		item_label->setTarget(this, menu_selector(TestLayer3::on_click_label_item));
+		CCMenu* menu = CCMenu::menuWithItem(item_label);
+		CC_BREAK_IF(NULL == menu);
+		menu->setPosition(CCPointZero);
+		addChild(menu, 2, 0);
+
 		result = true;
 	} while (0);
 	return result;
@@ -372,4 +386,12 @@ void TestLayer3::ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent)
 {
 	CCPoint move_pos = convertTouchToNodeSpace(pTouch);
 	m_sprite->setPosition(move_pos);
+}
+
+void TestLayer3::on_click_label_item(CCObject* sender)
+{
+	CCMenuItemLabel* item_label = dynamic_cast<CCMenuItemLabel*>(sender);
+	if (NULL != item_label)
+		item_label->setString("Clicked again!");
+	m_sprite->setPosition(CCPointZero);
 }
