@@ -246,6 +246,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CCMenu.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\CCMenuItem.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\CCMutableArray.h"
 				>
 			</File>
@@ -407,6 +415,18 @@
 			>
 			<File
 				RelativePath=".\label_nodes\CCLabelTTF.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="menu_nodes"
+			>
+			<File
+				RelativePath=".\menu_nodes\CCMenu.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\menu_nodes\CCMenuItem.cpp"
 				>
 			</File>
 		</Filter>
