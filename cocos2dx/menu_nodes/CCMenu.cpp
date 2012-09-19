@@ -3,6 +3,7 @@
 #include "CCDirector.h"
 #include "CCPointExtension.h"
 #include "CCTouchDispatcher.h"
+#include "CCTouch.h"
 
 NS_CC_BEGIN;
 
@@ -143,9 +144,29 @@ void CCMenu::onExit()
 
 CCMenuItem* CCMenu::itemForTouch(CCTouch* touch)
 {
-	CC_UNUSED_PARAM(touch);
-	// 根据触摸位置来判断当前哪个item被激活
-	// TODO...
+	CCPoint touchLocation = touch->locationInView(touch->view());
+	touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
+
+	if (NULL != m_pChildren && m_pChildren->count() > 0)
+	{
+		CCMutableArray<CCNode*>::CCMutableArrayIterator iter;
+		for (iter = m_pChildren->begin(); iter != m_pChildren->end(); ++iter)
+		{
+			CCMenuItem* child_item = dynamic_cast<CCMenuItem*>(*iter);
+			if (NULL != child_item && child_item->getIsVisible())
+			{
+				CCPoint local = child_item->convertToNodeSpace(touchLocation);
+				CCRect r = child_item->boundingBox();
+				r.origin = CCPointZero;
+
+				if (CCRect::CCRectContainsPoint(r, local))
+				{
+					return child_item;
+				}
+			}
+		}
+	}
+
 	return NULL;
 }
 
