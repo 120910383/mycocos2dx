@@ -156,10 +156,10 @@ CCMenuItem* CCMenu::itemForTouch(CCTouch* touch)
 			if (NULL != child_item && child_item->getIsVisible())
 			{
 				CCPoint local = child_item->convertToNodeSpace(touchLocation);
-				CCRect r = child_item->boundingBox();
-				r.origin = CCPointZero;
+				CCRect range = CCRectZero;
+				range.size = child_item->getContentSize();		// 不应该经过放缩旋转等计算，因为local已经考虑过了
 
-				if (CCRect::CCRectContainsPoint(r, local))
+				if (CCRect::CCRectContainsPoint(range, local))
 				{
 					return child_item;
 				}
