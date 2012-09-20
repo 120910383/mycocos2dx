@@ -129,6 +129,27 @@ void CCMenu::ccTouchEnded(CCTouch* pTouch, CCEvent* pEvent)
 	m_eState = kCCMenuStateWaiting;
 }
 
+void CCMenu::ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent)
+{
+	CC_UNUSED_PARAM(pEvent);
+	CCAssert(kCCMenuStateTrackingTouch == m_eState, "[Menu ccTouchMoved] -- invalid state");
+	CCMenuItem* currentItem = itemForTouch(pTouch);
+	if (currentItem != m_pSelectedItem)
+	{
+		if (NULL != m_pSelectedItem)
+		{
+			m_pSelectedItem->unselected();
+		}
+
+		m_pSelectedItem = currentItem;
+
+		if (NULL != m_pSelectedItem)
+		{
+			m_pSelectedItem->selected();
+		}
+	}
+}
+
 void CCMenu::onExit()
 {
 	if (kCCMenuStateTrackingTouch == m_eState)
