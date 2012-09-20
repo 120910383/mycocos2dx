@@ -43,6 +43,7 @@ public:
 		, m_hFont((HFONT)GetStockObject(DEFAULT_GUI_FONT))
 		, m_hWnd(NULL)
 	{
+		m_hFont = NULL;		//bugfix: 第一次调用sharedBitmapDC时s_BmpDC中m_hFont和hDefFont相同，导致setFont无效
 		m_hWnd = hWnd;
 		HDC hdc = GetDC(hWnd);
 		m_hDC = CreateCompatibleDC(hdc);

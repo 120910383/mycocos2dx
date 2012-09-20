@@ -344,7 +344,7 @@ bool TestLayer3::init()
 		CC_BREAK_IF( !CCLayer::init() );
 		setIsTouchEnabled(true);
 
-		CCLabelTTF* label = CCLabelTTF::labelWithString("Hello World!", "none", 32);
+		CCLabelTTF* label = CCLabelTTF::labelWithString("Hello World!", "fonts/Paint Boy.ttf", 32);
 		CC_BREAK_IF(NULL == label);
 		label->setAnchorPoint(ccp(0.5, 1));
 		label->setPosition(ccp(240, 320));
