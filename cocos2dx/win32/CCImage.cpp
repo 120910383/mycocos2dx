@@ -86,7 +86,7 @@ public:
 			int nLen = nString.size();
 			int nBufLen = nLen + 1;
 			pwszBuffer = new wchar_t[nBufLen];
-			CC_BREAK_IF(NULL != pwszBuffer);
+			CC_BREAK_IF(NULL == pwszBuffer);
 			memset(pwszBuffer, 0, nBufLen);
 			nLen = MultiByteToWideChar(CP_UTF8, 0, nString.c_str(), nLen, pwszBuffer, nBufLen);
 			pwszBuffer[nLen] = '\0';
