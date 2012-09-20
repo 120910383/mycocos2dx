@@ -57,12 +57,16 @@ public:
 	virtual void setDisabledColor(const ccColor3B& disabled_color);
 	virtual const ccColor3B& getDisabledColor();
 
+	virtual void selected();
+	virtual void unselected();
+
 	virtual void setIsEnabled(bool enabled);
 
 protected:
 	CCNode* m_pLabel;
 	ccColor3B m_tDisabledColor;
 	ccColor3B m_tColorBackup;
+	float m_fOriginalScale;
 };
 
 
@@ -88,6 +92,9 @@ public:
 
 	virtual void setDisabledImage(CCNode* disabledSprite);
 	virtual CCNode* getDisabledImage();
+
+	virtual void selected();
+	virtual void unselected();
 
 	virtual void setIsEnabled(bool enabled);
 protected:

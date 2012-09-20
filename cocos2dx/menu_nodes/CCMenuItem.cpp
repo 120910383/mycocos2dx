@@ -117,6 +117,7 @@ CCMenuItemLabel::~CCMenuItemLabel()
 bool CCMenuItemLabel::initWithLabel(CCNode* label, CCObject* target, SEL_MenuHandler selector)
 {
 	initWithTarget(target, selector);
+	m_fOriginalScale = 1.0f;
 	m_tColorBackup = ccWHITE;
 	m_tDisabledColor = ccc3(126, 126, 126);
 	setLabel(label);
@@ -169,29 +170,55 @@ const ccColor3B& CCMenuItemLabel::getDisabledColor()
 	return m_tDisabledColor;
 }
 
+void CCMenuItemLabel::selected()
+{
+	// 按钮非使能状态下不处理
+	if (!m_bIsEnabled)
+		return;
+
+	CCMenuItem::selected();
+
+	m_fOriginalScale = getScale();
+	setScale(m_fOriginalScale * 1.2f);
+}
+
+void CCMenuItemLabel::unselected()
+{
+	// 按钮非使能状态下不处理
+	if (!m_bIsEnabled)
+		return;
+
+	CCMenuItem::unselected();
+
+	setScale(m_fOriginalScale);
+}
+
 void CCMenuItemLabel::setIsEnabled(bool enabled)
 {
-	if (m_bIsEnabled != enabled)
+	// 没有改动不做处理
+	if (m_bIsEnabled == enabled)
+		return;
+
+	CCMenuItem::setIsEnabled(enabled);
+
+	if (!enabled)
 	{
-		if (!enabled)
+		CCLabelTTF* label_ttf = dynamic_cast<CCLabelTTF*>(m_pLabel);
+		if (NULL != label_ttf)
 		{
-			CCLabelTTF* label_ttf = dynamic_cast<CCLabelTTF*>(m_pLabel);
-			if (NULL != label_ttf)
-			{
-				m_tColorBackup = label_ttf->getColor();
-				label_ttf->setColor(m_tDisabledColor);
-			}
-		}
-		else
-		{
-			CCLabelTTF* label_ttf = dynamic_cast<CCLabelTTF*>(m_pLabel);
-			if (NULL != label_ttf)
-			{
-				label_ttf->setColor(m_tColorBackup);
-			}
+			m_tColorBackup = label_ttf->getColor();
+			label_ttf->setColor(m_tDisabledColor);
 		}
 	}
-	CCMenuItem::setIsEnabled(enabled);
+	else
+	{
+		CCLabelTTF* label_ttf = dynamic_cast<CCLabelTTF*>(m_pLabel);
+		if (NULL != label_ttf)
+		{
+			label_ttf->setColor(m_tColorBackup);
+		}
+	}
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -318,8 +345,59 @@ CCNode* CCMenuItemSprite::getDisabledImage()
 	return m_pDisabledImage;
 }
 
+void CCMenuItemSprite::selected()
+{
+	// 按钮非使能状态下不处理
+	if (!m_bIsEnabled)
+		return;
+
+	CCMenuItem::selected();
+
+	if (NULL != m_pDisabledImage)
+	{
+		m_pDisabledImage->setIsVisible(false);
+	}
+
+	if (NULL != m_pSelectedImage)
+	{
+		m_pNormalImage->setIsVisible(false);
+		m_pSelectedImage->setIsVisible(true);
+	}
+	else
+	{
+		m_pNormalImage->setIsVisible(true);
+	}
+}
+
+void CCMenuItemSprite::unselected()
+{
+	// 按钮非使能状态下不处理
+	if (!m_bIsEnabled)
+		return;
+
+	CCMenuItem::unselected();
+
+	m_pNormalImage->setIsVisible(true);
+
+	if (NULL != m_pSelectedImage)
+	{
+		m_pSelectedImage->setIsVisible(false);
+	}
+
+	if (NULL != m_pDisabledImage)
+	{
+		m_pDisabledImage->setIsVisible(false);
+	}
+}
+
 void CCMenuItemSprite::setIsEnabled(bool enabled)
 {
+	// 没有改动不做处理
+	if (m_bIsEnabled == enabled)
+		return;
+
+	CCMenuItem::setIsEnabled(enabled);
+
 	if (NULL != m_pSelectedImage)
 	{
 		m_pSelectedImage->setIsVisible(false);
@@ -346,8 +424,6 @@ void CCMenuItemSprite::setIsEnabled(bool enabled)
 			m_pNormalImage->setIsVisible(true);
 		}
 	}
-
-	CCMenuItem::setIsEnabled(enabled);
 }
 
 NS_CC_END;
