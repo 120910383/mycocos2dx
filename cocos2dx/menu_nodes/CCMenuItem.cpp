@@ -318,4 +318,36 @@ CCNode* CCMenuItemSprite::getDisabledImage()
 	return m_pDisabledImage;
 }
 
+void CCMenuItemSprite::setIsEnabled(bool enabled)
+{
+	if (NULL != m_pSelectedImage)
+	{
+		m_pSelectedImage->setIsVisible(false);
+	}
+
+	if (enabled)
+	{
+		m_pNormalImage->setIsVisible(true);
+
+		if (NULL != m_pDisabledImage)
+		{
+			m_pDisabledImage->setIsVisible(false);
+		}
+	}
+	else
+	{
+		if (NULL != m_pDisabledImage)
+		{
+			m_pDisabledImage->setIsVisible(true);
+			m_pNormalImage->setIsVisible(false);
+		}
+		else
+		{
+			m_pNormalImage->setIsVisible(true);
+		}
+	}
+
+	CCMenuItem::setIsEnabled(enabled);
+}
+
 NS_CC_END;

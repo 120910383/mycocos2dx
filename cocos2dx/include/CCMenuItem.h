@@ -89,6 +89,7 @@ public:
 	virtual void setDisabledImage(CCNode* disabledSprite);
 	virtual CCNode* getDisabledImage();
 
+	virtual void setIsEnabled(bool enabled);
 protected:
 	CCNode* m_pNormalImage;
 	CCNode* m_pSelectedImage;

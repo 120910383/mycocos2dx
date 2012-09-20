@@ -420,6 +420,7 @@ void TestLayer3::on_click_label_item(CCObject* sender)
 		item_label->setIsEnabled(false);
 	}
 	m_sprite->setPosition(CCPointZero);
+	m_item_sprite->setIsEnabled(!m_item_sprite->getIsEnabled());
 }
 
 void TestLayer3::on_click_sprite_item(CCObject* sender)
