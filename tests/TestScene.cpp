@@ -331,6 +331,7 @@ TestLayer3* TestLayer3::node()
 TestLayer3::TestLayer3()
 	: m_sprite(NULL)
 	, m_item_label(NULL)
+	, m_item_sprite(NULL)
 {
 
 }
@@ -371,6 +372,16 @@ bool TestLayer3::init()
 		menu->setPosition(CCPointZero);
 		addChild(menu, 2, 0);
 
+		CCSprite* normal_sprite = CCSprite::spriteWithFile("Images\\arrow_normal.png");
+		CCSprite* selected_sprite = CCSprite::spriteWithFile("Images\\arrow_selected.png");
+		CCSprite* disabled_sprite = CCSprite::spriteWithFile("Images\\arrow_disabled.png");
+		m_item_sprite = CCMenuItemSprite::itemFromNormalSprite(normal_sprite, selected_sprite, disabled_sprite);
+		CC_BREAK_IF(NULL == m_item_sprite);
+		m_item_sprite->setAnchorPoint(ccp(1, 1));
+		m_item_sprite->setPosition(ccp(480, 320));
+		m_item_sprite->setTarget(this, menu_selector(TestLayer3::on_click_sprite_item));
+		menu->addChild(m_item_sprite);
+
 		result = true;
 	} while (0);
 	return result;
@@ -409,4 +420,9 @@ void TestLayer3::on_click_label_item(CCObject* sender)
 		item_label->setIsEnabled(false);
 	}
 	m_sprite->setPosition(CCPointZero);
+}
+
+void TestLayer3::on_click_sprite_item(CCObject* sender)
+{
+	CCDirector::sharedDirector()->end();
 }

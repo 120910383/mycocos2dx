@@ -68,8 +68,10 @@ public:
 	void ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent);
 	
 	void on_click_label_item(CCObject* sender);
+	void on_click_sprite_item(CCObject* sender);
 
 private:
 	CCSprite* m_sprite;
 	CCMenuItemLabel* m_item_label;
+	CCMenuItemSprite* m_item_sprite;
 };

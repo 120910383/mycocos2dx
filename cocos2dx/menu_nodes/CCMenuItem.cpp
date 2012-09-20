@@ -209,7 +209,14 @@ CCMenuItemSprite* CCMenuItemSprite::itemFromNormalSprite(CCNode* normalSprite, C
 
 CCMenuItemSprite* CCMenuItemSprite::itemFromNormalSprite(CCNode* normalSprite, CCNode* selectedSprite, CCNode* disabledSprite, CCObject* target, SEL_MenuHandler selector)
 {
-	//TODO...
+	CCMenuItemSprite* pRet = new CCMenuItemSprite();
+	if (NULL != pRet && pRet->initFromNormalSprite(normalSprite, selectedSprite, disabledSprite, target, selector))
+	{
+		pRet->autorelease();
+		return pRet;
+	}
+
+	CC_SAFE_DELETE(pRet);
 	return NULL;
 }
 
@@ -228,13 +235,38 @@ CCMenuItemSprite::~CCMenuItemSprite()
 
 bool CCMenuItemSprite::initFromNormalSprite(CCNode* normalSprite, CCNode* selectedSprite, CCNode* disabledSprite, CCObject* target, SEL_MenuHandler selector)
 {
-	//TODO...
+	CCAssert(NULL != normalSprite, "");
+	if (NULL != normalSprite)
+	{
+		initWithTarget(target, selector);
+
+		setNormalImage(normalSprite);
+		setSelectedImage(selectedSprite);
+		setDisabledImage(disabledSprite);
+
+		setContentSize(normalSprite->getContentSize());
+
+		return true;
+	}
+
 	return false;
 }
 
 void CCMenuItemSprite::setNormalImage(CCNode* normalSprite)
 {
-	//TODO...
+	if (NULL != normalSprite)
+	{
+		addChild(normalSprite);
+		normalSprite->setAnchorPoint(ccp(0, 0));
+		normalSprite->setIsVisible(true);
+	}
+
+	if (NULL != m_pNormalImage)
+	{
+		removeChild(m_pNormalImage, true);
+	}
+
+	m_pNormalImage = normalSprite;
 }
 
 CCNode* CCMenuItemSprite::getNormalImage()
@@ -244,7 +276,19 @@ CCNode* CCMenuItemSprite::getNormalImage()
 
 void CCMenuItemSprite::setSelectedImage(CCNode* selectedSprite)
 {
-	//TODO...
+	if (NULL != selectedSprite)
+	{
+		addChild(selectedSprite);
+		selectedSprite->setAnchorPoint(ccp(0, 0));
+		selectedSprite->setIsVisible(false);
+	}
+
+	if (NULL != m_pSelectedImage)
+	{
+		removeChild(m_pSelectedImage, true);
+	}
+
+	m_pSelectedImage = selectedSprite;
 }
 
 CCNode* CCMenuItemSprite::getSelectedImage()
@@ -254,7 +298,19 @@ CCNode* CCMenuItemSprite::getSelectedImage()
 
 void CCMenuItemSprite::setDisabledImage(CCNode* disabledSprite)
 {
-	//TODO...
+	if (NULL != disabledSprite)
+	{
+		addChild(disabledSprite);
+		disabledSprite->setAnchorPoint(ccp(0, 0));
+		disabledSprite->setIsVisible(false);
+	}
+
+	if (NULL != m_pDisabledImage)
+	{
+		removeChild(m_pDisabledImage, true);
+	}
+
+	m_pDisabledImage = disabledSprite;
 }
 
 CCNode* CCMenuItemSprite::getDisabledImage()
