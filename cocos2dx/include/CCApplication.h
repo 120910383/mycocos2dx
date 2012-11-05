@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "ccMacros.h"
-#include <Windows.h>
+#include "CCStdC.h"
 
 NS_CC_BEGIN;
 class CC_DLL CCApplication

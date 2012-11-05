@@ -1,6 +1,5 @@
 ﻿#include "CCAffineTransform.h"
-#include <algorithm>
-#include <math.h>
+#include "CCStdC.h"
 using namespace std;
 
 NS_CC_BEGIN;

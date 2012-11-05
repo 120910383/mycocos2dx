@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <Windows.h>
 #include "ccMacros.h"
 #include "CCGeometry.h"
+#include "CCStdC.h"
 
 NS_CC_BEGIN;
 class CCEGL;

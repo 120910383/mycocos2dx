@@ -1,8 +1,6 @@
 ﻿#pragma once
 
-#include <cstdio>		// use NULL macro
-#include <cstdlib>		// use malloc free in ccimage
-#include <cassert>
+#include "CCStdC.h"
 
 #define CC_ASSERT(cond)                assert(cond)
 

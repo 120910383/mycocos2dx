@@ -1,9 +1,7 @@
 ﻿#pragma once
 
 #include "CCObject.h"
-#include <map>
-#include <vector>
-#include <string>
+#include "CCStdC.h"
 
 NS_CC_BEGIN;
 class CCString;

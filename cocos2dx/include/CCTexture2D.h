@@ -4,7 +4,7 @@
 #include "CCGeometry.h"
 #include "GLES/gl.h"
 #include "ccTypes.h"
-#include <string>
+#include "CCStdC.h"
 
 NS_CC_BEGIN;
 

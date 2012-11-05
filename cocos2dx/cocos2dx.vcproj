@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib"
+				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib;.\platform"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -427,6 +427,14 @@
 			</File>
 			<File
 				RelativePath=".\menu_nodes\CCMenuItem.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="platform"
+			>
+			<File
+				RelativePath=".\platform\CCStdC.h"
 				>
 			</File>
 		</Filter>

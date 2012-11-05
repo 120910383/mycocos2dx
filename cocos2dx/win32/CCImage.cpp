@@ -1,8 +1,7 @@
 ﻿#include "CCImage.h"
 #include "CCFileUtils.h"
+#include "CCStdC.h"
 #include "png.h"
-#include <Windows.h>
-#include <string>
 
 NS_CC_BEGIN;
 

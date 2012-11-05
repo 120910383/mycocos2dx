@@ -3,7 +3,7 @@
 #include "TransformUtils.h"
 #include "CCDirector.h"
 #include "CCTouch.h"
-#include <math.h>
+#include "CCStdC.h"
 
 NS_CC_BEGIN;
 

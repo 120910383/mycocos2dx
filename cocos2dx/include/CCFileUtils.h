@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include <string>
 #include "ccMacros.h"
+#include "CCStdC.h"
 
 NS_CC_BEGIN;
 
