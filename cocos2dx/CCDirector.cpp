@@ -5,7 +5,7 @@
 #include "CCTouchDispatcher.h"
 #include "CCEGLView.h"
 #include "CCTextureCache.h"
-#include "GLES/gl.h"
+#include "CCGL.h"
 
 NS_CC_BEGIN;
 // 全局唯一的导演对象

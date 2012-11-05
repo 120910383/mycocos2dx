@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "CCObject.h"
-#include "GLES/gl.h"
+#include "CCGL.h"
 #include "CCStdC.h"
 
 NS_CC_BEGIN;

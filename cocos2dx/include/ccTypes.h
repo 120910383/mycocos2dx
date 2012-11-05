@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "GLES/gl.h"
+#include "CCGL.h"
 
 NS_CC_BEGIN;
 

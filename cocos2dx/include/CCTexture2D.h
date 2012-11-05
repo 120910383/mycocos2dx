@@ -2,7 +2,7 @@
 
 #include "CCObject.h"
 #include "CCGeometry.h"
-#include "GLES/gl.h"
+#include "CCGL.h"
 #include "ccTypes.h"
 #include "CCStdC.h"
 

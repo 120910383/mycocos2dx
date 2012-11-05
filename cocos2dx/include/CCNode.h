@@ -4,7 +4,7 @@
 #include "CCGeometry.h"
 #include "CCMutableArray.h"
 #include "CCAffineTransform.h"
-#include "GLES/gl.h"
+#include "CCGL.h"
 
 NS_CC_BEGIN;
 

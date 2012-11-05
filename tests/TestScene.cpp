@@ -1,5 +1,5 @@
 ﻿#include "TestScene.h"
-#include "GLES/gl.h"		//测试
+#include "CCGL.h"		//测试
 
 CCScene* TestScene::scene()
 {

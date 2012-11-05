@@ -2,7 +2,7 @@
 #include "CCDirector.h"
 #include "CCTouch.h"
 #include "CCTouchDispatcher.h"
-#include "EGL/egl.h"
+#include "CCGL.h"
 #include "CCScene.h"	// 测试场景转换的代码，随后删除
 
 NS_CC_BEGIN;
