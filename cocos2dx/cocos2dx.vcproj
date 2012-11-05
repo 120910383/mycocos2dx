@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib;.\platform"
+				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib;.\platform;.\platform\win32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -327,26 +327,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="win32"
-			>
-			<File
-				RelativePath=".\win32\CCApplication.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\win32\CCEGLView.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\win32\CCFileUtils.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\win32\CCImage.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="support"
 			>
 			<File
@@ -434,13 +414,49 @@
 			Name="platform"
 			>
 			<File
+				RelativePath=".\platform\CCFileUtils.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\platform\CCFileUtils.h"
+				>
+			</File>
+			<File
 				RelativePath=".\platform\CCGL.h"
+				>
+			</File>
+			<File
+				RelativePath=".\platform\CCImage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\platform\CCImage.h"
 				>
 			</File>
 			<File
 				RelativePath=".\platform\CCStdC.h"
 				>
 			</File>
+			<Filter
+				Name="win32"
+				>
+				<File
+					RelativePath=".\platform\win32\CCApplication.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\platform\win32\CCApplication.h"
+					>
+				</File>
+				<File
+					RelativePath=".\platform\win32\CCEGLView.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\platform\win32\CCEGLView.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\CCConfiguration.cpp"
