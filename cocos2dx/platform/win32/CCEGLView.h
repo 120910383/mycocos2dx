@@ -3,8 +3,12 @@
 #include "ccMacros.h"
 #include "CCGeometry.h"
 #include "CCStdC.h"
+#include "CCConfig.h"
 
 NS_CC_BEGIN;
+
+#if !CC_USE_GLFW_WINDOW
+
 class CCEGL;
 class CCTouch;
 class EGLTouchDelegate;
@@ -35,4 +39,39 @@ private:
 	CCTouch* m_pTouch;
 	EGLTouchDelegate* m_pDelegate;
 };
+
+#else
+
+class CCTouch;
+class EGLTouchDelegate;
+class CC_DLL CCEGLView
+{
+public:
+	static CCEGLView& sharedOpenGLView();
+	CCEGLView();
+	virtual ~CCEGLView();
+
+	friend void keyEventHandle(int,int);
+	friend void mouseButtonEventHandle(int,int);
+	friend void mousePosEventHandle(int,int);
+	friend void charEventHandle(int,int);
+
+	CCSize getSize() { return m_size; }
+	bool Create(LPCTSTR pTitle, int w, int h);
+	void release();
+	void swapBuffers();
+	void centerWindow();
+	void setTouchDelegate(EGLTouchDelegate* pDelegate);
+
+private:
+	bool m_is_init;
+	bool m_bCaptured;
+	CCTouch* m_pTouch;
+	EGLTouchDelegate* m_pDelegate;
+	CCPoint m_mousePoint;
+	CCSize m_size;
+};
+
+#endif
+
 NS_CC_END;

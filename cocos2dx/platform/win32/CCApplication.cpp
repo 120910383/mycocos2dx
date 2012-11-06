@@ -1,12 +1,15 @@
 ﻿#include "CCApplication.h"
 #include "CCEGLView.h"
 #include "CCDirector.h"
+#include "CCConfig.h"
 
+#if !CC_USE_GLFW_WINDOW
 /**
 @brief	This function change the PVRFrame show/hide setting in register.
 @param  bEnable If true show the PVRFrame window, otherwise hide.
 */
 static void PVRFrameEnableControlWindow(bool bEnable);
+#endif
 
 NS_CC_BEGIN;
 
@@ -39,15 +42,15 @@ void CCApplication::setAnimationInterval(double interval)
 
 int CCApplication::run()
 {
-	PVRFrameEnableControlWindow(true);
-
-	MSG msg;
 	LARGE_INTEGER nFreq;
 	LARGE_INTEGER nLast;
 	LARGE_INTEGER nNow;
 
 	QueryPerformanceFrequency(&nFreq);
-	QueryPerformanceCounter(&nLast);
+
+#if !CC_USE_GLFW_WINDOW
+
+	PVRFrameEnableControlWindow(true);
 
 	// 初始化窗口和游戏引擎，由子类实现
 	if (!initInstance() || !applicationDidFinishLaunching())
@@ -58,6 +61,9 @@ int CCApplication::run()
 	CCEGLView& mainWnd = CCEGLView::sharedOpenGLView();
 	mainWnd.centerWindow();
 	ShowWindow(mainWnd.getHWnd(), SW_SHOW);
+
+	MSG msg;
+	QueryPerformanceCounter(&nLast);
 
 	while(1)
 	{
@@ -86,10 +92,33 @@ int CCApplication::run()
 	}
 
 	return (int)msg.wParam;
+
+#else
+
+	// 初始化窗口和游戏引擎，由子类实现
+	if (!initInstance() || !applicationDidFinishLaunching())
+	{
+		return 0;
+	}
+
+	while(1)
+	{
+		QueryPerformanceCounter(&nLast);
+		CCDirector::sharedDirector()->mainLoop();
+		QueryPerformanceCounter(&nNow);
+		if (nNow.QuadPart - nLast.QuadPart < m_nAnimationInterval.QuadPart)
+		{
+			LONGLONG diff = (m_nAnimationInterval.QuadPart - nNow.QuadPart + nLast.QuadPart) * 1000 / nFreq.QuadPart;
+			Sleep((DWORD)diff);
+		}
+	}
+
+#endif
 }
 
 NS_CC_END;
 
+#if !CC_USE_GLFW_WINDOW
 //////////////////////////////////////////////////////////////////////////
 // Local function
 //////////////////////////////////////////////////////////////////////////
@@ -126,3 +155,4 @@ static void PVRFrameEnableControlWindow(bool bEnable)
 
 	RegCloseKey(hKey);
 }
+#endif

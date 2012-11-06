@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib;.\platform;.\platform\win32"
+				AdditionalIncludeDirectories=".\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib;.\third_party\GLFW;.\platform;.\platform\win32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libEGL.lib libgles_cm.lib libzlib.lib libpng.lib"
+				AdditionalDependencies="libzlib.lib libpng.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OutDir)&quot;"
 				IgnoreDefaultLibraryNames="libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;libcmtd.lib"
@@ -207,6 +207,10 @@
 			</File>
 			<File
 				RelativePath=".\include\CCAutoreleasePool.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\CCConfig.h"
 				>
 			</File>
 			<File

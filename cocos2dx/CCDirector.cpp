@@ -100,14 +100,14 @@ void CCDirector::setGLDefaultValues()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
-	glClearDepthf(1.0f);
+	ccglClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
 	glViewport(0, 0, (GLsizei)(m_obWinSizeInPoints.width), (GLsizei)(m_obWinSizeInPoints.height));
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrthof(0, m_obWinSizeInPoints.width, 0, m_obWinSizeInPoints.height, -1024, 1024);
+	ccglOrtho(0, m_obWinSizeInPoints.width, 0, m_obWinSizeInPoints.height, -1024, 1024);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 

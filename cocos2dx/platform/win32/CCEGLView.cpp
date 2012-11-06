@@ -6,6 +6,8 @@
 #include "CCScene.h"	// 测试场景转换的代码，随后删除
 
 NS_CC_BEGIN;
+
+#if !CC_USE_GLFW_WINDOW
 //////////////////////////////////////////////////////////////////////////
 // impliment CCEGL
 //////////////////////////////////////////////////////////////////////////
@@ -362,5 +364,146 @@ void CCEGLView::setTouchDelegate(EGLTouchDelegate* pDelegate)
 {
 	m_pDelegate = pDelegate;
 }
+
+#else
+
+static CCEGLView* s_pMainWindow = NULL;
+
+void keyEventHandle(int iKeyID,int iKeyState)
+{
+	if (iKeyState ==GLFW_RELEASE) {
+		return;
+	}
+
+	if (GLFW_KEY_ESC == iKeyID)
+		CCDirector::sharedDirector()->end();
+}
+
+void charEventHandle(int iCharID,int iCharState) {
+	if (iCharState ==GLFW_RELEASE) {
+		return;
+	}
+
+	// test
+	int a = iCharID;
+	a++;
+}
+
+void mouseButtonEventHandle(int iMouseID,int iMouseState) {
+	if (iMouseID == GLFW_MOUSE_BUTTON_LEFT) {
+		//get current mouse pos
+		int x,y;
+		glfwGetMousePos(&x, &y);
+		CCPoint oPoint((float)x,(float)y);
+
+		s_pMainWindow->m_pTouch->SetTouchInfo(0, (float)(oPoint.x), (float)(oPoint.y));
+
+		s_pMainWindow->m_mousePoint = oPoint;
+
+		if (iMouseState == GLFW_PRESS) {
+			s_pMainWindow->m_pDelegate->toucheBegan(s_pMainWindow->m_pTouch,NULL);
+
+		} else if (iMouseState == GLFW_RELEASE) {
+			s_pMainWindow->m_pDelegate->toucheEnded(s_pMainWindow->m_pTouch,NULL);
+		}
+	}
+}
+
+void mousePosEventHandle(int iPosX,int iPosY) {
+	int iButtonState = glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT);
+
+	//to test move
+	if (iButtonState == GLFW_PRESS) {
+		if (iPosX!=(int)s_pMainWindow->m_mousePoint.x||iPosY!=(int)s_pMainWindow->m_mousePoint.y) {
+			//it movies
+			s_pMainWindow->m_pTouch->SetTouchInfo(0, (float)(iPosX), (float)(iPosY));
+			s_pMainWindow->m_pDelegate->toucheMoved(s_pMainWindow->m_pTouch, NULL);
+			//update new mouse pos
+			s_pMainWindow->m_mousePoint.x = (float)iPosX;
+			s_pMainWindow->m_mousePoint.y = (float)iPosY;
+		}
+	}
+}
+
+CCEGLView& CCEGLView::sharedOpenGLView()
+{
+	CCAssert(NULL != s_pMainWindow, "");
+	return *s_pMainWindow;
+}
+
+CCEGLView::CCEGLView()
+: m_pDelegate(NULL)
+, m_bCaptured(false)
+, m_is_init(false)
+{
+	m_pTouch = new CCTouch();
+}
+
+CCEGLView::~CCEGLView()
+{
+
+}
+
+bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
+{
+	bool result = false;
+
+	result = (GL_FALSE != glfwInit());
+
+	glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
+
+	result = (GL_FALSE != glfwOpenWindow(w, h, 5, 6, 5, 0, 16, 0, GLFW_WINDOW));
+
+	if (result)
+	{
+		int test_w, test_h;
+		glfwGetWindowSize(&test_w, &test_h);
+
+		char title_str[60] = {0};
+		WideCharToMultiByte(CP_ACP, 0, pTitle, -1, title_str, 60, NULL, NULL);
+		glfwSetWindowTitle(title_str);
+
+		m_size = CCSizeMake((float)test_w, (float)test_h);
+		m_is_init = true;
+		s_pMainWindow = this;
+
+		//register the glfw key event
+		glfwSetKeyCallback(keyEventHandle);
+		//register the glfw char event
+		glfwSetCharCallback(charEventHandle);
+		//register the glfw mouse event
+		glfwSetMouseButtonCallback(mouseButtonEventHandle);
+		//register the glfw mouse pos event
+		glfwSetMousePosCallback(mousePosEventHandle);
+	}
+
+	return result;
+}
+
+void CCEGLView::release()
+{
+	glfwTerminate();
+	exit(0);
+}
+
+void CCEGLView::swapBuffers()
+{
+	if (m_is_init)
+	{
+		glfwSwapBuffers();
+	}
+}
+
+void CCEGLView::centerWindow()
+{
+	//do nothing
+}
+
+void CCEGLView::setTouchDelegate(EGLTouchDelegate* pDelegate)
+{
+	m_pDelegate = pDelegate;
+}
+
+#endif
 
 NS_CC_END;
