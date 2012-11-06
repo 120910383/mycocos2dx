@@ -434,6 +434,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\platform\CCPlatformConfig.h"
+				>
+			</File>
+			<File
 				RelativePath=".\platform\CCStdC.h"
 				>
 			</File>
