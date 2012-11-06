@@ -202,10 +202,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\CCApplication.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\CCAutoreleasePool.h"
 				>
 			</File>
@@ -222,19 +218,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\include\CCEGLView.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\CCFileUtils.h"
-				>
-			</File>
-			<File
 				RelativePath=".\include\CCGeometry.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\CCImage.h"
 				>
 			</File>
 			<File
