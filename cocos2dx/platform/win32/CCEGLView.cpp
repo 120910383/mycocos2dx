@@ -389,7 +389,8 @@ void charEventHandle(int iCharID,int iCharState) {
 	a++;
 }
 
-void mouseButtonEventHandle(int iMouseID,int iMouseState) {
+void mouseButtonEventHandle(int iMouseID,int iMouseState)
+{
 	if (iMouseID == GLFW_MOUSE_BUTTON_LEFT) {
 		//get current mouse pos
 		int x,y;
@@ -409,7 +410,8 @@ void mouseButtonEventHandle(int iMouseID,int iMouseState) {
 	}
 }
 
-void mousePosEventHandle(int iPosX,int iPosY) {
+void mousePosEventHandle(int iPosX,int iPosY)
+{
 	int iButtonState = glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT);
 
 	//to test move
@@ -425,6 +427,12 @@ void mousePosEventHandle(int iPosX,int iPosY) {
 	}
 }
 
+int closeEventHandle()
+{
+	CCDirector::sharedDirector()->end();
+	return GL_TRUE;
+}
+
 CCEGLView& CCEGLView::sharedOpenGLView()
 {
 	CCAssert(NULL != s_pMainWindow, "");
@@ -432,9 +440,8 @@ CCEGLView& CCEGLView::sharedOpenGLView()
 }
 
 CCEGLView::CCEGLView()
-: m_pDelegate(NULL)
-, m_bCaptured(false)
-, m_is_init(false)
+	: m_pDelegate(NULL)
+	, m_is_init(false)
 {
 	m_pTouch = new CCTouch();
 }
@@ -444,38 +451,59 @@ CCEGLView::~CCEGLView()
 
 }
 
+bool CCEGLView::isOpenGLReady()
+{
+	return m_is_init;
+}
+
 bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
 {
 	bool result = false;
 
+	CCAssert(0 != w && 0 != h, "invalid window's size equal 0");
+
 	result = (GL_FALSE != glfwInit());
+	if (!result)
+	{
+		CCAssert(false, "fail to init the glfw");
+		return result;
+	}
 
 	glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
 
+	// 创建窗口，窗口属性根据不同需要进行更改
+	// glfwOpenWindow参数依次为窗口宽度、窗口高度、red位深、green位深、blue位深、Alpha位深、模板缓冲、全屏/窗口
 	result = (GL_FALSE != glfwOpenWindow(w, h, 5, 6, 5, 0, 16, 0, GLFW_WINDOW));
-
-	if (result)
+	if (!result)
 	{
-		int test_w, test_h;
-		glfwGetWindowSize(&test_w, &test_h);
-
-		char title_str[60] = {0};
-		WideCharToMultiByte(CP_ACP, 0, pTitle, -1, title_str, 60, NULL, NULL);
-		glfwSetWindowTitle(title_str);
-
-		m_size = CCSizeMake((float)test_w, (float)test_h);
-		m_is_init = true;
-		s_pMainWindow = this;
-
-		//register the glfw key event
-		glfwSetKeyCallback(keyEventHandle);
-		//register the glfw char event
-		glfwSetCharCallback(charEventHandle);
-		//register the glfw mouse event
-		glfwSetMouseButtonCallback(mouseButtonEventHandle);
-		//register the glfw mouse pos event
-		glfwSetMousePosCallback(mousePosEventHandle);
+		CCAssert(false, "fail to init the glfw window");
+		return result;
 	}
+
+	char title_str[60] = {0};
+	WideCharToMultiByte(CP_ACP, 0, pTitle, -1, title_str, 60, NULL, NULL);
+	glfwSetWindowTitle(title_str);
+
+	int real_width = 0;
+	int real_height = 0;
+	glfwGetWindowSize(&real_width, &real_height);
+	m_size = CCSizeMake((float)real_width, (float)real_height);
+
+	//register the glfw key event
+	glfwSetKeyCallback(keyEventHandle);
+	//register the glfw char event
+	glfwSetCharCallback(charEventHandle);
+	//register the glfw mouse event
+	glfwSetMouseButtonCallback(mouseButtonEventHandle);
+	//register the glfw mouse pos event
+	glfwSetMousePosCallback(mousePosEventHandle);
+	//register the glfw close event
+	glfwSetWindowCloseCallback(closeEventHandle);
+
+	m_is_init = true;
+	s_pMainWindow = this;
+
+	centerWindow();
 
 	return result;
 }
@@ -496,7 +524,14 @@ void CCEGLView::swapBuffers()
 
 void CCEGLView::centerWindow()
 {
-	//do nothing
+	// 获取桌面尺寸
+	RECT rcDesktop;
+	GetWindowRect(GetDesktopWindow(), &rcDesktop);
+	CCSize desktop_size = CCSizeMake((float)(rcDesktop.right - rcDesktop.left), (float)(rcDesktop.bottom - rcDesktop.top));
+
+	// 设置窗口位置为屏幕中心
+	CCPoint window_pos = CCPointMake((desktop_size.width - m_size.width) / 2, (desktop_size.height - m_size.height) / 2);
+	glfwSetWindowPos((int)window_pos.x, (int)window_pos.y);
 }
 
 void CCEGLView::setTouchDelegate(EGLTouchDelegate* pDelegate)

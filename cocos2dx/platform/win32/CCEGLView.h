@@ -56,6 +56,7 @@ public:
 	friend void mousePosEventHandle(int,int);
 	friend void charEventHandle(int,int);
 
+	bool isOpenGLReady();
 	CCSize getSize() { return m_size; }
 	bool Create(LPCTSTR pTitle, int w, int h);
 	void release();
@@ -65,7 +66,6 @@ public:
 
 private:
 	bool m_is_init;
-	bool m_bCaptured;
 	CCTouch* m_pTouch;
 	EGLTouchDelegate* m_pDelegate;
 	CCPoint m_mousePoint;
