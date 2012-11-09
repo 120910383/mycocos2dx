@@ -169,27 +169,11 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\AppDelegate.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\AppDelegate.h"
-			>
-		</File>
-		<File
 			RelativePath=".\main.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\main.h"
-			>
-		</File>
-		<File
-			RelativePath=".\TestScene.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\TestScene.h"
 			>
 		</File>
 	</Files>

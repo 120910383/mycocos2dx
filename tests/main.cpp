@@ -1,5 +1,5 @@
 ﻿#include "main.h"
-#include "AppDelegate.h"
+//#include "AppDelegate.h"
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
@@ -10,6 +10,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 	// create the application instance
-	AppDelegate app;
-	return cocos2d::CCApplication::sharedApplication().run();
+	//AppDelegate app;
+	//return cocos2d::CCApplication::sharedApplication().run();
+	return 0;
 }
