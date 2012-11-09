@@ -191,6 +191,14 @@
 				RelativePath=".\tests\AppDelegate.h"
 				>
 			</File>
+			<File
+				RelativePath=".\tests\TestControllerScene.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\TestControllerScene.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

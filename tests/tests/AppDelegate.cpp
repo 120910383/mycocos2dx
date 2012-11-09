@@ -1,6 +1,7 @@
 ﻿#include "AppDelegate.h"
 
 #include "cocos2d.h"
+#include "TestControllerScene.h"
 
 USING_NS_CC;
 
@@ -39,7 +40,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	CCDirector *pDirector = CCDirector::sharedDirector();
 	pDirector->setOpenGLView(&CCEGLView::sharedOpenGLView());
 
-	CCScene* pScene = CCScene::node();
+	CCScene* pScene = TestControllerScene::create_scene();
 	pDirector->runWithScene(pScene);
 	return true;
 }

@@ -1,0 +1,24 @@
+﻿#pragma once
+
+#include "cocos2d.h"
+
+using namespace cocos2d;
+
+class TestControllerScene : public CCScene
+{
+public:
+	static TestControllerScene* create_scene();
+};
+
+class TestControllerLayer : public CCLayer
+{
+public:
+	static TestControllerLayer* create_layer();
+	TestControllerLayer();
+	virtual ~TestControllerLayer();
+	bool init();
+
+	void close_call_back(CCObject* sender);
+
+	virtual bool ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent);
+};
