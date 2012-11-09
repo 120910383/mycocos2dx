@@ -168,14 +168,18 @@
 	<References>
 	</References>
 	<Files>
-		<File
-			RelativePath=".\main.cpp"
+		<Filter
+			Name="win32"
 			>
-		</File>
-		<File
-			RelativePath=".\main.h"
-			>
-		</File>
+			<File
+				RelativePath=".\win32\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\win32\main.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
