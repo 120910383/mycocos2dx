@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2dx", "cocos2dx\cocos2dx-2008.vcproj", "{73DA155A-346A-42D1-BA04-220E9CCB6410}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2dx-2008", "cocos2dx\cocos2dx-2008.vcproj", "{73DA155A-346A-42D1-BA04-220E9CCB6410}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests-2008.vcproj", "{4E5B42A8-AC58-45FA-AAE8-B2D74919E4BB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests-2008", "tests\tests-2008.vcproj", "{4E5B42A8-AC58-45FA-AAE8-B2D74919E4BB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{73DA155A-346A-42D1-BA04-220E9CCB6410} = {73DA155A-346A-42D1-BA04-220E9CCB6410}
 	EndProjectSection
