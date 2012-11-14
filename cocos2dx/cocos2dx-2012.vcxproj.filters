@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="base_nodes">
+      <UniqueIdentifier>{9f7b694b-eac6-4d2a-b273-1ec742637750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocoa">
+      <UniqueIdentifier>{9aecb9d4-784a-4794-8cc6-3f0d5653d091}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{b48a1710-fefe-40c4-8c2c-19d53ff0a599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="label_nodes">
+      <UniqueIdentifier>{54760cd3-b4db-48e5-8ba5-03977ae319a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="layers_scenes_transitions_nodes">
+      <UniqueIdentifier>{5091556a-8aff-45eb-9bfd-976c373924c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="menu_nodes">
+      <UniqueIdentifier>{519d3edc-1afe-4217-aa19-6e127ace2cd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{b73d8592-5bef-40da-a6a9-8713b23e757b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sprite_nodes">
+      <UniqueIdentifier>{7c02ee4e-d43a-4c7e-aaea-38e6eedcf03f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{4dc86dab-259d-45bf-a01e-c53a830bff9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="textures">
+      <UniqueIdentifier>{9db15516-2b13-48b3-b36a-af1fa167756c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="touch_dispatcher">
+      <UniqueIdentifier>{ec56bf27-559c-4de8-873a-db8a8447775b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform\win32">
+      <UniqueIdentifier>{c3796ae7-3c82-4302-a618-c3ae249336de}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CCConfiguration.cpp" />
+    <ClCompile Include="CCDirector.cpp" />
+    <ClCompile Include="base_nodes\CCNode.cpp">
+      <Filter>base_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCAffineTransform.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCAutoreleasePool.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCGeometry.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCObject.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="cocoa\CCZone.cpp">
+      <Filter>cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="label_nodes\CCLabelTTF.cpp">
+      <Filter>label_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="layers_scenes_transitions_nodes\CCLayer.cpp">
+      <Filter>layers_scenes_transitions_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="layers_scenes_transitions_nodes\CCScene.cpp">
+      <Filter>layers_scenes_transitions_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="menu_nodes\CCMenu.cpp">
+      <Filter>menu_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="menu_nodes\CCMenuItem.cpp">
+      <Filter>menu_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\win32\CCApplication.cpp">
+      <Filter>platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\win32\CCEGLView.cpp">
+      <Filter>platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\CCFileUtils.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\CCImage.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite_nodes\CCSprite.cpp">
+      <Filter>sprite_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="support\CCPointExtension.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="support\TransformUtils.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="textures\CCTexture2D.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="textures\CCTextureCache.cpp">
+      <Filter>textures</Filter>
+    </ClCompile>
+    <ClCompile Include="touch_dispatcher\CCTouchDispatcher.cpp">
+      <Filter>touch_dispatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="touch_dispatcher\CCTouchHandler.cpp">
+      <Filter>touch_dispatcher</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\CCAffineTransform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCAutoreleasePool.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCConfig.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCConfiguration.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCDirector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCGeometry.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCLabelTTF.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ccMacros.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCMenu.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCMenuItem.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCMutableArray.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCMutableDictionary.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCObject.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCPointExtension.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCSprite.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCString.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTexture2D.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTextureCache.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouch.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouchDelegateProtocol.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouchDispatcher.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCTouchHandler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ccTypes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCZone.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cocos2d.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TransformUtils.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\win32\CCApplication.h">
+      <Filter>platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\win32\CCEGLView.h">
+      <Filter>platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCFileUtils.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCGL.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCImage.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCPlatformConfig.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCStdC.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{09413051-2721-4D56-9242-FBB5C965B8BB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>cocos2dx</RootNamespace>
+    <ProjectName>cocos2dx</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib;.\third_party\GLFW;.\platform;.\platform\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ErrorReporting>Queue</ErrorReporting>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libzlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <LinkErrorReporting>QueueForNextLogin</LinkErrorReporting>
+      <ImportLibrary />
+    </Link>
+    <PreLinkEvent>
+      <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
+xcopy /Y /Q "$(ProjectDir)\third_party\libraries\*.*" "$(OutDir)"</Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="base_nodes\CCNode.cpp" />
+    <ClCompile Include="CCConfiguration.cpp" />
+    <ClCompile Include="CCDirector.cpp" />
+    <ClCompile Include="cocoa\CCAffineTransform.cpp" />
+    <ClCompile Include="cocoa\CCAutoreleasePool.cpp" />
+    <ClCompile Include="cocoa\CCGeometry.cpp" />
+    <ClCompile Include="cocoa\CCObject.cpp" />
+    <ClCompile Include="cocoa\CCZone.cpp" />
+    <ClCompile Include="label_nodes\CCLabelTTF.cpp" />
+    <ClCompile Include="layers_scenes_transitions_nodes\CCLayer.cpp" />
+    <ClCompile Include="layers_scenes_transitions_nodes\CCScene.cpp" />
+    <ClCompile Include="menu_nodes\CCMenu.cpp" />
+    <ClCompile Include="menu_nodes\CCMenuItem.cpp" />
+    <ClCompile Include="platform\CCFileUtils.cpp" />
+    <ClCompile Include="platform\CCImage.cpp" />
+    <ClCompile Include="platform\win32\CCApplication.cpp" />
+    <ClCompile Include="platform\win32\CCEGLView.cpp" />
+    <ClCompile Include="sprite_nodes\CCSprite.cpp" />
+    <ClCompile Include="support\CCPointExtension.cpp" />
+    <ClCompile Include="support\TransformUtils.cpp" />
+    <ClCompile Include="textures\CCTexture2D.cpp" />
+    <ClCompile Include="textures\CCTextureCache.cpp" />
+    <ClCompile Include="touch_dispatcher\CCTouchDispatcher.cpp" />
+    <ClCompile Include="touch_dispatcher\CCTouchHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\CCAffineTransform.h" />
+    <ClInclude Include="include\CCAutoreleasePool.h" />
+    <ClInclude Include="include\CCConfig.h" />
+    <ClInclude Include="include\CCConfiguration.h" />
+    <ClInclude Include="include\CCDirector.h" />
+    <ClInclude Include="include\CCGeometry.h" />
+    <ClInclude Include="include\CCLabelTTF.h" />
+    <ClInclude Include="include\CCLayer.h" />
+    <ClInclude Include="include\ccMacros.h" />
+    <ClInclude Include="include\CCMenu.h" />
+    <ClInclude Include="include\CCMenuItem.h" />
+    <ClInclude Include="include\CCMutableArray.h" />
+    <ClInclude Include="include\CCMutableDictionary.h" />
+    <ClInclude Include="include\CCNode.h" />
+    <ClInclude Include="include\CCObject.h" />
+    <ClInclude Include="include\CCPointExtension.h" />
+    <ClInclude Include="include\CCScene.h" />
+    <ClInclude Include="include\CCSprite.h" />
+    <ClInclude Include="include\CCString.h" />
+    <ClInclude Include="include\CCTexture2D.h" />
+    <ClInclude Include="include\CCTextureCache.h" />
+    <ClInclude Include="include\CCTouch.h" />
+    <ClInclude Include="include\CCTouchDelegateProtocol.h" />
+    <ClInclude Include="include\CCTouchDispatcher.h" />
+    <ClInclude Include="include\CCTouchHandler.h" />
+    <ClInclude Include="include\ccTypes.h" />
+    <ClInclude Include="include\CCZone.h" />
+    <ClInclude Include="include\cocos2d.h" />
+    <ClInclude Include="include\TransformUtils.h" />
+    <ClInclude Include="platform\CCFileUtils.h" />
+    <ClInclude Include="platform\CCGL.h" />
+    <ClInclude Include="platform\CCImage.h" />
+    <ClInclude Include="platform\CCPlatformConfig.h" />
+    <ClInclude Include="platform\CCStdC.h" />
+    <ClInclude Include="platform\win32\CCApplication.h" />
+    <ClInclude Include="platform\win32\CCEGLView.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

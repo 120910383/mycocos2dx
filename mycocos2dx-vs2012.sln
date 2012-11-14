@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2dx", "cocos2dx\cocos2dx-2012.vcxproj", "{09413051-2721-4D56-9242-FBB5C965B8BB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests-2012.vcxproj", "{46082F47-7B79-4851-BF81-C342DE1C7A85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09413051-2721-4D56-9242-FBB5C965B8BB} = {09413051-2721-4D56-9242-FBB5C965B8BB}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09413051-2721-4D56-9242-FBB5C965B8BB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{09413051-2721-4D56-9242-FBB5C965B8BB}.Debug|Win32.Build.0 = Debug|Win32
+		{09413051-2721-4D56-9242-FBB5C965B8BB}.Release|Win32.ActiveCfg = Release|Win32
+		{09413051-2721-4D56-9242-FBB5C965B8BB}.Release|Win32.Build.0 = Release|Win32
+		{46082F47-7B79-4851-BF81-C342DE1C7A85}.Debug|Win32.ActiveCfg = Debug|Win32
+		{46082F47-7B79-4851-BF81-C342DE1C7A85}.Debug|Win32.Build.0 = Debug|Win32
+		{46082F47-7B79-4851-BF81-C342DE1C7A85}.Release|Win32.ActiveCfg = Release|Win32
+		{46082F47-7B79-4851-BF81-C342DE1C7A85}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
