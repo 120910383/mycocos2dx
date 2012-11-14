@@ -14,6 +14,7 @@
     <ProjectGuid>{51EB5AD4-A1FE-40CD-BF33-27DA2C3675F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>cocos2dx</RootNamespace>
+    <ProjectName>cocos2dx</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
