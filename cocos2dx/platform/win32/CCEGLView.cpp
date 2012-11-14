@@ -502,6 +502,13 @@ bool CCEGLView::Create(LPCTSTR pTitle, int w, int h)
 void CCEGLView::release()
 {
 	glfwTerminate();
+
+	s_pMainWindow = NULL;
+
+	CC_SAFE_DELETE(m_pTouch);
+	CC_SAFE_DELETE(m_pDelegate);
+	delete this;
+
 	exit(0);
 }
 
