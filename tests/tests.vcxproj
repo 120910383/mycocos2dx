@@ -10,6 +10,16 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="tests\AppDelegate.cpp" />
+    <ClCompile Include="tests\TestControllerScene.cpp" />
+    <ClCompile Include="win32\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tests\AppDelegate.h" />
+    <ClInclude Include="tests\TestControllerScene.h" />
+    <ClInclude Include="win32\main.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FA168E2-8DCD-460C-8223-2AB37AE7DE20}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -50,7 +60,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\cocos2dx\include;..\cocos2dx\third_party\OGLES;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\cocos2dx\include;..\cocos2dx\third_party\OGLES;..\cocos2dx\third_party\GLFW;..\cocos2dx\platform;..\cocos2dx\platform\win32;.\tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -76,16 +86,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="AppDelegate.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestScene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AppDelegate.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="TestScene.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

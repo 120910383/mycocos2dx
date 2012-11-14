@@ -43,18 +43,6 @@
     <ClCompile Include="touch_dispatcher\CCTouchHandler.cpp">
       <Filter>touch_dispatcher</Filter>
     </ClCompile>
-    <ClCompile Include="win32\CCApplication.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\CCEGLView.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\CCFileUtils.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="win32\CCImage.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
     <ClCompile Include="CCDirector.cpp" />
     <ClCompile Include="textures\CCTextureCache.cpp">
       <Filter>textures</Filter>
@@ -62,6 +50,24 @@
     <ClCompile Include="CCConfiguration.cpp" />
     <ClCompile Include="label_nodes\CCLabelTTF.cpp">
       <Filter>label_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="menu_nodes\CCMenu.cpp">
+      <Filter>menu_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="menu_nodes\CCMenuItem.cpp">
+      <Filter>menu_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\CCFileUtils.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\CCImage.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\win32\CCApplication.cpp">
+      <Filter>platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\win32\CCEGLView.cpp">
+      <Filter>platform\win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,22 +86,10 @@
     <ClInclude Include="include\CCAffineTransform.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\CCApplication.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\CCDirector.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\CCEGLView.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CCFileUtils.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\CCGeometry.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CCImage.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\CCLayer.h">
@@ -155,6 +149,36 @@
     <ClInclude Include="include\CCLabelTTF.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\CCMenu.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCMenuItem.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCStdC.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCGL.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCFileUtils.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCImage.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CCPlatformConfig.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\win32\CCApplication.h">
+      <Filter>platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\win32\CCEGLView.h">
+      <Filter>platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CCConfig.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -181,11 +205,17 @@
     <Filter Include="touch_dispatcher">
       <UniqueIdentifier>{cfb87674-36a4-4733-81b9-e709f6e0fe4e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="win32">
-      <UniqueIdentifier>{38b730f8-8dd0-4c1f-af90-fbd5d6f8a8d6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="label_nodes">
       <UniqueIdentifier>{4032b4aa-ec5b-45ee-80c3-0123d36733a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="menu_nodes">
+      <UniqueIdentifier>{0a23c459-7878-44b3-8508-eb0b4ae98fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{8b058390-f506-435e-b1e6-16bbb2f9c269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform\win32">
+      <UniqueIdentifier>{79646c08-4496-4424-8a86-cb5057ed08ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
