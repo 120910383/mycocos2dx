@@ -192,6 +192,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\tests\TestBasicScene.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tests\TestBasicScene.h"
+				>
+			</File>
+			<File
 				RelativePath=".\tests\TestControllerScene.cpp"
 				>
 			</File>

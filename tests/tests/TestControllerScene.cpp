@@ -1,5 +1,6 @@
 ﻿#include "TestControllerScene.h"
 #include "TestDefinition.h"
+#include "TestBasicScene.h"
 
 const float LINE_SPACE = 40.0f;
 //////////////////////////////////////////////////////////////////////////
@@ -99,8 +100,11 @@ void TestControllerLayer::menu_call_back(CCObject* sender)
 	if (NULL == item)
 		return;
 
-	// 切换测试场景
-	// TODO...
+	TestBasicScene* test_scene = TestBasicScene::create_scene();
+	if (NULL != test_scene)
+	{
+		CCDirector::sharedDirector()->replaceScene(test_scene);
+	}
 }
 
 bool TestControllerLayer::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
