@@ -12,5 +12,14 @@ public:
 	virtual TestBasicLayer* get_next_layer();
 
 protected:
+	LabelFontTest() : m_container_node(NULL), m_node_height(0) {}
 	bool init();
+
+	bool ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent);
+	void ccTouchMoved(CCTouch* pTouch, CCEvent* pEvent);
+
+private:
+	CCNode* m_container_node;
+	CCPoint m_begin_pos;
+	float m_node_height;
 };
