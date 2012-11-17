@@ -7,6 +7,15 @@
     <Filter Include="win32">
       <UniqueIdentifier>{c3208a3a-fe72-447f-96f9-8f78f30e70ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\LabelTest">
+      <UniqueIdentifier>{2d5a13eb-29fa-4768-abc2-acef313aa44c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\OpenGLTest">
+      <UniqueIdentifier>{3c72133d-13c9-4163-8c20-087d7b766567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\SpriteTest">
+      <UniqueIdentifier>{461c77a0-cdfd-4439-b724-9c0b822e348e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tests\AppDelegate.cpp">
@@ -18,6 +27,18 @@
     <ClCompile Include="win32\main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
+    <ClCompile Include="tests\TestBasicScene.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\LabelTest\LabelTest.cpp">
+      <Filter>tests\LabelTest</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\OpenGLTest\OpenGLTest.cpp">
+      <Filter>tests\OpenGLTest</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\SpriteTest\SpriteTest.cpp">
+      <Filter>tests\SpriteTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tests\AppDelegate.h">
@@ -28,6 +49,21 @@
     </ClInclude>
     <ClInclude Include="win32\main.h">
       <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\TestBasicScene.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\TestDefinition.h">
+      <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\LabelTest\LabelTest.h">
+      <Filter>tests\LabelTest</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\OpenGLTest\OpenGLTest.h">
+      <Filter>tests\OpenGLTest</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\SpriteTest\SpriteTest.h">
+      <Filter>tests\SpriteTest</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
