@@ -42,7 +42,6 @@ bool TestControllerLayer::init()
 	do 
 	{
 		CC_BREAK_IF(!CCLayer::init());
-		setIsTouchEnabled(true);
 
 		CCSize win_size = CCDirector::sharedDirector()->getWinSize();
 
@@ -120,9 +119,4 @@ void TestControllerLayer::menu_call_back(CCObject* sender)
 	{
 		CCDirector::sharedDirector()->replaceScene(test_scene);
 	}
-}
-
-bool TestControllerLayer::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
-{
-	return true;
 }

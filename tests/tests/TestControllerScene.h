@@ -18,6 +18,4 @@ public:
 
 	void close_call_back(CCObject* sender);
 	void menu_call_back(CCObject* sender);
-
-	virtual bool ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent);
 };
