@@ -1,5 +1,7 @@
 ﻿#include "TestControllerScene.h"
+#include "TestDefinition.h"
 
+const float LINE_SPACE = 40.0f;
 //////////////////////////////////////////////////////////////////////////
 // TestControllerScene 使用TestControllerLayer层创建测试列表场景
 TestControllerScene* TestControllerScene::create_scene()
@@ -33,14 +35,6 @@ TestControllerLayer* TestControllerLayer::create_layer()
 	return NULL;
 }
 
-TestControllerLayer::TestControllerLayer()
-{
-}
-
-TestControllerLayer::~TestControllerLayer()
-{
-}
-
 bool TestControllerLayer::init()
 {
 	bool result = false;
@@ -51,6 +45,7 @@ bool TestControllerLayer::init()
 
 		CCSize win_size = CCDirector::sharedDirector()->getWinSize();
 
+		// 关闭按钮菜单
 		CCSprite* normal_sprite = CCSprite::spriteWithFile("Images/close.png");
 		CC_BREAK_IF(NULL == normal_sprite);
 
@@ -65,8 +60,27 @@ bool TestControllerLayer::init()
 		menu->setPosition(CCPointZero);
 		addChild(menu);
 
-		// TODO...
-		// 初始化测试项菜单
+		// 测试项菜单
+		CCMenu* tests_item_menu = CCMenu::menuWithItem(NULL);
+		CC_BREAK_IF(NULL == tests_item_menu);
+		tests_item_menu->setPosition(ccp(0, win_size.height));
+		addChild(tests_item_menu);
+
+		for (int index = 0; index < TESTS_COUNT; ++index)
+		{
+			CCLabelTTF* test_name_label = CCLabelTTF::labelWithString(test_names[index], "Arial", 24);
+			if (NULL != test_name_label)
+			{
+				CCMenuItemLabel* test_item = CCMenuItemLabel::itemWithLabel(test_name_label);
+				if (NULL != test_item)
+				{
+					test_item->setPosition(ccp(win_size.width / 2, -LINE_SPACE * (index + 1)));
+					test_item->setTarget(this, menu_selector(TestControllerLayer::menu_call_back));
+					test_item->setTag(index);
+					tests_item_menu->addChild(test_item);
+				}
+			}
+		}
 
 		result = true;
 	} while (0);
@@ -77,6 +91,16 @@ bool TestControllerLayer::init()
 void TestControllerLayer::close_call_back(CCObject* sender)
 {
 	CCDirector::sharedDirector()->end();
+}
+
+void TestControllerLayer::menu_call_back(CCObject* sender)
+{
+	CCMenuItem* item = dynamic_cast<CCMenuItem*>(sender);
+	if (NULL == item)
+		return;
+
+	// 切换测试场景
+	// TODO...
 }
 
 bool TestControllerLayer::ccTouchBegan(CCTouch* pTouch, CCEvent* pEvent)
