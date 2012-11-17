@@ -235,6 +235,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="OpenGLTest"
+				>
+				<File
+					RelativePath=".\tests\OpenGLTest\OpenGLTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\tests\OpenGLTest\OpenGLTest.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
