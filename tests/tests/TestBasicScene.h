@@ -6,15 +6,16 @@ using namespace cocos2d;
 
 //////////////////////////////////////////////////////////////////////////
 // 测试场景
+class TestBasicLayer;
 class TestBasicScene : public CCScene
 {
 public:
-	static TestBasicScene* create_scene();
+	static TestBasicScene* create_scene(TestBasicLayer* init_layer);
 	virtual ~TestBasicScene();
 
 protected:
 	TestBasicScene();
-	bool init();
+	bool init(TestBasicLayer* init_layer);
 
 	void hide_call_back(CCObject* sender);
 	void back_call_back(CCObject* sender);
@@ -25,4 +26,13 @@ protected:
 protected:
 	CCMenu* m_controller_menu;
 	CCLabelTTF* m_title_label;
+	TestBasicLayer* m_test_layer;
+};
+
+class TestBasicLayer : public CCLayer
+{
+public:
+	virtual const char* title() = 0;
+	virtual TestBasicLayer* get_last_layer() = 0;
+	virtual TestBasicLayer* get_next_layer() = 0;
 };

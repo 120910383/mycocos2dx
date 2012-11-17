@@ -1,10 +1,10 @@
 ﻿#include "TestBasicScene.h"
 #include "TestControllerScene.h"
 
-TestBasicScene* TestBasicScene::create_scene()
+TestBasicScene* TestBasicScene::create_scene(TestBasicLayer* init_layer)
 {
 	TestBasicScene* scene = new TestBasicScene();
-	if (NULL != scene && scene->init())
+	if (NULL != scene && scene->init(init_layer))
 	{
 		scene->autorelease();
 		return scene;
@@ -17,6 +17,7 @@ TestBasicScene* TestBasicScene::create_scene()
 TestBasicScene::TestBasicScene()
 	: m_controller_menu(NULL)
 	, m_title_label(NULL)
+	, m_test_layer(NULL)
 {
 }
 
@@ -24,7 +25,7 @@ TestBasicScene::~TestBasicScene()
 {
 }
 
-bool TestBasicScene::init()
+bool TestBasicScene::init(TestBasicLayer* init_layer)
 {
 	bool result = false;
 	do 
@@ -33,6 +34,12 @@ bool TestBasicScene::init()
 
 		CCSize win_size = CCDirector::sharedDirector()->getWinSize();
 
+		// 演示层
+		CC_BREAK_IF( NULL == init_layer);
+		m_test_layer = init_layer;
+		m_test_layer->setPosition(CCPointZero);
+		addChild(m_test_layer);
+
 		// 控制层，包含一组按钮和标题说明
 		CCLayer* controller_layer = CCLayer::node();
 		CC_BREAK_IF( NULL == controller_layer );
@@ -40,7 +47,7 @@ bool TestBasicScene::init()
 		addChild(controller_layer);
 
 		// 测试标题
-		m_title_label = CCLabelTTF::labelWithString("test title", "Arial", 24);
+		m_title_label = CCLabelTTF::labelWithString(m_test_layer->title(), "Arial", 24);
 		CC_BREAK_IF(NULL == m_title_label);
 		m_title_label->setPosition(ccp(win_size.width / 2, win_size.height - 40));
 		controller_layer->addChild(m_title_label);
@@ -60,6 +67,7 @@ bool TestBasicScene::init()
 		CC_BREAK_IF( NULL == back_item);
 		back_item->setPosition(ccp(win_size.width / 2 - 100, 30));
 		back_item->setTarget(this, menu_selector(TestBasicScene::back_call_back));
+		back_item->setIsEnabled(NULL != m_test_layer->get_last_layer());
 		m_controller_menu->addChild(back_item);
 
 		// 重启按钮
@@ -81,6 +89,7 @@ bool TestBasicScene::init()
 		CC_BREAK_IF( NULL == next_item);
 		next_item->setPosition(ccp(win_size.width / 2 + 100, 30));
 		next_item->setTarget(this, menu_selector(TestBasicScene::next_call_back));
+		next_item->setIsEnabled(NULL != m_test_layer->get_next_layer());
 		m_controller_menu->addChild(next_item);
 
 		// 返回主菜单按钮
@@ -109,6 +118,10 @@ bool TestBasicScene::init()
 		hide_item->setTarget(this, menu_selector(TestBasicScene::hide_call_back));
 		hide_menu->addChild(hide_item);
 
+		// 前进和回退按钮互相绑定，便于更新使能状态
+		back_item->setUserData((void*)next_item);
+		next_item->setUserData((void*)back_item);
+
 		result = true;
 	} while (0);
 	
@@ -131,17 +144,53 @@ void TestBasicScene::hide_call_back(CCObject* sender)
 
 void TestBasicScene::back_call_back(CCObject* sender)
 {
+	do 
+	{
+		CCAssert(NULL != m_test_layer->get_last_layer(), "back button should be disabled");
+		TestBasicLayer* last_layer = m_test_layer->get_last_layer();
+		CC_BREAK_IF(NULL == last_layer);
+		last_layer->setPosition(CCPointZero);
+		addChild(last_layer);
 
+		m_test_layer->removeFromParentAndCleanup(true);
+		m_test_layer = last_layer;
+
+		CCMenuItem* back_item = dynamic_cast<CCMenuItem*>(sender);
+		CC_BREAK_IF(NULL == back_item);
+		CCMenuItem* next_item = (CCMenuItem*)(back_item->getUserData());
+		CC_BREAK_IF(NULL == next_item);
+		back_item->setIsEnabled(NULL != m_test_layer->get_last_layer());
+		next_item->setIsEnabled(NULL != m_test_layer->get_next_layer());
+		m_title_label->setString(m_test_layer->title());
+	} while (0);
 }
 
 void TestBasicScene::restart_call_back(CCObject* sender)
 {
-
+	//nothing
 }
 
 void TestBasicScene::next_call_back(CCObject* sender)
 {
+	do 
+	{
+		CCAssert(NULL != m_test_layer->get_next_layer(), "next button should be disabled");
+		TestBasicLayer* next_layer = m_test_layer->get_next_layer();
+		CC_BREAK_IF(NULL == next_layer);
+		next_layer->setPosition(CCPointZero);
+		addChild(next_layer);
 
+		m_test_layer->removeFromParentAndCleanup(true);
+		m_test_layer = next_layer;
+
+		CCMenuItem* next_item = dynamic_cast<CCMenuItem*>(sender);
+		CC_BREAK_IF(NULL == next_item);
+		CCMenuItem* back_item = (CCMenuItem*)(next_item->getUserData());
+		CC_BREAK_IF(NULL == back_item);
+		back_item->setIsEnabled(NULL != m_test_layer->get_last_layer());
+		next_item->setIsEnabled(NULL != m_test_layer->get_next_layer());
+		m_title_label->setString(m_test_layer->title());
+	} while (0);
 }
 
 void TestBasicScene::return_call_back(CCObject* sender)

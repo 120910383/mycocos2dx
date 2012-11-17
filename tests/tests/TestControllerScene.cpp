@@ -100,7 +100,7 @@ void TestControllerLayer::menu_call_back(CCObject* sender)
 	if (NULL == item)
 		return;
 
-	TestBasicScene* test_scene = TestBasicScene::create_scene();
+	TestBasicScene* test_scene = TestBasicScene::create_scene(NULL);
 	if (NULL != test_scene)
 	{
 		CCDirector::sharedDirector()->replaceScene(test_scene);
