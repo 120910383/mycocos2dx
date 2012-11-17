@@ -36,3 +36,16 @@ public:
 	virtual TestBasicLayer* get_last_layer() = 0;
 	virtual TestBasicLayer* get_next_layer() = 0;
 };
+
+#define CREATE_TEST(test_layer) \
+	static test_layer* create_test() \
+{ \
+	test_layer* pRet = new test_layer(); \
+	if (NULL != pRet && pRet->init()) \
+	{ \
+		pRet->autorelease(); \
+		return pRet; \
+	} \
+	CC_SAFE_DELETE(pRet); \
+	return NULL; \
+};

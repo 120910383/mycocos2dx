@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#include "SpriteTest/SpriteTest.h"
+#include "LabelTest/LabelTest.h"
+
 enum test_type
 {
 	TEST_SPRITE = 0,

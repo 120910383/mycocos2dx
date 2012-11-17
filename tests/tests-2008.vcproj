@@ -211,6 +211,30 @@
 				RelativePath=".\tests\TestDefinition.h"
 				>
 			</File>
+			<Filter
+				Name="LabelTest"
+				>
+				<File
+					RelativePath=".\tests\LabelTest\LabelTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\tests\LabelTest\LabelTest.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="SpriteTest"
+				>
+				<File
+					RelativePath=".\tests\SpriteTest\SpriteTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\tests\SpriteTest\SpriteTest.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

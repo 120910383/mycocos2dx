@@ -100,7 +100,22 @@ void TestControllerLayer::menu_call_back(CCObject* sender)
 	if (NULL == item)
 		return;
 
-	TestBasicScene* test_scene = TestBasicScene::create_scene(NULL);
+	TestBasicLayer* test_init_layer = NULL;
+	test_type index = (test_type)(item->getTag());
+	switch (index)
+	{
+	case TEST_SPRITE:
+		test_init_layer = SpriteOpacityTest::create_test();
+		break;
+	case TEST_LABEL:
+		test_init_layer = LabelFontTest::create_test();
+		break;
+	default:
+		CCAssert(false, "invaild item tag");
+		return;
+	}
+
+	TestBasicScene* test_scene = TestBasicScene::create_scene(test_init_layer);
 	if (NULL != test_scene)
 	{
 		CCDirector::sharedDirector()->replaceScene(test_scene);
