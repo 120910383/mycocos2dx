@@ -51,6 +51,38 @@ bool TestBasicScene::init()
 		m_controller_menu->setPosition(CCPointZero);
 		controller_layer->addChild(m_controller_menu);
 
+		// 回退按钮
+		CCSprite* back_sprite_normal = CCSprite::spriteWithFile("Images/back_arrow_normal.png");
+		CCSprite* back_sprite_selected = CCSprite::spriteWithFile("Images/back_arrow_selected.png");
+		CCSprite* back_sprite_disabled = CCSprite::spriteWithFile("Images/back_arrow_disabled.png");
+		CC_BREAK_IF( NULL == back_sprite_normal || NULL == back_sprite_selected);
+		CCMenuItemSprite* back_item = CCMenuItemSprite::itemFromNormalSprite(back_sprite_normal, back_sprite_selected, back_sprite_disabled);
+		CC_BREAK_IF( NULL == back_item);
+		back_item->setPosition(ccp(win_size.width / 2 - 100, 30));
+		back_item->setTarget(this, menu_selector(TestBasicScene::back_call_back));
+		m_controller_menu->addChild(back_item);
+
+		// 重启按钮
+		CCSprite* restart_sprite_normal = CCSprite::spriteWithFile("Images/restart_normal.png");
+		CCSprite* restart_sprite_selected = CCSprite::spriteWithFile("Images/restart_selected.png");
+		CC_BREAK_IF( NULL == restart_sprite_normal || NULL == restart_sprite_selected);
+		CCMenuItemSprite* restart_item = CCMenuItemSprite::itemFromNormalSprite(restart_sprite_normal, restart_sprite_selected);
+		CC_BREAK_IF( NULL == restart_item);
+		restart_item->setPosition(ccp(win_size.width / 2, 30));
+		restart_item->setTarget(this, menu_selector(TestBasicScene::restart_call_back));
+		m_controller_menu->addChild(restart_item);
+
+		// 前进按钮
+		CCSprite* next_sprite_normal = CCSprite::spriteWithFile("Images/next_arrow_normal.png");
+		CCSprite* next_sprite_selected = CCSprite::spriteWithFile("Images/next_arrow_selected.png");
+		CCSprite* next_sprite_disabled = CCSprite::spriteWithFile("Images/next_arrow_disabled.png");
+		CC_BREAK_IF( NULL == next_sprite_normal || NULL == next_sprite_selected);
+		CCMenuItemSprite* next_item = CCMenuItemSprite::itemFromNormalSprite(next_sprite_normal, next_sprite_selected, next_sprite_disabled);
+		CC_BREAK_IF( NULL == next_item);
+		next_item->setPosition(ccp(win_size.width / 2 + 100, 30));
+		next_item->setTarget(this, menu_selector(TestBasicScene::next_call_back));
+		m_controller_menu->addChild(next_item);
+
 		// 返回主菜单按钮
 		CCLabelTTF* return_label = CCLabelTTF::labelWithString("Main Menu", "Arial", 20);
 		CC_BREAK_IF(NULL == return_label);
@@ -95,6 +127,21 @@ void TestBasicScene::hide_call_back(CCObject* sender)
 
 	m_controller_menu->setIsVisible(!is_shown);
 	m_title_label->setIsVisible(!is_shown);
+}
+
+void TestBasicScene::back_call_back(CCObject* sender)
+{
+
+}
+
+void TestBasicScene::restart_call_back(CCObject* sender)
+{
+
+}
+
+void TestBasicScene::next_call_back(CCObject* sender)
+{
+
 }
 
 void TestBasicScene::return_call_back(CCObject* sender)

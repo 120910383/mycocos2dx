@@ -17,6 +17,9 @@ protected:
 	bool init();
 
 	void hide_call_back(CCObject* sender);
+	void back_call_back(CCObject* sender);
+	void restart_call_back(CCObject* sender);
+	void next_call_back(CCObject* sender);
 	void return_call_back(CCObject* sender);
 
 protected:
