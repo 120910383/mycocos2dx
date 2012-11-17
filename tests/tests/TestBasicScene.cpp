@@ -44,7 +44,7 @@ bool TestBasicScene::init(TestBasicLayer* init_layer)
 		CCLayer* controller_layer = CCLayer::node();
 		CC_BREAK_IF( NULL == controller_layer );
 		controller_layer->setPosition(CCPointZero);
-		addChild(controller_layer);
+		addChild(controller_layer, 99);
 
 		// 测试标题
 		m_title_label = CCLabelTTF::labelWithString(m_test_layer->title(), "Arial", 24);
