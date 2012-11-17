@@ -40,3 +40,10 @@
 //
 #include "ccTypes.h"
 #include "ccMacros.h"
+
+//
+// 版本标识
+//
+NS_CC_BEGIN;
+const char* cocos2dVersion();
+NS_CC_END;

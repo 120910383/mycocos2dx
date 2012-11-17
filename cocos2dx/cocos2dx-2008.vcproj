@@ -458,6 +458,10 @@
 			RelativePath=".\CCDirector.cpp"
 			>
 		</File>
+		<File
+			RelativePath=".\cocos2d.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -107,6 +107,7 @@
     <ClCompile Include="touch_dispatcher\CCTouchHandler.cpp">
       <Filter>touch_dispatcher</Filter>
     </ClCompile>
+    <ClCompile Include="cocos2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CCAffineTransform.h">

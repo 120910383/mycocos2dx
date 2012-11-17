@@ -69,6 +69,7 @@
     <ClCompile Include="platform\win32\CCEGLView.cpp">
       <Filter>platform\win32</Filter>
     </ClCompile>
+    <ClCompile Include="cocos2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CCMutableArray.h">
