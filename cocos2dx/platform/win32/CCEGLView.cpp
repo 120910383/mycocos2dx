@@ -233,14 +233,14 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEMOVE:
 		if (MK_LBUTTON == wParam && m_bCaptured)
 		{
-			m_pTouch->SetTouchInfo(0, (float)(LOWORD(lParam)), (float)(HIWORD(lParam)));
+			m_pTouch->SetTouchInfo(0, (float)(short)(LOWORD(lParam)), (float)(short)(HIWORD(lParam)));
 			m_pDelegate->toucheMoved(m_pTouch, NULL);
 		}
 		break;
 	case WM_LBUTTONUP:
 		if (m_bCaptured)
 		{
-			m_pTouch->SetTouchInfo(0, (float)(LOWORD(lParam)), (float)(HIWORD(lParam)));
+			m_pTouch->SetTouchInfo(0, (float)(short)(LOWORD(lParam)), (float)(short)(HIWORD(lParam)));
 			m_pDelegate->toucheEnded(m_pTouch, NULL);
 			ReleaseCapture();
 			m_bCaptured = false;
