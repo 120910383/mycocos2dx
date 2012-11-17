@@ -34,6 +34,7 @@ class TestBasicLayer : public CCLayer
 public:
 	virtual const char* title() = 0;
 	virtual TestBasicLayer* get_last_layer() = 0;
+	virtual TestBasicLayer* get_cur_layer() = 0;
 	virtual TestBasicLayer* get_next_layer() = 0;
 };
 

@@ -9,11 +9,16 @@ public:
 	CREATE_TEST(OpenGLRotateCubeTest);
 	virtual const char* title();
 	virtual TestBasicLayer* get_last_layer();
+	virtual TestBasicLayer* get_cur_layer();
 	virtual TestBasicLayer* get_next_layer();
 
 protected:
+	OpenGLRotateCubeTest() : m_rotate(0) {}
 	bool init();
 	virtual void draw();
+
+private:
+	float m_rotate;
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -23,6 +28,7 @@ public:
 	CREATE_TEST(OpenGLDragCubeTest);
 	virtual const char* title();
 	virtual TestBasicLayer* get_last_layer();
+	virtual TestBasicLayer* get_cur_layer();
 	virtual TestBasicLayer* get_next_layer();
 
 protected:

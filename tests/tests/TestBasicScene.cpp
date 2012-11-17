@@ -167,7 +167,17 @@ void TestBasicScene::back_call_back(CCObject* sender)
 
 void TestBasicScene::restart_call_back(CCObject* sender)
 {
-	//nothing
+	do 
+	{
+		CCAssert(NULL != m_test_layer->get_cur_layer(), "subclass of TestBasicLayer need implement get_cur_layer() to return another self instance");
+		TestBasicLayer* cur_layer = m_test_layer->get_cur_layer();
+		CC_BREAK_IF(NULL == cur_layer);
+		cur_layer->setPosition(CCPointZero);
+		addChild(cur_layer);
+
+		m_test_layer->removeFromParentAndCleanup(true);
+		m_test_layer = cur_layer;
+	} while (0);
 }
 
 void TestBasicScene::next_call_back(CCObject* sender)

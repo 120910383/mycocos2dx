@@ -11,6 +11,11 @@ TestBasicLayer* OpenGLRotateCubeTest::get_last_layer()
 	return NULL;
 }
 
+TestBasicLayer* OpenGLRotateCubeTest::get_cur_layer()
+{
+	return OpenGLRotateCubeTest::create_test();
+}
+
 TestBasicLayer* OpenGLRotateCubeTest::get_next_layer()
 {
 	return OpenGLDragCubeTest::create_test();
@@ -57,8 +62,7 @@ void OpenGLRotateCubeTest::draw()
 		0.0f, 0.0f, 0.0f, 100.0f,
 		1.0f, 1.0f, 1.0f, 100.0f,
 	};
-	static GLfloat rotate = 0.4f;
-	rotate += 0.4f;
+	m_rotate += 0.4f;
 
 	glDisable(GL_TEXTURE_2D);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -66,7 +70,7 @@ void OpenGLRotateCubeTest::draw()
 	glColorPointer(4, GL_FLOAT, 0, color);
 	glVertexPointer(3, GL_FLOAT, 0, &cube);
 	glTranslatef(0.0f, -50.0f, 0.0f);
-	glRotatef(rotate, 100.0f, 100.0f, -100.0f);
+	glRotatef(m_rotate, 100.0f, 100.0f, -100.0f);
 	
 	glDrawElements(GL_TRIANGLE_STRIP, 14, GL_UNSIGNED_BYTE, mIndices1);
 	glDrawElements(GL_LINES, 24, GL_UNSIGNED_BYTE, mIndices);
@@ -84,6 +88,11 @@ const char* OpenGLDragCubeTest::title()
 TestBasicLayer* OpenGLDragCubeTest::get_last_layer()
 {
 	return OpenGLRotateCubeTest::create_test();
+}
+
+TestBasicLayer* OpenGLDragCubeTest::get_cur_layer()
+{
+	return OpenGLDragCubeTest::create_test();
 }
 
 TestBasicLayer* OpenGLDragCubeTest::get_next_layer()

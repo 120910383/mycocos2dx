@@ -11,6 +11,11 @@ TestBasicLayer* LabelFontTest::get_last_layer()
 	return NULL;
 }
 
+TestBasicLayer* LabelFontTest::get_cur_layer()
+{
+	return LabelFontTest::create_test();
+}
+
 TestBasicLayer* LabelFontTest::get_next_layer()
 {
 	return NULL;

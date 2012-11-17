@@ -11,6 +11,11 @@ TestBasicLayer* SpriteOpacityTest::get_last_layer()
 	return NULL;
 }
 
+TestBasicLayer* SpriteOpacityTest::get_cur_layer()
+{
+	return SpriteOpacityTest::create_test();
+}
+
 TestBasicLayer* SpriteOpacityTest::get_next_layer()
 {
 	return SpriteColorTest::create_test();
@@ -70,6 +75,11 @@ const char* SpriteColorTest::title()
 TestBasicLayer* SpriteColorTest::get_last_layer()
 {
 	return SpriteOpacityTest::create_test();;
+}
+
+TestBasicLayer* SpriteColorTest::get_cur_layer()
+{
+	return SpriteColorTest::create_test();
 }
 
 TestBasicLayer* SpriteColorTest::get_next_layer()

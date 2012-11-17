@@ -9,6 +9,7 @@ public:
 	CREATE_TEST(SpriteOpacityTest);
 	virtual const char* title();
 	virtual TestBasicLayer* get_last_layer();
+	virtual TestBasicLayer* get_cur_layer();
 	virtual TestBasicLayer* get_next_layer();
 
 protected:
@@ -22,6 +23,7 @@ public:
 	CREATE_TEST(SpriteColorTest);
 	virtual const char* title();
 	virtual TestBasicLayer* get_last_layer();
+	virtual TestBasicLayer* get_cur_layer();
 	virtual TestBasicLayer* get_next_layer();
 
 protected:
