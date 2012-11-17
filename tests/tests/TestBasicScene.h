@@ -16,6 +16,7 @@ protected:
 	TestBasicScene();
 	bool init();
 
+	void hide_call_back(CCObject* sender);
 	void return_call_back(CCObject* sender);
 
 protected:

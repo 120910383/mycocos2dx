@@ -61,10 +61,40 @@ bool TestBasicScene::init()
 		return_item->setTarget(this, menu_selector(TestBasicScene::return_call_back));
 		m_controller_menu->addChild(return_item);
 
+		// 隐藏按钮菜单
+		CCMenu* hide_menu = CCMenu::menuWithItem(NULL);
+		CC_BREAK_IF( NULL ==  hide_menu );
+		hide_menu->setPosition(CCPointZero);
+		controller_layer->addChild(hide_menu);
+
+		CCSprite* hide_sprite_normal = CCSprite::spriteWithFile("Images/hide_normal.png");
+		CCSprite* hide_sprite_selected = CCSprite::spriteWithFile("Images/hide_selected.png");
+		CC_BREAK_IF( NULL == hide_sprite_normal || NULL == hide_sprite_selected);
+		CCMenuItemSprite* hide_item = CCMenuItemSprite::itemFromNormalSprite(hide_sprite_normal, hide_sprite_selected);
+		CC_BREAK_IF( NULL == hide_item);
+		hide_item->setAnchorPoint(ccp(1, 1));
+		hide_item->setPosition(ccp(win_size.width, win_size.height));
+		hide_item->setTarget(this, menu_selector(TestBasicScene::hide_call_back));
+		hide_menu->addChild(hide_item);
+
 		result = true;
 	} while (0);
 	
 	return result;
+}
+
+void TestBasicScene::hide_call_back(CCObject* sender)
+{
+	CCMenuItem* item = dynamic_cast<CCMenuItem*>(sender);
+	if (NULL == item)
+		return;
+
+	bool is_shown = m_controller_menu->getIsVisible() && m_title_label->getIsVisible();
+	if (is_shown)
+		item->selected();
+
+	m_controller_menu->setIsVisible(!is_shown);
+	m_title_label->setIsVisible(!is_shown);
 }
 
 void TestBasicScene::return_call_back(CCObject* sender)
