@@ -108,6 +108,7 @@ void TestControllerLayer::menu_call_back(CCObject* sender)
 		break;
 	case TEST_LABEL:
 		test_init_layer = LabelFontTest::create_test();
+		break;
 	case TEST_OPENGL:
 		test_init_layer = OpenGLRotateCubeTest::create_test();
 		break;
