@@ -23,6 +23,8 @@ bool AppDelegate::initInstance()
 		CCEGLView* pMainWnd = new CCEGLView;
 		CC_BREAK_IF (NULL == pMainWnd || !pMainWnd->Create(TEXT("mycocos2dx"), 480, 320));
 
+		CCFileUtils::setResourcePath("../tests/Resources/");
+
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 
 		// todo...
