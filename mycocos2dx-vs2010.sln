@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2dx", "cocos2dx\cocos2dx-2010.vcxproj", "{51EB5AD4-A1FE-40CD-BF33-27DA2C3675F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2dx", "cocos2dx\proj.win32\cocos2dx-2010.vcxproj", "{51EB5AD4-A1FE-40CD-BF33-27DA2C3675F6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests-2010.vcxproj", "{7FA168E2-8DCD-460C-8223-2AB37AE7DE20}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\proj.win32\tests-2010.vcxproj", "{7FA168E2-8DCD-460C-8223-2AB37AE7DE20}"
 	ProjectSection(ProjectDependencies) = postProject
 		{51EB5AD4-A1FE-40CD-BF33-27DA2C3675F6} = {51EB5AD4-A1FE-40CD-BF33-27DA2C3675F6}
 	EndProjectSection

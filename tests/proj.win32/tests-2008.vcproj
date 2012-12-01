@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\cocos2dx\include;..\cocos2dx\third_party\OGLES;..\cocos2dx\third_party\GLFW;..\cocos2dx\platform;..\cocos2dx\platform\win32;.\tests"
+				AdditionalIncludeDirectories="..\..\cocos2dx\include;..\..\cocos2dx\third_party\OGLES;..\..\cocos2dx\third_party\GLFW;..\..\cocos2dx\platform;..\..\cocos2dx\platform\win32;..\tests"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -172,11 +172,11 @@
 			Name="win32"
 			>
 			<File
-				RelativePath=".\win32\main.cpp"
+				RelativePath=".\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\win32\main.h"
+				RelativePath=".\main.h"
 				>
 			</File>
 		</Filter>
@@ -184,42 +184,42 @@
 			Name="tests"
 			>
 			<File
-				RelativePath=".\tests\AppDelegate.cpp"
+				RelativePath="..\tests\AppDelegate.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\AppDelegate.h"
+				RelativePath="..\tests\AppDelegate.h"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TestBasicScene.cpp"
+				RelativePath="..\tests\TestBasicScene.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TestBasicScene.h"
+				RelativePath="..\tests\TestBasicScene.h"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TestControllerScene.cpp"
+				RelativePath="..\tests\TestControllerScene.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TestControllerScene.h"
+				RelativePath="..\tests\TestControllerScene.h"
 				>
 			</File>
 			<File
-				RelativePath=".\tests\TestDefinition.h"
+				RelativePath="..\tests\TestDefinition.h"
 				>
 			</File>
 			<Filter
 				Name="LabelTest"
 				>
 				<File
-					RelativePath=".\tests\LabelTest\LabelTest.cpp"
+					RelativePath="..\tests\LabelTest\LabelTest.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\tests\LabelTest\LabelTest.h"
+					RelativePath="..\tests\LabelTest\LabelTest.h"
 					>
 				</File>
 			</Filter>
@@ -227,11 +227,11 @@
 				Name="SpriteTest"
 				>
 				<File
-					RelativePath=".\tests\SpriteTest\SpriteTest.cpp"
+					RelativePath="..\tests\SpriteTest\SpriteTest.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\tests\SpriteTest\SpriteTest.h"
+					RelativePath="..\tests\SpriteTest\SpriteTest.h"
 					>
 				</File>
 			</Filter>
@@ -239,11 +239,11 @@
 				Name="OpenGLTest"
 				>
 				<File
-					RelativePath=".\tests\OpenGLTest\OpenGLTest.cpp"
+					RelativePath="..\tests\OpenGLTest\OpenGLTest.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\tests\OpenGLTest\OpenGLTest.h"
+					RelativePath="..\tests\OpenGLTest\OpenGLTest.h"
 					>
 				</File>
 			</Filter>

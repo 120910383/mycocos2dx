@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2dx", "cocos2dx\cocos2dx-2012.vcxproj", "{09413051-2721-4D56-9242-FBB5C965B8BB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cocos2dx", "cocos2dx\proj.win32\cocos2dx-2012.vcxproj", "{09413051-2721-4D56-9242-FBB5C965B8BB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests-2012.vcxproj", "{46082F47-7B79-4851-BF81-C342DE1C7A85}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\proj.win32\tests-2012.vcxproj", "{46082F47-7B79-4851-BF81-C342DE1C7A85}"
 	ProjectSection(ProjectDependencies) = postProject
 		{09413051-2721-4D56-9242-FBB5C965B8BB} = {09413051-2721-4D56-9242-FBB5C965B8BB}
 	EndProjectSection
