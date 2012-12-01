@@ -53,7 +53,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\cocos2dx\include;..\cocos2dx\third_party\OGLES;..\cocos2dx\third_party\GLFW;..\cocos2dx\platform;..\cocos2dx\platform\win32;.\tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\cocos2dx\include;..\..\cocos2dx\third_party\OGLES;..\..\cocos2dx\third_party\GLFW;..\..\cocos2dx\platform;..\..\cocos2dx\platform\win32;..\tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ErrorReporting>Queue</ErrorReporting>
     </ClCompile>
     <Link>
@@ -82,23 +82,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="tests\AppDelegate.cpp" />
-    <ClCompile Include="tests\LabelTest\LabelTest.cpp" />
-    <ClCompile Include="tests\OpenGLTest\OpenGLTest.cpp" />
-    <ClCompile Include="tests\SpriteTest\SpriteTest.cpp" />
-    <ClCompile Include="tests\TestBasicScene.cpp" />
-    <ClCompile Include="tests\TestControllerScene.cpp" />
-    <ClCompile Include="win32\main.cpp" />
+    <ClCompile Include="..\tests\AppDelegate.cpp" />
+    <ClCompile Include="..\tests\LabelTest\LabelTest.cpp" />
+    <ClCompile Include="..\tests\OpenGLTest\OpenGLTest.cpp" />
+    <ClCompile Include="..\tests\SpriteTest\SpriteTest.cpp" />
+    <ClCompile Include="..\tests\TestBasicScene.cpp" />
+    <ClCompile Include="..\tests\TestControllerScene.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tests\AppDelegate.h" />
-    <ClInclude Include="tests\LabelTest\LabelTest.h" />
-    <ClInclude Include="tests\OpenGLTest\OpenGLTest.h" />
-    <ClInclude Include="tests\SpriteTest\SpriteTest.h" />
-    <ClInclude Include="tests\TestBasicScene.h" />
-    <ClInclude Include="tests\TestControllerScene.h" />
-    <ClInclude Include="tests\TestDefinition.h" />
-    <ClInclude Include="win32\main.h" />
+    <ClInclude Include="..\tests\AppDelegate.h" />
+    <ClInclude Include="..\tests\LabelTest\LabelTest.h" />
+    <ClInclude Include="..\tests\OpenGLTest\OpenGLTest.h" />
+    <ClInclude Include="..\tests\SpriteTest\SpriteTest.h" />
+    <ClInclude Include="..\tests\TestBasicScene.h" />
+    <ClInclude Include="..\tests\TestControllerScene.h" />
+    <ClInclude Include="..\tests\TestDefinition.h" />
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

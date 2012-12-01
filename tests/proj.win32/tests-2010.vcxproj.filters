@@ -18,52 +18,52 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="win32\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="tests\AppDelegate.cpp">
+    <ClCompile Include="..\tests\AppDelegate.cpp">
       <Filter>tests</Filter>
     </ClCompile>
-    <ClCompile Include="tests\TestControllerScene.cpp">
+    <ClCompile Include="..\tests\TestBasicScene.cpp">
       <Filter>tests</Filter>
     </ClCompile>
-    <ClCompile Include="tests\LabelTest\LabelTest.cpp">
-      <Filter>tests\LabelTest</Filter>
+    <ClCompile Include="..\tests\TestControllerScene.cpp">
+      <Filter>tests</Filter>
     </ClCompile>
-    <ClCompile Include="tests\OpenGLTest\OpenGLTest.cpp">
-      <Filter>tests\OpenGLTest</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\SpriteTest\SpriteTest.cpp">
+    <ClCompile Include="..\tests\SpriteTest\SpriteTest.cpp">
       <Filter>tests\SpriteTest</Filter>
     </ClCompile>
-    <ClCompile Include="tests\TestBasicScene.cpp">
-      <Filter>tests</Filter>
+    <ClCompile Include="..\tests\OpenGLTest\OpenGLTest.cpp">
+      <Filter>tests\OpenGLTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\LabelTest\LabelTest.cpp">
+      <Filter>tests\LabelTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="win32\main.h">
+    <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="tests\AppDelegate.h">
+    <ClInclude Include="..\tests\AppDelegate.h">
       <Filter>tests</Filter>
     </ClInclude>
-    <ClInclude Include="tests\TestControllerScene.h">
+    <ClInclude Include="..\tests\TestBasicScene.h">
       <Filter>tests</Filter>
     </ClInclude>
-    <ClInclude Include="tests\LabelTest\LabelTest.h">
-      <Filter>tests\LabelTest</Filter>
+    <ClInclude Include="..\tests\TestControllerScene.h">
+      <Filter>tests</Filter>
     </ClInclude>
-    <ClInclude Include="tests\OpenGLTest\OpenGLTest.h">
-      <Filter>tests\OpenGLTest</Filter>
+    <ClInclude Include="..\tests\TestDefinition.h">
+      <Filter>tests</Filter>
     </ClInclude>
-    <ClInclude Include="tests\SpriteTest\SpriteTest.h">
+    <ClInclude Include="..\tests\SpriteTest\SpriteTest.h">
       <Filter>tests\SpriteTest</Filter>
     </ClInclude>
-    <ClInclude Include="tests\TestBasicScene.h">
-      <Filter>tests</Filter>
+    <ClInclude Include="..\tests\OpenGLTest\OpenGLTest.h">
+      <Filter>tests\OpenGLTest</Filter>
     </ClInclude>
-    <ClInclude Include="tests\TestDefinition.h">
-      <Filter>tests</Filter>
+    <ClInclude Include="..\tests\LabelTest\LabelTest.h">
+      <Filter>tests\LabelTest</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -51,7 +51,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DX_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\include;.\third_party\OGLES;.\third_party\vld;.\third_party\libpng;.\third_party\zlib;.\third_party\GLFW;.\platform;.\platform\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\third_party\OGLES;..\third_party\vld;..\third_party\libpng;..\third_party\zlib;..\third_party\GLFW;..\platform;..\platform\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -63,7 +63,7 @@
     </Link>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
-xcopy /Y /Q "$(ProjectDir)\third_party\libraries\*.*" "$(OutDir)"</Command>
+xcopy /Y /Q "$(ProjectDir)..\third_party\libraries\*.*" "$(OutDir)"</Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,69 +84,69 @@ xcopy /Y /Q "$(ProjectDir)\third_party\libraries\*.*" "$(OutDir)"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\CCAffineTransform.h" />
-    <ClInclude Include="include\CCAutoreleasePool.h" />
-    <ClInclude Include="include\CCConfig.h" />
-    <ClInclude Include="include\CCConfiguration.h" />
-    <ClInclude Include="include\CCDirector.h" />
-    <ClInclude Include="include\CCGeometry.h" />
-    <ClInclude Include="include\CCLabelTTF.h" />
-    <ClInclude Include="include\CCLayer.h" />
-    <ClInclude Include="include\ccMacros.h" />
-    <ClInclude Include="include\CCMenu.h" />
-    <ClInclude Include="include\CCMenuItem.h" />
-    <ClInclude Include="include\CCMutableArray.h" />
-    <ClInclude Include="include\CCMutableDictionary.h" />
-    <ClInclude Include="include\CCNode.h" />
-    <ClInclude Include="include\CCObject.h" />
-    <ClInclude Include="include\CCPointExtension.h" />
-    <ClInclude Include="include\CCScene.h" />
-    <ClInclude Include="include\CCSprite.h" />
-    <ClInclude Include="include\CCString.h" />
-    <ClInclude Include="include\CCTexture2D.h" />
-    <ClInclude Include="include\CCTextureCache.h" />
-    <ClInclude Include="include\CCTouch.h" />
-    <ClInclude Include="include\CCTouchDelegateProtocol.h" />
-    <ClInclude Include="include\CCTouchDispatcher.h" />
-    <ClInclude Include="include\CCTouchHandler.h" />
-    <ClInclude Include="include\ccTypes.h" />
-    <ClInclude Include="include\CCZone.h" />
-    <ClInclude Include="include\cocos2d.h" />
-    <ClInclude Include="include\TransformUtils.h" />
-    <ClInclude Include="platform\CCFileUtils.h" />
-    <ClInclude Include="platform\CCGL.h" />
-    <ClInclude Include="platform\CCImage.h" />
-    <ClInclude Include="platform\CCPlatformConfig.h" />
-    <ClInclude Include="platform\CCStdC.h" />
-    <ClInclude Include="platform\win32\CCApplication.h" />
-    <ClInclude Include="platform\win32\CCEGLView.h" />
+    <ClInclude Include="..\include\CCAffineTransform.h" />
+    <ClInclude Include="..\include\CCAutoreleasePool.h" />
+    <ClInclude Include="..\include\CCConfig.h" />
+    <ClInclude Include="..\include\CCConfiguration.h" />
+    <ClInclude Include="..\include\CCDirector.h" />
+    <ClInclude Include="..\include\CCGeometry.h" />
+    <ClInclude Include="..\include\CCLabelTTF.h" />
+    <ClInclude Include="..\include\CCLayer.h" />
+    <ClInclude Include="..\include\ccMacros.h" />
+    <ClInclude Include="..\include\CCMenu.h" />
+    <ClInclude Include="..\include\CCMenuItem.h" />
+    <ClInclude Include="..\include\CCMutableArray.h" />
+    <ClInclude Include="..\include\CCMutableDictionary.h" />
+    <ClInclude Include="..\include\CCNode.h" />
+    <ClInclude Include="..\include\CCObject.h" />
+    <ClInclude Include="..\include\CCPointExtension.h" />
+    <ClInclude Include="..\include\CCScene.h" />
+    <ClInclude Include="..\include\CCSprite.h" />
+    <ClInclude Include="..\include\CCString.h" />
+    <ClInclude Include="..\include\CCTexture2D.h" />
+    <ClInclude Include="..\include\CCTextureCache.h" />
+    <ClInclude Include="..\include\CCTouch.h" />
+    <ClInclude Include="..\include\CCTouchDelegateProtocol.h" />
+    <ClInclude Include="..\include\CCTouchDispatcher.h" />
+    <ClInclude Include="..\include\CCTouchHandler.h" />
+    <ClInclude Include="..\include\ccTypes.h" />
+    <ClInclude Include="..\include\CCZone.h" />
+    <ClInclude Include="..\include\cocos2d.h" />
+    <ClInclude Include="..\include\TransformUtils.h" />
+    <ClInclude Include="..\platform\CCFileUtils.h" />
+    <ClInclude Include="..\platform\CCGL.h" />
+    <ClInclude Include="..\platform\CCImage.h" />
+    <ClInclude Include="..\platform\CCPlatformConfig.h" />
+    <ClInclude Include="..\platform\CCStdC.h" />
+    <ClInclude Include="..\platform\win32\CCApplication.h" />
+    <ClInclude Include="..\platform\win32\CCEGLView.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="base_nodes\CCNode.cpp" />
-    <ClCompile Include="CCConfiguration.cpp" />
-    <ClCompile Include="CCDirector.cpp" />
-    <ClCompile Include="cocoa\CCAffineTransform.cpp" />
-    <ClCompile Include="cocoa\CCAutoreleasePool.cpp" />
-    <ClCompile Include="cocoa\CCGeometry.cpp" />
-    <ClCompile Include="cocoa\CCObject.cpp" />
-    <ClCompile Include="cocoa\CCZone.cpp" />
-    <ClCompile Include="cocos2d.cpp" />
-    <ClCompile Include="label_nodes\CCLabelTTF.cpp" />
-    <ClCompile Include="layers_scenes_transitions_nodes\CCLayer.cpp" />
-    <ClCompile Include="layers_scenes_transitions_nodes\CCScene.cpp" />
-    <ClCompile Include="menu_nodes\CCMenu.cpp" />
-    <ClCompile Include="menu_nodes\CCMenuItem.cpp" />
-    <ClCompile Include="platform\CCFileUtils.cpp" />
-    <ClCompile Include="platform\CCImage.cpp" />
-    <ClCompile Include="platform\win32\CCApplication.cpp" />
-    <ClCompile Include="platform\win32\CCEGLView.cpp" />
-    <ClCompile Include="sprite_nodes\CCSprite.cpp" />
-    <ClCompile Include="support\CCPointExtension.cpp" />
-    <ClCompile Include="support\TransformUtils.cpp" />
-    <ClCompile Include="textures\CCTexture2D.cpp" />
-    <ClCompile Include="textures\CCTextureCache.cpp" />
-    <ClCompile Include="touch_dispatcher\CCTouchDispatcher.cpp" />
-    <ClCompile Include="touch_dispatcher\CCTouchHandler.cpp" />
+    <ClCompile Include="..\base_nodes\CCNode.cpp" />
+    <ClCompile Include="..\CCConfiguration.cpp" />
+    <ClCompile Include="..\CCDirector.cpp" />
+    <ClCompile Include="..\cocoa\CCAffineTransform.cpp" />
+    <ClCompile Include="..\cocoa\CCAutoreleasePool.cpp" />
+    <ClCompile Include="..\cocoa\CCGeometry.cpp" />
+    <ClCompile Include="..\cocoa\CCObject.cpp" />
+    <ClCompile Include="..\cocoa\CCZone.cpp" />
+    <ClCompile Include="..\cocos2d.cpp" />
+    <ClCompile Include="..\label_nodes\CCLabelTTF.cpp" />
+    <ClCompile Include="..\layers_scenes_transitions_nodes\CCLayer.cpp" />
+    <ClCompile Include="..\layers_scenes_transitions_nodes\CCScene.cpp" />
+    <ClCompile Include="..\menu_nodes\CCMenu.cpp" />
+    <ClCompile Include="..\menu_nodes\CCMenuItem.cpp" />
+    <ClCompile Include="..\platform\CCFileUtils.cpp" />
+    <ClCompile Include="..\platform\CCImage.cpp" />
+    <ClCompile Include="..\platform\win32\CCApplication.cpp" />
+    <ClCompile Include="..\platform\win32\CCEGLView.cpp" />
+    <ClCompile Include="..\sprite_nodes\CCSprite.cpp" />
+    <ClCompile Include="..\support\CCPointExtension.cpp" />
+    <ClCompile Include="..\support\TransformUtils.cpp" />
+    <ClCompile Include="..\textures\CCTexture2D.cpp" />
+    <ClCompile Include="..\textures\CCTextureCache.cpp" />
+    <ClCompile Include="..\touch_dispatcher\CCTouchDispatcher.cpp" />
+    <ClCompile Include="..\touch_dispatcher\CCTouchHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
