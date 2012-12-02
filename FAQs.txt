@@ -1,2 +1,8 @@
 问：win32下实例或测试工程开始调试执行时提示找不到资源
 答：右键要调试工程，打开“属性”对话框，依次找到“配置属性”“调试”“工作目录”，设置为输出目录$(OutDir)即可
+
+问：win32_use_nmake批处理提示找不到nmake,cl,link等程序
+答：添加VC工具集目录到环境变量Path，如Path=%Path%;D:\DevelopTools\Microsoft\Microsoft Visual Studio 9.0\VC\bin;D:\DevelopTools\Microsoft\Microsoft Visual Studio 9.0\Common7\IDE;前一个目录是VC工具所在目录，后一个目录为编译工具运行时所需要的动态链接库所在目录，根据本机安装路径设定
+
+问：使用win32_use_nmake批处理编译时提示无法找到头文件cstdio或Windows.h，或链接时无法找到kernel32.lib等win32库文件
+答：添加头文件路径和库文件路径到环境变量INCLUDE和LIB中，如INCLUDE=%INCLUDE%;D:\DevelopTools\Microsoft\Microsoft Visual Studio 9.0\VC\include;C:\Program Files\Microsoft SDKs\Windows\v6.0A\Include;和LIB=%LIB%;D:\DevelopTools\Microsoft\Microsoft Visual Studio 9.0\VC\lib;C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib;
