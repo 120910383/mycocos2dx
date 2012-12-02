@@ -92,11 +92,13 @@ $(OUT_DIR)\$(TARGET):$(OBJECTS)
 
 .cpp.obj:
 	@echo compiling...
+	@if not exist "$(OBJ_DIR)" mkdir "$(OBJ_DIR)"
 	@$(CXX) $(CXXFLAGS) $(INCLUDES) $(DEFINES) /Fo"$@" $< 
 
 clean:
 	@echo deleting objs...
-	@$(DEL) $(OBJECTS) $(OBJ_DIR)\vcx0.idb $(OBJ_DIR)\vcx0.pdb
+	@$(DEL) $(OBJECTS) $(OBJ_DIR)\vcx0.idb $(OBJ_DIR)\vcx0.pdb 2>nul
 	@echo deleting targets...
 	@$(DEL) $(OUT_DIR)\$(TARGET) $(OUT_DIR)\$(TARGET).manifest \
-		$(OUT_DIR)\$(PROJECT_NAME).pdb $(OUT_DIR)\$(PROJECT_NAME).ilk
+		$(OUT_DIR)\$(PROJECT_NAME).pdb $(OUT_DIR)\$(PROJECT_NAME).ilk 2>nul
+	@echo deleting completed.
