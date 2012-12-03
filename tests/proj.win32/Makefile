@@ -1,46 +1,46 @@
-# nmake makefile
-# tests¹¤³Ì£¬Éú³É¿ÉÖ´ÐÐ³ÌÐòexe
+ï»¿# nmake makefile
+# testså·¥ç¨‹ï¼Œç”Ÿæˆå¯æ‰§è¡Œç¨‹åºexe
 # by zhanghao 2012-12-02
 
-###################################### µÚÒ»²¿·Ö:ºê¶¨Òå
-# Éú³ÉÎÄ¼þ
+###################################### ç¬¬ä¸€éƒ¨åˆ†:å®å®šä¹‰
+# ç”Ÿæˆæ–‡ä»¶
 PROJECT_NAME = tests
 OUT_DIR = ..\..\Debug.win32
 OBJ_DIR = .\Debug.win32
 TARGET = $(PROJECT_NAME).exe
 
-# shellÃüÁî
+# shellå‘½ä»¤
 CP = xcopy /y /q
 DEL = del /f /q
 
-# ±àÒë¹¤¾ß
+# ç¼–è¯‘å·¥å…·
 CC = cl
 CXX = cl
 
-# ±àÒëÑ¡Ïî
-# Od----½ûÓÃÓÅ»¯
-# Gm----ÆôÓÃ×îÐ¡ÖØÐÂÉú³É
-# EHsc----ÆôÓÃC++Òì³£
-# RTC1----ÆôÓÃ»ù±¾ÔËÐÐÊ±´íÎó¼ì²é:ÈçÎ´³õÊ¼»¯±äÁ¿Ê¹ÓÃµÈ
-# MDd----Ö¸¶¨ÔËÐÐÊ±¿âÎ»¶àÏß³Ìµ÷ÊÔDLL
-# W4----ÉèÖÃ¾¯¸æµÈ¼¶Îª4¼¶
-# nologo----²»ÏÔÊ¾cl°æÈ¨ÐÅÏ¢
-# c----Ö»±àÒë²»Á´½Ó
-# ZI----Éú³É¡°±à¼­²¢¼ÌÐø¡±µÄ³ÌÐòÊý¾Ý¿â
-# TP----Ö¸¶¨±àÒëÎªC++´úÂë
-# Fo----Éú³ÉobjÎ»ÖÃ
-# Fd----Éú³ÉpdbÎ»ÖÃ
+# ç¼–è¯‘é€‰é¡¹
+# Od----ç¦ç”¨ä¼˜åŒ–
+# Gm----å¯ç”¨æœ€å°é‡æ–°ç”Ÿæˆ
+# EHsc----å¯ç”¨C++å¼‚å¸¸
+# RTC1----å¯ç”¨åŸºæœ¬è¿è¡Œæ—¶é”™è¯¯æ£€æŸ¥:å¦‚æœªåˆå§‹åŒ–å˜é‡ä½¿ç”¨ç­‰
+# MDd----æŒ‡å®šè¿è¡Œæ—¶åº“ä½å¤šçº¿ç¨‹è°ƒè¯•DLL
+# W4----è®¾ç½®è­¦å‘Šç­‰çº§ä¸º4çº§
+# nologo----ä¸æ˜¾ç¤ºclç‰ˆæƒä¿¡æ¯
+# c----åªç¼–è¯‘ä¸é“¾æŽ¥
+# ZI----ç”Ÿæˆâ€œç¼–è¾‘å¹¶ç»§ç»­â€çš„ç¨‹åºæ•°æ®åº“
+# TP----æŒ‡å®šç¼–è¯‘ä¸ºC++ä»£ç 
+# Fo----ç”Ÿæˆobjä½ç½®
+# Fd----ç”Ÿæˆpdbä½ç½®
 CCFLAGS = /Od /Gm /EHsc /RTC1 /MDd /W3 /nologo /c /ZI /TP /Fd"$(OBJ_DIR)/vcx0.pdb"
 CXXFLAGS = /Od /Gm /EHsc /RTC1 /MDd /W3 /nologo /c /ZI /TP /Fd"$(OBJ_DIR)/vcx0.pdb"
 
-# ±àÒëÔ¤¶¨Òåºê
+# ç¼–è¯‘é¢„å®šä¹‰å®
 DEFINES = /D "WIN32" \
           /D "_DEBUG" \
           /D "_WINDOWS" \
           /D "_UNICODE" \
           /D "UNICODE"
 
-# ±àÒë°üº¬Â·¾¶
+# ç¼–è¯‘åŒ…å«è·¯å¾„
 INCLUDES = /I "../../cocos2dx/include" \
            /I "..\..\cocos2dx\third_party\OGLES" \
            /I "..\..\cocos2dx\third_party\GLFW" \
@@ -48,17 +48,17 @@ INCLUDES = /I "../../cocos2dx/include" \
            /I "..\..\cocos2dx\platform\win32" \
            /I "..\tests"
 
-# Á´½Ó¹¤¾ß
+# é“¾æŽ¥å·¥å…·
 LK = link
 
-# Á´½ÓÑ¡Ïî
+# é“¾æŽ¥é€‰é¡¹
 LKFLAGS = /NOLOGO /MANIFEST /MANIFESTFILE:"$(OUT_DIR)\$(TARGET).manifest" \
           /SUBSYSTEM:WINDOWS /MACHINE:X86 /DEBUG /PDB:"$(OUT_DIR)/$(PROJECT_NAME).pdb" /OUT:"$(OUT_DIR)/$(TARGET)"
 
-# Á´½ÓÎÄ¼þ°üº¬Â·¾¶
+# é“¾æŽ¥æ–‡ä»¶åŒ…å«è·¯å¾„
 LIBPATH = /LIBPATH:"$(OUT_DIR)"
 
-# Á´½Ó¿âÎÄ¼þ
+# é“¾æŽ¥åº“æ–‡ä»¶
 LIBRARY = cocos2dx.lib \
           libgles_cm.lib \
           kernel32.lib \
@@ -74,7 +74,7 @@ LIBRARY = cocos2dx.lib \
           odbc32.lib \
           odbccp32.lib
 
-# ±àÒëÉú³É¶ÔÏóÎÄ¼þ
+# ç¼–è¯‘ç”Ÿæˆå¯¹è±¡æ–‡ä»¶
 OBJECTS = .\main.obj \
           ..\tests\AppDelegate.obj \
           ..\tests\TestBasicScene.obj \
@@ -83,7 +83,7 @@ OBJECTS = .\main.obj \
           ..\tests\OpenGLTest\OpenGLTest.obj \
           ..\tests\SpriteTest\SpriteTest.obj \
 
-###################################### µÚ¶þ²¿·Ö:ÃüÁî¿é
+###################################### ç¬¬äºŒéƒ¨åˆ†:å‘½ä»¤å—
 all : $(OUT_DIR)\$(TARGET)
 
 $(OUT_DIR)\$(TARGET):$(OBJECTS)

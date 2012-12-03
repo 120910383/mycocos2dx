@@ -1,39 +1,39 @@
-# nmake makefile
-# cocos2dx¹¤³Ì£¬Éú³É¶¯Ì¬Á´½Ó¿âdll
+ï»¿# nmake makefile
+# cocos2dxå·¥ç¨‹ï¼Œç”ŸæˆåŠ¨æ€é“¾æŽ¥åº“dll
 # by zhanghao 2012-12-02
 
-###################################### µÚÒ»²¿·Ö:ºê¶¨Òå
-# Éú³ÉÎÄ¼þ
+###################################### ç¬¬ä¸€éƒ¨åˆ†:å®å®šä¹‰
+# ç”Ÿæˆæ–‡ä»¶
 PROJECT_NAME = cocos2dx
 OUT_DIR = ..\..\Debug.win32
 OBJ_DIR = .\Debug.win32
 TARGET = $(PROJECT_NAME).dll
 
-# shellÃüÁî
+# shellå‘½ä»¤
 CP = xcopy /y /q
 DEL = del /f /q
 
-# ±àÒë¹¤¾ß
+# ç¼–è¯‘å·¥å…·
 CC = cl
 CXX = cl
 
-# ±àÒëÑ¡Ïî
-# Od----½ûÓÃÓÅ»¯
-# Gm----ÆôÓÃ×îÐ¡ÖØÐÂÉú³É
-# EHsc----ÆôÓÃC++Òì³£
-# RTC1----ÆôÓÃ»ù±¾ÔËÐÐÊ±´íÎó¼ì²é:ÈçÎ´³õÊ¼»¯±äÁ¿Ê¹ÓÃµÈ
-# MDd----Ö¸¶¨ÔËÐÐÊ±¿âÎ»¶àÏß³Ìµ÷ÊÔDLL
-# W4----ÉèÖÃ¾¯¸æµÈ¼¶Îª4¼¶
-# nologo----²»ÏÔÊ¾cl°æÈ¨ÐÅÏ¢
-# c----Ö»±àÒë²»Á´½Ó
-# ZI----Éú³É¡°±à¼­²¢¼ÌÐø¡±µÄ³ÌÐòÊý¾Ý¿â
-# TP----Ö¸¶¨±àÒëÎªC++´úÂë
-# Fo----Éú³ÉobjÎ»ÖÃ
-# Fd----Éú³ÉpdbÎ»ÖÃ
+# ç¼–è¯‘é€‰é¡¹
+# Od----ç¦ç”¨ä¼˜åŒ–
+# Gm----å¯ç”¨æœ€å°é‡æ–°ç”Ÿæˆ
+# EHsc----å¯ç”¨C++å¼‚å¸¸
+# RTC1----å¯ç”¨åŸºæœ¬è¿è¡Œæ—¶é”™è¯¯æ£€æŸ¥:å¦‚æœªåˆå§‹åŒ–å˜é‡ä½¿ç”¨ç­‰
+# MDd----æŒ‡å®šè¿è¡Œæ—¶åº“ä½å¤šçº¿ç¨‹è°ƒè¯•DLL
+# W4----è®¾ç½®è­¦å‘Šç­‰çº§ä¸º4çº§
+# nologo----ä¸æ˜¾ç¤ºclç‰ˆæƒä¿¡æ¯
+# c----åªç¼–è¯‘ä¸é“¾æŽ¥
+# ZI----ç”Ÿæˆâ€œç¼–è¾‘å¹¶ç»§ç»­â€çš„ç¨‹åºæ•°æ®åº“
+# TP----æŒ‡å®šç¼–è¯‘ä¸ºC++ä»£ç 
+# Fo----ç”Ÿæˆobjä½ç½®
+# Fd----ç”Ÿæˆpdbä½ç½®
 CCFLAGS = /Od /Gm /EHsc /RTC1 /MDd /W4 /nologo /c /ZI /TP /Fd"$(OBJ_DIR)/vcx0.pdb"
 CXXFLAGS = /Od /Gm /EHsc /RTC1 /MDd /W4 /nologo /c /ZI /TP /Fd"$(OBJ_DIR)/vcx0.pdb"
 
-# ±àÒëÔ¤¶¨Òåºê
+# ç¼–è¯‘é¢„å®šä¹‰å®
 DEFINES = /D "WIN32" \
           /D "_DEBUG" \
           /D "_WINDOWS" \
@@ -44,7 +44,7 @@ DEFINES = /D "WIN32" \
           /D "_UNICODE" \
           /D "UNICODE"
 
-# ±àÒë°üº¬Â·¾¶
+# ç¼–è¯‘åŒ…å«è·¯å¾„
 INCLUDES = /I "../include" \
            /I "../third_party/OGLES" \
            /I "../third_party/vld" \
@@ -54,23 +54,23 @@ INCLUDES = /I "../include" \
            /I "../platform" \
            /I "../platform/win32"
 
-# Á´½Ó¹¤¾ß
+# é“¾æŽ¥å·¥å…·
 LK = link
 
-# Á´½ÓÑ¡Ïî
+# é“¾æŽ¥é€‰é¡¹
 LKFLAGS = /NOLOGO /MANIFEST:NO /DEBUG /DLL /PDB:"$(OUT_DIR)/$(PROJECT_NAME).pdb" /OUT:"$(OUT_DIR)/$(TARGET)"
 
-# Á´½ÓÎÄ¼þ°üº¬Â·¾¶
+# é“¾æŽ¥æ–‡ä»¶åŒ…å«è·¯å¾„
 LIBPATH = /LIBPATH:"$(OUT_DIR)"
           
-# ÔËÐÐÊ±¿â³åÍ»£¬ÊÖ¶¯½ûÓÃÖ¸¶¨ÔËÐÐ¿â
+# è¿è¡Œæ—¶åº“å†²çªï¼Œæ‰‹åŠ¨ç¦ç”¨æŒ‡å®šè¿è¡Œåº“
 NODEFAULTLIB = /NODEFAULTLIB:"libc.lib" \
           /NODEFAULTLIB:"libcmt.lib" \
           /NODEFAULTLIB:"msvcrt.lib" \
           /NODEFAULTLIB:"libcd.lib" \
           /NODEFAULTLIB:"libcmtd.lib"
 
-# Á´½Ó¿âÎÄ¼þ
+# é“¾æŽ¥åº“æ–‡ä»¶
 LIBRARY = libzlib.lib \
           libpng.lib \
           kernel32.lib \
@@ -86,7 +86,7 @@ LIBRARY = libzlib.lib \
           odbc32.lib \
           odbccp32.lib
 
-# ±àÒëÉú³É¶ÔÏóÎÄ¼þ
+# ç¼–è¯‘ç”Ÿæˆå¯¹è±¡æ–‡ä»¶
 OBJECTS = ..\base_nodes\CCNode.obj \
 		  ..\cocoa\CCAffineTransform.obj \
 		  ..\cocoa\CCAutoreleasePool.obj \
@@ -113,7 +113,7 @@ OBJECTS = ..\base_nodes\CCNode.obj \
 		  ..\CCDirector.obj \
 		  ..\cocos2d.obj
 
-###################################### µÚ¶þ²¿·Ö:ÃüÁî¿é
+###################################### ç¬¬äºŒéƒ¨åˆ†:å‘½ä»¤å—
 all : $(OUT_DIR)\$(TARGET)
 
 $(OUT_DIR)\$(TARGET):$(OBJECTS)
