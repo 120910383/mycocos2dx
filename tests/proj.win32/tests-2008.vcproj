@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\cocos2dx\include;..\..\cocos2dx\third_party\OGLES;..\..\cocos2dx\third_party\GLFW;..\..\cocos2dx\platform;..\..\cocos2dx\platform\win32;..\tests"
+				AdditionalIncludeDirectories="..\..\cocos2dx\include;..\..\cocos2dx\third_party\win32\OGLES;..\..\cocos2dx\third_party\win32\GLFW;..\..\cocos2dx\platform;..\..\cocos2dx\platform\win32;..\tests"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

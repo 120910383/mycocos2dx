@@ -45,14 +45,14 @@ DEFINES = /D "WIN32" \
           /D "UNICODE"
 
 # 编译包含路径
-INCLUDES = /I "../include" \
-           /I "../third_party/OGLES" \
-           /I "../third_party/vld" \
-           /I "../third_party/libpng" \
-           /I "../third_party/zlib" \
-           /I "../third_party/GLFW" \
-           /I "../platform" \
-           /I "../platform/win32"
+INCLUDES = /I "..\include" \
+           /I "..\third_party\win32\OGLES" \
+           /I "..\third_party\win32\vld" \
+           /I "..\third_party\win32\libpng" \
+           /I "..\third_party\win32\zlib" \
+           /I "..\third_party\win32\GLFW" \
+           /I "..\platform" \
+           /I "..\platform\win32"
 
 # 链接工具
 LK = link
@@ -119,7 +119,7 @@ all : $(OUT_DIR)\$(TARGET)
 $(OUT_DIR)\$(TARGET):$(OBJECTS)
 	@echo copying needed files...
 	@if not exist "$(OUT_DIR)" mkdir "$(OUT_DIR)"
-	@$(CP) "$(ProjectDir)..\third_party\libraries\*.*" "$(OUT_DIR)"
+	@$(CP) "$(ProjectDir)..\third_party\win32\libraries\*.*" "$(OUT_DIR)"
 	@echo linking...
 	@$(LK) $(LKFLAGS) $(LIBPATH) $(LIBRARY) $(NODEFAULTLIB) $(OBJECTS)
 

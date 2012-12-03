@@ -1,0 +1,5 @@
+zlib			1.2.5
+libpng			1.4.5beta04
+OGLES			2.08.28.0634
+GLFW			2.7.6
+VLD			2.2.3
