@@ -2,6 +2,7 @@
 #include "CCEGLView.h"
 #include "CCDirector.h"
 #include "CCConfig.h"
+#include "vld.h"
 
 #if !CC_USE_GLFW_WINDOW
 /**

@@ -1,5 +1,4 @@
 ﻿#include "CCZone.h"
-#include "vld.h"
 
 NS_CC_BEGIN;
 CCZone::CCZone(CCObject* pObject /* = NULL */)

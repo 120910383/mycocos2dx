@@ -44,6 +44,7 @@ DEFINES = /D "WIN32" \
 INCLUDES = /I "..\..\cocos2dx\include" \
            /I "..\..\cocos2dx\third_party\win32\OGLES" \
            /I "..\..\cocos2dx\third_party\win32\GLFW" \
+           /I "..\..\cocos2dx\third_party\win32\vld" \
            /I "..\..\cocos2dx\platform" \
            /I "..\..\cocos2dx\platform\win32" \
            /I "..\tests"
