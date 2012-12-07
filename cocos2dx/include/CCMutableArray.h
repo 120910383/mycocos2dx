@@ -2,6 +2,7 @@
 
 #include "CCObject.h"
 #include "CCStdC.h"
+#include <stdarg.h>		// va_list,va_start,va_end on linux need include stdarg.h explicitly
 
 NS_CC_BEGIN;
 // 从代码可以看出，本类型所接受的元素类型只能是CCObject及其派生类型，而不是任意类型，因为元素带有release retain等使用方法

@@ -24,7 +24,7 @@
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-	#include <GL/GL.h>
+	#include <GL/gl.h>
 	#define ccglOrtho glOrtho
 	#define ccglClearDepth glClearDepth
 	#define ccglTranslate glTranslated

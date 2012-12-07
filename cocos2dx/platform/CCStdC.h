@@ -7,6 +7,7 @@
 #include <cstdlib>					// use malloc free
 #include <cassert>
 #include <string>
+#include <cstring>					// memset on linux need include string.h
 #include <cmath>
 #include <algorithm>
 #include <vector>
