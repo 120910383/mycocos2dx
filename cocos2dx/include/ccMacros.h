@@ -21,11 +21,15 @@
 #define CC_SAFE_RETAIN(p)                     if(p) { (p)->retain(); }
 #define CC_BREAK_IF(cond)                      if(cond) break;
 
-#undef CC_DLL
-#if defined(_USRDLL)
-	#define CC_DLL     __declspec(dllexport)
-#else
-	#define CC_DLL     __declspec(dllimport)
+#define CC_DLL
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	#undef CC_DLL
+	#if defined(_USRDLL)
+		#define CC_DLL     __declspec(dllexport)
+	#else
+		#define CC_DLL     __declspec(dllimport)
+	#endif
 #endif
 
 #define CC_UNUSED_PARAM(unusedparam)   (void)unusedparam
@@ -34,4 +38,6 @@
 #define CC_RADIANS_TO_DEGREES(__ANGLE__) ((__ANGLE__) * 57.29577951f) // PI * 180
 
 // close warning "Conditional expression is constant"
-#pragma warning (disable:4127)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	#pragma warning (disable:4127)
+#endif
