@@ -24,9 +24,9 @@ unsigned long ccNextPOT(unsigned long x)
 
 static CCTexture2DPixelFormat g_defaultAlphaPixelFormat = kCCTexture2DPixelFormat_RGBA8888;
 CCTexture2D::CCTexture2D()
-	: m_uPixelsWide(0)
+	: m_uName(0)
+	, m_uPixelsWide(0)
 	, m_uPixelsHigh(0)
-	, m_uName(0)
 	, m_bHasPremultipliedAlpha(false)
 {
 
