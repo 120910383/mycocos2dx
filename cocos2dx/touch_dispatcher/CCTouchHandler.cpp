@@ -4,6 +4,14 @@
 
 NS_CC_BEGIN;
 
+CCTouchHandler::CCTouchHandler()
+	: m_pDelegate(NULL)
+	, m_pClaimedTouches(NULL)
+	, m_nPriority(0)
+{
+	m_pClaimedTouches = new CCMutableArray<CCTouch*>;
+}
+
 CCTouchHandler::~CCTouchHandler(void)
 {
 	CC_SAFE_DELETE(m_pClaimedTouches);
@@ -54,7 +62,6 @@ bool CCTouchHandler::initWithDelegate(CCTouchDelegate* pDelegate, int nPriority,
 
 	m_pDelegate = pDelegate;
 	m_nPriority = nPriority;
-	m_pClaimedTouches = new CCMutableArray<CCTouch*>;
 
 	// 单点触控用不到,cocos2d-x-learn
 	CC_UNUSED_PARAM(bSwallow);
