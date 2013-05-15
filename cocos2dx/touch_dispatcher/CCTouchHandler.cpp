@@ -7,12 +7,8 @@ NS_CC_BEGIN;
 CCTouchHandler::~CCTouchHandler(void)
 {
 	CC_SAFE_DELETE(m_pClaimedTouches);
-
 	CCObject* old_delegate = dynamic_cast<CCObject*>(m_pDelegate);
-	if (NULL != old_delegate)
-	{
-		old_delegate->release();
-	}
+	CC_SAFE_RELEASE(old_delegate);
 }
 
 int CCTouchHandler::getPriority()
@@ -50,13 +46,14 @@ CCTouchHandler* CCTouchHandler::handlerWithDelegate(CCTouchDelegate *pDelegate, 
 bool CCTouchHandler::initWithDelegate(CCTouchDelegate* pDelegate, int nPriority, bool bSwallow)
 {
 	CCObject* new_delegate = dynamic_cast<CCObject*>(pDelegate);
-	CCAssert(NULL != new_delegate, "touch delegate should be ccobject and not be null");
+	CCAssert(NULL != new_delegate, "touch delegate should be CCObject and not be null");
+	CC_SAFE_RETAIN(new_delegate);
+
+	CCObject* old_delegate = dynamic_cast<CCObject*>(m_pDelegate);
+	CC_SAFE_RELEASE(old_delegate);
 
 	m_pDelegate = pDelegate;
-	new_delegate->retain();
-
 	m_nPriority = nPriority;
-
 	m_pClaimedTouches = new CCMutableArray<CCTouch*>;
 
 	// 单点触控用不到,cocos2d-x-learn
