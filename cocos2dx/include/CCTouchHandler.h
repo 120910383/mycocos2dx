@@ -11,6 +11,7 @@ class CCTouch;
 class CC_DLL CCTouchHandler : public CCObject
 {
 public:
+	CCTouchHandler();
 	virtual ~CCTouchHandler();
 
 	int getPriority();
