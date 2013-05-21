@@ -94,6 +94,7 @@ xcopy /Y /Q "$(ProjectDir)..\third_party\win32\libraries\*.*" "$(OutDir)"</Comma
     <ClCompile Include="..\base_nodes\CCNode.cpp" />
     <ClCompile Include="..\CCConfiguration.cpp" />
     <ClCompile Include="..\CCDirector.cpp" />
+    <ClCompile Include="..\CCScheduler.cpp" />
     <ClCompile Include="..\cocoa\CCAffineTransform.cpp" />
     <ClCompile Include="..\cocoa\CCAutoreleasePool.cpp" />
     <ClCompile Include="..\cocoa\CCGeometry.cpp" />
@@ -135,6 +136,7 @@ xcopy /Y /Q "$(ProjectDir)..\third_party\win32\libraries\*.*" "$(OutDir)"</Comma
     <ClInclude Include="..\include\CCObject.h" />
     <ClInclude Include="..\include\CCPointExtension.h" />
     <ClInclude Include="..\include\CCScene.h" />
+    <ClInclude Include="..\include\CCScheduler.h" />
     <ClInclude Include="..\include\CCSprite.h" />
     <ClInclude Include="..\include\CCString.h" />
     <ClInclude Include="..\include\CCTexture2D.h" />

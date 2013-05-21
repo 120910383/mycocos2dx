@@ -60,10 +60,35 @@ bool SpriteOpacityTest::init()
 		sprite5->setOpacity(50);
 		addChild(sprite5);
 
+		CCScheduler::sharedScheduler()->scheduleUpdateForTarget(this, 0);
 		result = true;
 	} while (0);
 
 	return result;
+}
+
+void SpriteOpacityTest::update()
+{
+	static double angle = 0.02f;
+	CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+	const int label_tag = 100;
+	CCLabelTTF* test_label = dynamic_cast<CCLabelTTF*>(getChildByTag(label_tag));
+	if (NULL == test_label)
+	{
+		test_label = CCLabelTTF::labelWithString("UpdateMoveTest", "", 32);
+		if (NULL != test_label)
+		{
+			test_label->setPosition(ccp(win_size.width / 4, win_size.height / 4));
+			addChild(test_label, 0, label_tag);
+		}
+	}
+
+	if (NULL != test_label)
+	{
+		CCPoint pos = ccpSub(test_label->getPosition(), ccp(win_size.width / 2, win_size.height / 2));
+		pos = ccp(ccpDot(pos, ccp(cos(angle), -sin(angle))), ccpDot(pos, ccp(sin(angle), cos(angle))));
+		test_label->setPosition(ccpAdd(pos, ccp(win_size.width / 2, win_size.height / 2)));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

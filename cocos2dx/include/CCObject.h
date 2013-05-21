@@ -29,6 +29,8 @@ public:
 	unsigned int retainCount(void);
 	virtual bool isEqual(const CCObject* pObject);
 
+	virtual void update() {}
+
 	friend class CCAutoreleasePool;
 };
 

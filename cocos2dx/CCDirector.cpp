@@ -6,6 +6,7 @@
 #include "CCEGLView.h"
 #include "CCTextureCache.h"
 #include "CCGL.h"
+#include "CCScheduler.h"
 
 NS_CC_BEGIN;
 // 全局唯一的导演对象
@@ -116,6 +117,11 @@ void CCDirector::setGLDefaultValues()
 
 void CCDirector::drawScene()
 {
+	if (!m_bPaused)
+	{
+		CCScheduler::sharedScheduler()->tick();
+	}
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (NULL != m_pNextScene)
@@ -290,6 +296,7 @@ void CCDirector::purgeDirector()
 	stopAnimation();
 
 	// purge all managers:todo...
+	CCScheduler::purgeSharedScheduler();
 	CCTextureCache::purgeSharedTextureCache();
 
 	m_pobOpenGLView->release();

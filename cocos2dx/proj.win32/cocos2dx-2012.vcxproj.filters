@@ -108,6 +108,7 @@
     <ClCompile Include="..\CCConfiguration.cpp" />
     <ClCompile Include="..\CCDirector.cpp" />
     <ClCompile Include="..\cocos2d.cpp" />
+    <ClCompile Include="..\CCScheduler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\CCAffineTransform.h">
@@ -217,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="..\platform\win32\CCEGLView.h">
       <Filter>platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CCScheduler.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

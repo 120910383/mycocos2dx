@@ -11,6 +11,7 @@ public:
 	virtual TestBasicLayer* get_last_layer();
 	virtual TestBasicLayer* get_cur_layer();
 	virtual TestBasicLayer* get_next_layer();
+	virtual void update();
 
 protected:
 	bool init();

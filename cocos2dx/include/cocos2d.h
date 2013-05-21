@@ -16,6 +16,7 @@
 #include "CCLabelTTF.h"
 #include "CCMenu.h"
 #include "CCMenuItem.h"
+#include "CCScheduler.h"
 
 //
 // cocoa includes
