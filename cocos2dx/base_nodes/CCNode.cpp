@@ -4,6 +4,7 @@
 #include "CCDirector.h"
 #include "CCTouch.h"
 #include "CCStdC.h"
+#include "CCScheduler.h"
 
 NS_CC_BEGIN;
 
@@ -584,6 +585,21 @@ CCRect CCNode::boundingBox()
 {
 	CCRect rect = CCRectMake(0, 0, m_tContentSize.width, m_tContentSize.height);
 	return CCRectApplyAffineTransform(rect, nodeToParentTransform());
+}
+
+void CCNode::scheduleUpdate()
+{
+	scheduleUpdateWithPriority(0);
+}
+
+void CCNode::scheduleUpdateWithPriority(int priority)
+{
+	CCScheduler::sharedScheduler()->scheduleUpdateForTarget(this, priority);
+}
+
+void CCNode::unscheduleUpdate()
+{
+	CCScheduler::sharedScheduler()->unscheduleUpdateForTarget(this);
 }
 
 void CCNode::childrenAlloc()

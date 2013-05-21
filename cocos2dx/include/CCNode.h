@@ -109,6 +109,10 @@ public:
 	void transformAncestors();
 	CCRect boundingBox();
 
+	void scheduleUpdate();
+	void scheduleUpdateWithPriority(int priority);
+	void unscheduleUpdate();
+
 private:
 	void childrenAlloc();
 	void insertChild(CCNode* child, int z);

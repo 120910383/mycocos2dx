@@ -60,7 +60,7 @@ bool SpriteOpacityTest::init()
 		sprite5->setOpacity(50);
 		addChild(sprite5);
 
-		CCScheduler::sharedScheduler()->scheduleUpdateForTarget(this, 0);
+		scheduleUpdate();
 		result = true;
 	} while (0);
 
