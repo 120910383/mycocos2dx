@@ -7,6 +7,7 @@
 #include "CCTextureCache.h"
 #include "CCGL.h"
 #include "CCScheduler.h"
+#include "platform.h"
 
 NS_CC_BEGIN;
 // 全局唯一的导演对象
@@ -41,6 +42,8 @@ bool CCDirector::init()
 	m_bPurgeDirecotorInNextLoop = false;
 	m_pobScenesStack = new CCMutableArray<CCScene*>();
 
+	m_pLastUpdate = new cc_timeval;
+
 	return true;
 }
 
@@ -49,6 +52,8 @@ CCDirector::~CCDirector()
 	CC_SAFE_RELEASE(m_pobScenesStack);
 	// 释放管理的对象内存
 	CCPoolManager::getInstance()->pop();
+
+	CC_SAFE_DELETE(m_pLastUpdate);
 }
 
 CCSize CCDirector::getWinSize()
@@ -242,9 +247,28 @@ void CCDirector::setNextScene()
 
 ccTime CCDirector::calculateDeltaTime()
 {
-	// 计算上次和这次直接的时间差，需要一个变量来保存上次计算的时间点
-	// TODO... 
-	return 0.1f;
+	struct cc_timeval now;
+
+	if (CCTime::gettimeofdayCocos2d(&now, NULL) != 0)
+	{
+		CCAssert(false, "error in gettimeofday");
+		return 0;
+	}
+
+	// new delta time
+	ccTime deltaTime = (now.tv_sec - m_pLastUpdate->tv_sec) + (now.tv_usec - m_pLastUpdate->tv_usec) / 1000000.0f;
+	deltaTime = std::max<ccTime>(0, deltaTime);
+
+#ifdef _DEBUG
+	// If we are debugging our code, prevent big delta time
+	if(deltaTime > 0.2f)
+	{
+		deltaTime = 1 / 60.0f;
+	}
+#endif
+
+	*m_pLastUpdate = now;
+	return deltaTime;
 }
 
 void CCDirector::end()
@@ -269,6 +293,12 @@ void CCDirector::resume()
 		return;
 
 	setAnimationInterval(m_dOldAnimationInterval);
+
+	if (CCTime::gettimeofdayCocos2d(m_pLastUpdate, NULL) != 0)
+	{
+		CCAssert(false, "cocos2d: Director: Error in gettimeofday");
+	}
+
 	m_bPaused = false;
 }
 
@@ -279,6 +309,11 @@ void CCDirector::stopAnimation()
 
 void CCDirector::startAnimation()
 {
+	if (CCTime::gettimeofdayCocos2d(m_pLastUpdate, NULL) != 0)
+	{
+		CCAssert(false, "cocos2d: Director: Error in gettimeofday");
+	}
+
 	m_bInvalid = false;
 	CCApplication::sharedApplication().setAnimationInterval(m_dAnimationInterval);
 }

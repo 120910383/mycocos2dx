@@ -12,10 +12,19 @@
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <ctime>
 
 // win32 need include
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	#include <Windows.h>
+
+	struct timezone
+	{
+		int tz_minuteswest;
+		int tz_dsttime;
+	};
+	int gettimeofday(struct timeval*, struct timezone*);
+
 #endif
 
 // linux need include

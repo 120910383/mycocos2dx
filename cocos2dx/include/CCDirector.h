@@ -7,6 +7,7 @@ NS_CC_BEGIN;
 
 class CCEGLView;
 class CCScene;
+struct cc_timeval;
 class CC_DLL CCDirector : public CCObject
 {
 public:
@@ -59,6 +60,8 @@ protected:
 	CCMutableArray<CCScene*> *m_pobScenesStack;
 	CCScene* m_pRunningScene;
 	CCScene* m_pNextScene;
+
+	struct cc_timeval* m_pLastUpdate;		// last time the main loop was updated
 };
 
 NS_CC_END;

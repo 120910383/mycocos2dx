@@ -109,6 +109,12 @@
     <ClCompile Include="..\CCDirector.cpp" />
     <ClCompile Include="..\cocos2d.cpp" />
     <ClCompile Include="..\CCScheduler.cpp" />
+    <ClCompile Include="..\platform\platform.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform\CCStdC.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\CCAffineTransform.h">
@@ -221,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="..\include\CCScheduler.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform\platform.h">
+      <Filter>platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
