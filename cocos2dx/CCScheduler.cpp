@@ -80,7 +80,7 @@ bool CCScheduler::init()
 	return true;
 }
 
-void CCScheduler::tick()
+void CCScheduler::tick(ccTime dt)
 {
 	CCUpdateHandle* pHandler;
 	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
@@ -89,7 +89,7 @@ void CCScheduler::tick()
 		pHandler = *iter;
 		if (NULL != pHandler && NULL != pHandler->getTarget())
 		{
-			pHandler->getTarget()->update();
+			pHandler->getTarget()->update(dt);
 		}
 	}
 }

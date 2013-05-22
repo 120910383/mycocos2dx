@@ -67,7 +67,7 @@ bool SpriteOpacityTest::init()
 	return result;
 }
 
-void SpriteOpacityTest::update()
+void SpriteOpacityTest::update(ccTime dt)
 {
 	static double angle = 0.02f;
 	CCSize win_size = CCDirector::sharedDirector()->getWinSize();

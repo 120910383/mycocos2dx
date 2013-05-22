@@ -119,7 +119,7 @@ void CCDirector::drawScene()
 {
 	if (!m_bPaused)
 	{
-		CCScheduler::sharedScheduler()->tick();
+		CCScheduler::sharedScheduler()->tick(calculateDeltaTime());
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -238,6 +238,13 @@ void CCDirector::setNextScene()
 	{
 		m_pRunningScene->onEnter();
 	}
+}
+
+ccTime CCDirector::calculateDeltaTime()
+{
+	// 计算上次和这次直接的时间差，需要一个变量来保存上次计算的时间点
+	// TODO... 
+	return 0.1f;
 }
 
 void CCDirector::end()

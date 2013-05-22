@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "ccMacros.h"
+#include "ccTypes.h"
 
 NS_CC_BEGIN;
 class CCZone;
@@ -29,7 +30,7 @@ public:
 	unsigned int retainCount(void);
 	virtual bool isEqual(const CCObject* pObject);
 
-	virtual void update() {}
+	virtual void update(ccTime dt) { CC_UNUSED_PARAM(dt); }
 
 	friend class CCAutoreleasePool;
 };

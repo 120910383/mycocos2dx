@@ -45,6 +45,7 @@ public:
 protected:
 	void purgeDirector();
 	void setNextScene();
+	ccTime calculateDeltaTime();
 
 protected:
 	CCEGLView* m_pobOpenGLView;

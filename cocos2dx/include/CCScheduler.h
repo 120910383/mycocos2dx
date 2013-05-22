@@ -15,7 +15,7 @@ public:
 public:
 	virtual ~CCScheduler();
 
-	void tick();
+	void tick(ccTime dt);
 	void scheduleUpdateForTarget(CCObject *pTarget, int nPriority);
 	void unscheduleUpdateForTarget(const CCObject *pTarget);
 

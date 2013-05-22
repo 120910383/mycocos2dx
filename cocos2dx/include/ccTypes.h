@@ -108,6 +108,9 @@ typedef struct _ccBlendFunc
 	GLenum dst;
 } ccBlendFunc;
 
+// delta time type
+typedef float ccTime;
+
 typedef enum
 {
 	CCTextAlignmentLeft,
