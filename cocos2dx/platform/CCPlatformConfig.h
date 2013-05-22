@@ -25,6 +25,6 @@
 //////////////////////////////////////////////////////////////////////////
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	#ifndef CC_USE_GLFW_WINDOW
-	#define CC_USE_GLFW_WINDOW 1		// 0使用win api显示窗口，1使用glfw库来显示
+	#define CC_USE_GLFW_WINDOW 0		// 0使用win api显示窗口，1使用glfw库来显示
 	#endif
 #endif
