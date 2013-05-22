@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "ccMacros.h"
+#include "CCPlatformMacros.h"
 #include "CCStdC.h"
 
 NS_CC_BEGIN;

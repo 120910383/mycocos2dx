@@ -155,6 +155,7 @@ xcopy /Y /Q "$(ProjectDir)..\third_party\win32\libraries\*.*" "$(OutDir)"</Comma
     <ClInclude Include="..\platform\CCGL.h" />
     <ClInclude Include="..\platform\CCImage.h" />
     <ClInclude Include="..\platform\CCPlatformConfig.h" />
+    <ClInclude Include="..\platform\CCPlatformMacros.h" />
     <ClInclude Include="..\platform\CCStdC.h" />
     <ClInclude Include="..\platform\platform.h" />
     <ClInclude Include="..\platform\win32\CCApplication.h" />

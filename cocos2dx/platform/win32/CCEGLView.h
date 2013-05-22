@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "ccMacros.h"
+#include "CCPlatformMacros.h"
 #include "CCGeometry.h"
 #include "CCStdC.h"
-#include "CCConfig.h"
+#include "CCPlatformConfig.h"
 
 NS_CC_BEGIN;
 

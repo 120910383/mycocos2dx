@@ -2,9 +2,4 @@
 
 #include "CCPlatformConfig.h"
 
-// WIN32下是否使用GLFW来管理窗口
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	#ifndef CC_USE_GLFW_WINDOW
-		#define CC_USE_GLFW_WINDOW 0
-	#endif
-#endif
+// TODO...预留给项目调试设置，如显示精灵边框，支持RETINA等

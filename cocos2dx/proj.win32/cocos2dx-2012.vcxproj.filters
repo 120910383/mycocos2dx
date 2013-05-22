@@ -231,5 +231,8 @@
     <ClInclude Include="..\platform\platform.h">
       <Filter>platform</Filter>
     </ClInclude>
+    <ClInclude Include="..\platform\CCPlatformMacros.h">
+      <Filter>platform</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

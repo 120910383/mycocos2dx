@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-#include "CCConfig.h"
+#include "CCPlatformConfig.h"
+#include "CCPlatformMacros.h"
 
 // common include
 #include <cstdio>					// use NULL macro
@@ -23,7 +24,7 @@
 		int tz_minuteswest;
 		int tz_dsttime;
 	};
-	int gettimeofday(struct timeval*, struct timezone*);
+	int CC_DLL gettimeofday(struct timeval*, struct timezone*);
 
 #endif
 

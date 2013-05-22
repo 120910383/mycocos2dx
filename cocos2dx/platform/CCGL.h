@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "CCConfig.h"
+#include "CCPlatformConfig.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	#if CC_USE_GLFW_WINDOW

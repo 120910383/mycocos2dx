@@ -1,10 +1,11 @@
 ﻿#pragma once
 
-#include "ccMacros.h"
+#include "CCPlatformMacros.h"
+#include "CCStdC.h"
 
 NS_CC_BEGIN;
 
-class CCImage
+class CC_DLL CCImage
 {
 public:
 	CCImage();
