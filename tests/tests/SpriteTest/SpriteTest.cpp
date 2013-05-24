@@ -69,6 +69,7 @@ bool SpriteOpacityTest::init()
 
 void SpriteOpacityTest::update(ccTime dt)
 {
+	// test update
 	static double angle = 0.02f;
 	CCSize win_size = CCDirector::sharedDirector()->getWinSize();
 	const int label_tag = 100;
@@ -88,6 +89,33 @@ void SpriteOpacityTest::update(ccTime dt)
 		CCPoint pos = ccpSub(test_label->getPosition(), ccp(win_size.width / 2, win_size.height / 2));
 		pos = ccp(ccpDot(pos, ccp(cos(angle), -sin(angle))), ccpDot(pos, ccp(sin(angle), cos(angle))));
 		test_label->setPosition(ccpAdd(pos, ccp(win_size.width / 2, win_size.height / 2)));
+	}
+
+	// test update duration
+	static ccTime m_total_time = 0;
+	m_total_time += dt;
+	const int label_tag2 = 200;
+	CCLabelTTF* test_label2 = dynamic_cast<CCLabelTTF*>(getChildByTag(label_tag2));
+	if (NULL == test_label2)
+	{
+		test_label2 = CCLabelTTF::labelWithString("", "", 32);
+		if (NULL != test_label2)
+		{
+			test_label2->setAnchorPoint(ccp(0, 1));
+			test_label2->setPosition(ccp(0, win_size.height));
+			addChild(test_label2, 0, label_tag2);
+		}
+	}
+
+	if (NULL != test_label2)
+	{
+		int hour = (int)m_total_time / 3600;
+		int minute = (int)m_total_time % 3600 / 60;
+		int second = (int)m_total_time % 60;
+		char ret[100];
+		sprintf(ret,"%02d:%02d:%02d", hour, minute, second);
+		if (0 != strcmp(ret, test_label2->getString()))
+			test_label2->setString(ret);
 	}
 }
 
