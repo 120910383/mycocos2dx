@@ -113,6 +113,9 @@ public:
 	void scheduleUpdateWithPriority(int priority);
 	void unscheduleUpdate();
 
+	void resumeScheduler();
+	void pauseScheduler();
+
 private:
 	void childrenAlloc();
 	void insertChild(CCNode* child, int z);

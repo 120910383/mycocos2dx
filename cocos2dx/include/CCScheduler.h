@@ -16,8 +16,12 @@ public:
 	virtual ~CCScheduler();
 
 	void tick(ccTime dt);
-	void scheduleUpdateForTarget(CCObject *pTarget, int nPriority);
+	void scheduleUpdateForTarget(CCObject *pTarget, int nPriority, bool bPaused);
 	void unscheduleUpdateForTarget(const CCObject *pTarget);
+
+	void pauseTarget(CCObject* pTarget);
+	void resumeTarget(CCObject* pTarget);
+	bool isTargetPaused(CCObject* pTarget);
 
 private:
 	CCScheduler();

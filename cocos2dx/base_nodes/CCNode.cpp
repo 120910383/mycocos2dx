@@ -277,6 +277,7 @@ CCMutableArray<CCNode*>* CCNode::getChildren()
 void CCNode::onEnter()
 {
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::onEnter);
+	resumeScheduler();
 	m_bIsRunning = true;
 	//TODO... 动作、日程和脚本处理
 }
@@ -284,6 +285,7 @@ void CCNode::onEnter()
 void CCNode::onExit()
 {
 	//TODO... 动作、日程和脚本处理
+	pauseScheduler();
 	m_bIsRunning = false;
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::onExit);
 }
@@ -594,12 +596,22 @@ void CCNode::scheduleUpdate()
 
 void CCNode::scheduleUpdateWithPriority(int priority)
 {
-	CCScheduler::sharedScheduler()->scheduleUpdateForTarget(this, priority);
+	CCScheduler::sharedScheduler()->scheduleUpdateForTarget(this, priority, !m_bIsRunning);
 }
 
 void CCNode::unscheduleUpdate()
 {
 	CCScheduler::sharedScheduler()->unscheduleUpdateForTarget(this);
+}
+
+void CCNode::resumeScheduler()
+{
+	CCScheduler::sharedScheduler()->resumeTarget(this);
+}
+
+void CCNode::pauseScheduler()
+{
+	CCScheduler::sharedScheduler()->pauseTarget(this);
 }
 
 void CCNode::childrenAlloc()

@@ -6,11 +6,13 @@ NS_CC_BEGIN;
 class CCUpdateHandle : public CCObject
 {
 public:
-	CCUpdateHandle() : m_pTarget(NULL), m_nPriority(0) {}
+	CCUpdateHandle() : m_pTarget(NULL), m_nPriority(0), m_bPaused(false) {}
 	virtual ~CCUpdateHandle() { CC_SAFE_RELEASE(m_pTarget); }
 
 	int getPriority() { return m_nPriority; }
 	CCObject* getTarget() { return m_pTarget; }
+	bool isPaused() { return m_bPaused; }
+	void setPaused(bool bPaused) { m_bPaused = bPaused; }
 
 	virtual bool initWithTarget(CCObject* pTarget, int nPriority)
 	{
@@ -39,6 +41,7 @@ public:
 protected:
 	CCObject* m_pTarget;
 	int m_nPriority;
+	bool m_bPaused;
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -82,23 +85,28 @@ bool CCScheduler::init()
 
 void CCScheduler::tick(ccTime dt)
 {
-	CCUpdateHandle* pHandler;
 	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
 	for (iter = m_pHandlers->begin(); iter != m_pHandlers->end(); ++iter)
 	{
-		pHandler = *iter;
-		if (NULL != pHandler && NULL != pHandler->getTarget())
+		CCUpdateHandle* pHandler = *iter;
+		if (NULL == pHandler || pHandler->isPaused())
+			continue;
+
+		CCObject* pTarget = pHandler->getTarget();
+		if (NULL != pTarget)
 		{
-			pHandler->getTarget()->update(dt);
+			pTarget->update(dt);
 		}
 	}
 }
 
-void CCScheduler::scheduleUpdateForTarget(CCObject *pTarget, int nPriority)
+void CCScheduler::scheduleUpdateForTarget(CCObject *pTarget, int nPriority, bool bPaused)
 {
 	CCUpdateHandle* pHandler = CCUpdateHandle::handlerWithTarget(pTarget, nPriority);
 	if (NULL == pHandler)
 		return;
+
+	pHandler->setPaused(bPaused);
 
 	unsigned int u = 0;
 	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
@@ -139,6 +147,62 @@ void CCScheduler::unscheduleUpdateForTarget(const CCObject *pTarget)
 			break;
 		}
 	}
+}
+
+void CCScheduler::pauseTarget(CCObject* pTarget)
+{
+	if (NULL == pTarget)
+		return;
+
+	CCUpdateHandle* pHandler;
+	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
+	for (iter = m_pHandlers->begin(); iter != m_pHandlers->end(); ++iter)
+	{
+		pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			pHandler->setPaused(true);
+			break;
+		}
+	}
+}
+
+void CCScheduler::resumeTarget(CCObject* pTarget)
+{
+	if (NULL == pTarget)
+		return;
+
+	CCUpdateHandle* pHandler;
+	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
+	for (iter = m_pHandlers->begin(); iter != m_pHandlers->end(); ++iter)
+	{
+		pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			pHandler->setPaused(false);
+			break;
+		}
+	}
+}
+
+bool CCScheduler::isTargetPaused(CCObject* pTarget)
+{
+	CCAssert( pTarget != NULL, "target must be non nil" );
+	if (NULL == pTarget)
+		return false;
+
+	CCUpdateHandle* pHandler;
+	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
+	for (iter = m_pHandlers->begin(); iter != m_pHandlers->end(); ++iter)
+	{
+		pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			return pHandler->isPaused();
+		}
+	}
+
+	return false;
 }
 
 NS_CC_END;
