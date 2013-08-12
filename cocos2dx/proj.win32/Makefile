@@ -100,6 +100,8 @@ OBJECTS = ..\base_nodes\CCNode.obj \
 		  ..\menu_nodes\CCMenuItem.obj \
 		  ..\platform\CCFileUtils.obj \
 		  ..\platform\CCImage.obj \
+		  ..\platform\CCStdC.obj \
+		  ..\platform\platform.obj \
 		  ..\platform\win32\CCApplication.obj \
 		  ..\platform\win32\CCEGLView.obj \
 		  ..\sprite_nodes\CCSprite.obj \
@@ -111,6 +113,7 @@ OBJECTS = ..\base_nodes\CCNode.obj \
 		  ..\touch_dispatcher\CCTouchHandler.obj \
 		  ..\CCConfiguration.obj \
 		  ..\CCDirector.obj \
+		  ..\CCScheduler.obj \
 		  ..\cocos2d.obj
 
 ###################################### 第二部分:命令块
