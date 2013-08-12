@@ -33,4 +33,5 @@ cd .\Debug.win32
 tests.exe
 )
 
+cd %~dp0
 pause
