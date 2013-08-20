@@ -411,7 +411,6 @@ bool CCImage::initWithImageData(void * pData, int nDataLen, EImageFormat eFmt, i
 bool CCImage::initWithString(const char* pText, int nWidth, int nHeight, ETextAlign eAlignMask, const char* pFontName, int nSize)
 {
 	bool bRet = false;
-	unsigned char* pImageData = NULL;
 	do 
 	{
 		CC_BREAK_IF(NULL == pText);
@@ -428,8 +427,8 @@ bool CCImage::initWithString(const char* pText, int nWidth, int nHeight, ETextAl
 		SIZE size = {nWidth, nHeight};
 		CC_BREAK_IF(0 == dc.drawText(pText, size, eAlignMask));
 
-		pImageData = new unsigned char[size.cx * size.cy * 4];
-		CC_BREAK_IF(NULL == pImageData);
+		m_pData = new unsigned char[size.cx * size.cy * 4];
+		CC_BREAK_IF(NULL == m_pData);
 
 		struct
 		{
@@ -443,8 +442,6 @@ bool CCImage::initWithString(const char* pText, int nWidth, int nHeight, ETextAl
 		m_nHeight = (short)size.cy;
 		m_bHasAlpha = true;
 		m_bPreMulti = false;
-		m_pData = pImageData;
-		pImageData = 0;
 		m_nBitsPerComponent = 8;
 		// copy pixed data
 		bi.bmiHeader.biHeight = (bi.bmiHeader.biHeight > 0) ? -bi.bmiHeader.biHeight : bi.bmiHeader.biHeight;
