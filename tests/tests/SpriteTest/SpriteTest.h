@@ -12,6 +12,7 @@ public:
 	virtual TestBasicLayer* get_cur_layer();
 	virtual TestBasicLayer* get_next_layer();
 	virtual void update(ccTime dt);
+	virtual void update_custom_blink(ccTime dt);
 
 protected:
 	bool init();

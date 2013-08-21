@@ -61,6 +61,7 @@ bool SpriteOpacityTest::init()
 		addChild(sprite5);
 
 		scheduleUpdate();
+		CCScheduler::sharedScheduler()->scheduleSelector(schedule_selector(SpriteOpacityTest::update_custom_blink), this, 2, false);
 		result = true;
 	} while (0);
 
@@ -116,6 +117,30 @@ void SpriteOpacityTest::update(ccTime dt)
 		sprintf(ret,"%02d:%02d:%02d", hour, minute, second);
 		if (0 != strcmp(ret, test_label2->getString()))
 			test_label2->setString(ret);
+	}
+}
+
+void SpriteOpacityTest::update_custom_blink(ccTime dt)
+{
+	// test update selector blink
+	CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+	const int label_tag = 300;
+	CCLabelTTF* test_label = dynamic_cast<CCLabelTTF*>(getChildByTag(label_tag));
+	if (NULL == test_label)
+	{
+		test_label = CCLabelTTF::labelWithString("UpdateSelectorBlinkLabel", "", 32);
+		if (NULL != test_label)
+		{
+			test_label->setPosition(ccp(win_size.width / 2, win_size.height - 60));
+			test_label->setIsVisible(false);
+			addChild(test_label, 0, label_tag);
+		}
+	}
+
+	if (NULL != test_label)
+	{
+		bool is_visible = test_label->getIsVisible();
+		test_label->setIsVisible(!is_visible);
 	}
 }
 

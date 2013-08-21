@@ -6,6 +6,7 @@
 NS_CC_BEGIN;
 
 class CCUpdateHandle;
+class CCSelectorHandle;
 class CC_DLL CCScheduler : public CCObject
 {
 public:
@@ -19,6 +20,9 @@ public:
 	void scheduleUpdateForTarget(CCObject *pTarget, int nPriority, bool bPaused);
 	void unscheduleUpdateForTarget(const CCObject *pTarget);
 
+	void scheduleSelector(SEL_SCHEDULE pfnSelector, CCObject* pTarget, ccTime fInterval, bool bPaused);
+	void unscheduleSelector(SEL_SCHEDULE pfnSelector, CCObject* pTarget);
+
 	void pauseTarget(CCObject* pTarget);
 	void resumeTarget(CCObject* pTarget);
 	bool isTargetPaused(CCObject* pTarget);
@@ -28,7 +32,8 @@ private:
 	bool init();
 
 protected:
-	CCMutableArray<CCUpdateHandle*> *m_pHandlers;
+	CCMutableArray<CCUpdateHandle*> *m_pUpdateHandlers;
+	CCMutableArray<CCSelectorHandle*> *m_pSelectorHandles;
 };
 
 NS_CC_END;

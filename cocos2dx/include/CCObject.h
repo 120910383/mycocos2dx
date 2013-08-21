@@ -36,8 +36,10 @@ public:
 };
 
 // 定义类成员函数指针类型
+typedef void (CCObject::*SEL_SCHEDULE)(ccTime);
 typedef void (CCObject::*SEL_MenuHandler)(CCObject*);
 
+#define schedule_selector(_SELECTOR) (SEL_SCHEDULE)(&_SELECTOR)
 #define menu_selector(_SELECTOR) (SEL_MenuHandler)(&_SELECTOR)
 
 NS_CC_END;
