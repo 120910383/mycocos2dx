@@ -131,10 +131,8 @@ CCScheduler::CCScheduler()
 
 CCScheduler::~CCScheduler()
 {
-	m_pSelectorHandles->removeAllObjects();
+	unscheduleAllSelectors();
 	CC_SAFE_DELETE(m_pSelectorHandles);
-
-	m_pUpdateHandlers->removeAllObjects();
 	CC_SAFE_DELETE(m_pUpdateHandlers);
 	pSharedScheduler = NULL;
 }
@@ -257,7 +255,8 @@ void CCScheduler::scheduleSelector(SEL_SCHEDULE pfnSelector, CCObject* pTarget, 
 		{
 			if (handler->getTarget() == pHandler->getTarget() && handler->getSelector() == pHandler->getSelector())
 			{
-				CCAssert(false, "the target ande selector is already added");
+				handler->setInterval(fInterval);
+				handler->setPaused(bPaused);
 				return;
 			}
 		}
@@ -291,15 +290,26 @@ void CCScheduler::pauseTarget(CCObject* pTarget)
 	if (NULL == pTarget)
 		return;
 
-	CCUpdateHandle* pHandler;
-	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
-	for (iter = m_pUpdateHandlers->begin(); iter != m_pUpdateHandlers->end(); ++iter)
+	CCUpdateHandle* pUpdateHandler;
+	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator update_iter;
+	for (update_iter = m_pUpdateHandlers->begin(); update_iter != m_pUpdateHandlers->end(); ++update_iter)
 	{
-		pHandler = *iter;
-		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		pUpdateHandler = *update_iter;
+		if (NULL != pUpdateHandler && pUpdateHandler->getTarget() == pTarget)
 		{
-			pHandler->setPaused(true);
+			pUpdateHandler->setPaused(true);
 			break;
+		}
+	}
+
+	CCSelectorHandle* pSelectorHandler;
+	CCMutableArray<CCSelectorHandle*>::CCMutableArrayIterator selector_iter;
+	for (selector_iter = m_pSelectorHandles->begin(); selector_iter != m_pSelectorHandles->end(); ++selector_iter)
+	{
+		pSelectorHandler = *selector_iter;
+		if (NULL != pSelectorHandler && pSelectorHandler->getTarget() == pTarget)
+		{
+			pSelectorHandler->setPaused(true);
 		}
 	}
 }
@@ -309,37 +319,55 @@ void CCScheduler::resumeTarget(CCObject* pTarget)
 	if (NULL == pTarget)
 		return;
 
-	CCUpdateHandle* pHandler;
-	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
-	for (iter = m_pUpdateHandlers->begin(); iter != m_pUpdateHandlers->end(); ++iter)
+	CCUpdateHandle* pUpdateHandler;
+	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator update_iter;
+	for (update_iter = m_pUpdateHandlers->begin(); update_iter != m_pUpdateHandlers->end(); ++update_iter)
 	{
-		pHandler = *iter;
-		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		pUpdateHandler = *update_iter;
+		if (NULL != pUpdateHandler && pUpdateHandler->getTarget() == pTarget)
 		{
-			pHandler->setPaused(false);
+			pUpdateHandler->setPaused(false);
 			break;
+		}
+	}
+
+	CCSelectorHandle* pSelectorHandler;
+	CCMutableArray<CCSelectorHandle*>::CCMutableArrayIterator selector_iter;
+	for (selector_iter = m_pSelectorHandles->begin(); selector_iter != m_pSelectorHandles->end(); ++selector_iter)
+	{
+		pSelectorHandler = *selector_iter;
+		if (NULL != pSelectorHandler && pSelectorHandler->getTarget() == pTarget)
+		{
+			pSelectorHandler->setPaused(false);
 		}
 	}
 }
 
-bool CCScheduler::isTargetPaused(CCObject* pTarget)
+void CCScheduler::unscheduleAllSelectorsForTarget(CCObject* pTarget)
 {
-	CCAssert( pTarget != NULL, "target must be non nil" );
 	if (NULL == pTarget)
-		return false;
+		return;
 
-	CCUpdateHandle* pHandler;
-	CCMutableArray<CCUpdateHandle*>::CCMutableArrayIterator iter;
-	for (iter = m_pUpdateHandlers->begin(); iter != m_pUpdateHandlers->end(); ++iter)
+	CCMutableArray<CCSelectorHandle*> removed_handles;
+	CCMutableArray<CCSelectorHandle*>::CCMutableArrayIterator selector_iter;
+	for (selector_iter = m_pSelectorHandles->begin(); selector_iter != m_pSelectorHandles->end(); ++selector_iter)
 	{
-		pHandler = *iter;
-		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		CCSelectorHandle* pSelectorHandler = *selector_iter;
+		if (NULL != pSelectorHandler && pSelectorHandler->getTarget() == pTarget)
 		{
-			return pHandler->isPaused();
+			removed_handles.addObject(pSelectorHandler);
 		}
 	}
 
-	return false;
+	m_pSelectorHandles->removeObjectsInArray(&removed_handles);
+
+	unscheduleUpdateForTarget(pTarget);
+}
+
+void CCScheduler::unscheduleAllSelectors()
+{
+	m_pUpdateHandlers->removeAllObjects();
+	m_pSelectorHandles->removeAllObjects();
 }
 
 NS_CC_END;

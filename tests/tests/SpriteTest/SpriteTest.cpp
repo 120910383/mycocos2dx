@@ -61,7 +61,7 @@ bool SpriteOpacityTest::init()
 		addChild(sprite5);
 
 		scheduleUpdate();
-		CCScheduler::sharedScheduler()->scheduleSelector(schedule_selector(SpriteOpacityTest::update_custom_blink), this, 2, false);
+		scheduled(schedule_selector(SpriteOpacityTest::update_custom_blink), 2);
 		result = true;
 	} while (0);
 

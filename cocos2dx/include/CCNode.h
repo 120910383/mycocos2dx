@@ -113,6 +113,11 @@ public:
 	void scheduleUpdateWithPriority(int priority);
 	void unscheduleUpdate();
 
+	void scheduled(SEL_SCHEDULE selector);
+	void scheduled(SEL_SCHEDULE selector, ccTime interval);
+	void unschedule(SEL_SCHEDULE selector);
+
+	void unscheduleAllSelectors();
 	void resumeScheduler();
 	void pauseScheduler();
 

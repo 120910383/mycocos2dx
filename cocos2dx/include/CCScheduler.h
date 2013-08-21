@@ -25,7 +25,9 @@ public:
 
 	void pauseTarget(CCObject* pTarget);
 	void resumeTarget(CCObject* pTarget);
-	bool isTargetPaused(CCObject* pTarget);
+
+	void unscheduleAllSelectorsForTarget(CCObject* pTarget);
+	void unscheduleAllSelectors();
 
 private:
 	CCScheduler();

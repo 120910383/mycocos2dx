@@ -466,6 +466,7 @@ void CCNode::cleanup()
 {
 	// 停止所有本节点的动作和定时器
 	// TODO...
+	this->unscheduleAllSelectors();
 
 	// 递归执行子节点
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::cleanup);
@@ -602,6 +603,30 @@ void CCNode::scheduleUpdateWithPriority(int priority)
 void CCNode::unscheduleUpdate()
 {
 	CCScheduler::sharedScheduler()->unscheduleUpdateForTarget(this);
+}
+
+void CCNode::scheduled(SEL_SCHEDULE selector)
+{
+	this->scheduled(selector, 0);
+}
+
+void CCNode::scheduled(SEL_SCHEDULE selector, ccTime interval)
+{
+	CCAssert(NULL != selector, "Argument must be non-nil");
+	CCAssert(interval >= 0, "Argument must be positive");
+	CCScheduler::sharedScheduler()->scheduleSelector(selector, this, interval, !m_bIsRunning);
+}
+
+void CCNode::unschedule(SEL_SCHEDULE selector)
+{
+	if (NULL == selector)
+		return;
+	CCScheduler::sharedScheduler()->unscheduleSelector(selector, this);
+}
+
+void CCNode::unscheduleAllSelectors()
+{
+	CCScheduler::sharedScheduler()->unscheduleAllSelectorsForTarget(this);
 }
 
 void CCNode::resumeScheduler()
