@@ -16,6 +16,9 @@
     <Filter Include="tests\SpriteTest">
       <UniqueIdentifier>{461c77a0-cdfd-4439-b724-9c0b822e348e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\SchedulerTest">
+      <UniqueIdentifier>{a5012b19-d9bf-481b-8cd6-bdecc73a520d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="..\tests\LabelTest\LabelTest.cpp">
       <Filter>tests\LabelTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\SchedulerTest\SchedulerTest.cpp">
+      <Filter>tests\SchedulerTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="..\tests\LabelTest\LabelTest.h">
       <Filter>tests\LabelTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tests\SchedulerTest\SchedulerTest.h">
+      <Filter>tests\SchedulerTest</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

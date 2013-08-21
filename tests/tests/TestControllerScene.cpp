@@ -112,6 +112,9 @@ void TestControllerLayer::menu_call_back(CCObject* sender)
 	case TEST_OPENGL:
 		test_init_layer = OpenGLRotateCubeTest::create_test();
 		break;
+	case TEST_SCHEDULER:
+		test_init_layer = SchedulerUpdateTest::create_test();
+		break;
 	default:
 		CCAssert(false, "invaild item tag");
 		return;

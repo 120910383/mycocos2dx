@@ -60,88 +60,10 @@ bool SpriteOpacityTest::init()
 		sprite5->setOpacity(50);
 		addChild(sprite5);
 
-		scheduleUpdate();
-		scheduled(schedule_selector(SpriteOpacityTest::update_custom_blink), 2);
 		result = true;
 	} while (0);
 
 	return result;
-}
-
-void SpriteOpacityTest::update(ccTime dt)
-{
-	// test update
-	static double angle = 0.02f;
-	CCSize win_size = CCDirector::sharedDirector()->getWinSize();
-	const int label_tag = 100;
-	CCLabelTTF* test_label = dynamic_cast<CCLabelTTF*>(getChildByTag(label_tag));
-	if (NULL == test_label)
-	{
-		test_label = CCLabelTTF::labelWithString("UpdateMoveTest", "", 32);
-		if (NULL != test_label)
-		{
-			test_label->setPosition(ccp(win_size.width / 4, win_size.height / 4));
-			addChild(test_label, 0, label_tag);
-		}
-	}
-
-	if (NULL != test_label)
-	{
-		CCPoint pos = ccpSub(test_label->getPosition(), ccp(win_size.width / 2, win_size.height / 2));
-		pos = ccp(ccpDot(pos, ccp(cos(angle), -sin(angle))), ccpDot(pos, ccp(sin(angle), cos(angle))));
-		test_label->setPosition(ccpAdd(pos, ccp(win_size.width / 2, win_size.height / 2)));
-	}
-
-	// test update duration
-	static ccTime m_total_time = 0;
-	m_total_time += dt;
-	const int label_tag2 = 200;
-	CCLabelTTF* test_label2 = dynamic_cast<CCLabelTTF*>(getChildByTag(label_tag2));
-	if (NULL == test_label2)
-	{
-		test_label2 = CCLabelTTF::labelWithString("", "", 32);
-		if (NULL != test_label2)
-		{
-			test_label2->setAnchorPoint(ccp(0, 1));
-			test_label2->setPosition(ccp(0, win_size.height));
-			addChild(test_label2, 0, label_tag2);
-		}
-	}
-
-	if (NULL != test_label2)
-	{
-		int hour = (int)m_total_time / 3600;
-		int minute = (int)m_total_time % 3600 / 60;
-		int second = (int)m_total_time % 60;
-		char ret[100];
-		sprintf(ret,"%02d:%02d:%02d", hour, minute, second);
-		if (0 != strcmp(ret, test_label2->getString()))
-			test_label2->setString(ret);
-	}
-}
-
-void SpriteOpacityTest::update_custom_blink(ccTime dt)
-{
-	// test update selector blink
-	CCSize win_size = CCDirector::sharedDirector()->getWinSize();
-	const int label_tag = 300;
-	CCLabelTTF* test_label = dynamic_cast<CCLabelTTF*>(getChildByTag(label_tag));
-	if (NULL == test_label)
-	{
-		test_label = CCLabelTTF::labelWithString("UpdateSelectorBlinkLabel", "", 32);
-		if (NULL != test_label)
-		{
-			test_label->setPosition(ccp(win_size.width / 2, win_size.height - 60));
-			test_label->setIsVisible(false);
-			addChild(test_label, 0, label_tag);
-		}
-	}
-
-	if (NULL != test_label)
-	{
-		bool is_visible = test_label->getIsVisible();
-		test_label->setIsVisible(!is_visible);
-	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -152,7 +74,7 @@ const char* SpriteColorTest::title()
 
 TestBasicLayer* SpriteColorTest::get_last_layer()
 {
-	return SpriteOpacityTest::create_test();;
+	return SpriteOpacityTest::create_test();
 }
 
 TestBasicLayer* SpriteColorTest::get_cur_layer()

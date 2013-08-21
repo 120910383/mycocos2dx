@@ -87,6 +87,7 @@
     <ClCompile Include="..\tests\AppDelegate.cpp" />
     <ClCompile Include="..\tests\LabelTest\LabelTest.cpp" />
     <ClCompile Include="..\tests\OpenGLTest\OpenGLTest.cpp" />
+    <ClCompile Include="..\tests\SchedulerTest\SchedulerTest.cpp" />
     <ClCompile Include="..\tests\SpriteTest\SpriteTest.cpp" />
     <ClCompile Include="..\tests\TestBasicScene.cpp" />
     <ClCompile Include="..\tests\TestControllerScene.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="..\tests\AppDelegate.h" />
     <ClInclude Include="..\tests\LabelTest\LabelTest.h" />
     <ClInclude Include="..\tests\OpenGLTest\OpenGLTest.h" />
+    <ClInclude Include="..\tests\SchedulerTest\SchedulerTest.h" />
     <ClInclude Include="..\tests\SpriteTest\SpriteTest.h" />
     <ClInclude Include="..\tests\TestBasicScene.h" />
     <ClInclude Include="..\tests\TestControllerScene.h" />
