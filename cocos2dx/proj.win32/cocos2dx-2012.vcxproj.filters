@@ -37,6 +37,9 @@
     <Filter Include="platform\win32">
       <UniqueIdentifier>{c3796ae7-3c82-4302-a618-c3ae249336de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="actions">
+      <UniqueIdentifier>{3206c227-2d2a-432b-a4d9-91420e3c751f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\base_nodes\CCNode.cpp">
@@ -114,6 +117,12 @@
     </ClCompile>
     <ClCompile Include="..\platform\CCStdC.cpp">
       <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\actions\CCAction.cpp">
+      <Filter>actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\actions\CCActionManager.cpp">
+      <Filter>actions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +242,12 @@
     </ClInclude>
     <ClInclude Include="..\platform\CCPlatformMacros.h">
       <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CCAction.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CCActionManager.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
