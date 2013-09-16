@@ -7,6 +7,7 @@ NS_CC_BEGIN;
 
 class CCAction;
 class CCNode;
+class CCActionHandler;
 class CC_DLL CCActionManager : public CCObject
 {
 public:
@@ -36,7 +37,7 @@ protected:
 	virtual void update(ccTime dt);
 
 protected:
-	CCMutableArray<CCObject*>* m_pTargets;
+	CCMutableArray<CCActionHandler*>* m_pActionHandlers;
 };
 
 NS_CC_END;
