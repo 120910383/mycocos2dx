@@ -129,7 +129,6 @@ void CCActionManager::addAction(CCAction* pAction, CCNode* pTarget, bool paused)
 		}
 	}
 
-	pAction->setOriginalTarget(pTarget);
 	CCActionHandler* pHandler = CCActionHandler::handlerWithTarget(pTarget);
 	if (NULL == pHandler || NULL == pHandler->getActions())
 		return;
@@ -137,6 +136,41 @@ void CCActionManager::addAction(CCAction* pAction, CCNode* pTarget, bool paused)
 	pHandler->setPaused(paused);
 	pHandler->getActions()->addObject(pAction);
 	m_pActionHandlers->addObject(pHandler);
+
+	pAction->startWithTarget(pTarget);
+}
+
+void CCActionManager::removeAction(CCAction* pAction)
+{
+	CCObject* pTarget = pAction->getOriginalTarget();
+	CCMutableArray<CCActionHandler*>::CCMutableArrayIterator iter;
+	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end(); ++iter)
+	{
+		CCActionHandler* pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			pHandler->getActions()->removeObject(pAction);
+			break;
+		}
+	}
+}
+
+void CCActionManager::removeActionByTag(unsigned int tag, CCObject* pTarget)
+{
+	CCAction* action = getActionByTag(tag, pTarget);
+	if (NULL == action)
+		return;
+
+	CCMutableArray<CCActionHandler*>::CCMutableArrayIterator iter;
+	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end(); ++iter)
+	{
+		CCActionHandler* pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			pHandler->getActions()->removeObject(action);
+			break;
+		}
+	}
 }
 
 void CCActionManager::removeAllActionsFromTarget(CCObject* pTarget)
@@ -155,26 +189,86 @@ void CCActionManager::removeAllActionsFromTarget(CCObject* pTarget)
 
 void CCActionManager::removeAllActions()
 {
+	m_pActionHandlers->removeAllObjects();
+}
+
+CCAction* CCActionManager::getActionByTag(unsigned int tag, CCObject* pTarget)
+{
 	CCMutableArray<CCActionHandler*>::CCMutableArrayIterator iter;
 	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end(); ++iter)
 	{
 		CCActionHandler* pHandler = *iter;
-		if (NULL != pHandler)
-			removeAllActionsFromTarget(pHandler->getTarget());
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			CCMutableArray<CCAction*>::CCMutableArrayIterator iter_action;
+			for (iter_action = pHandler->getActions()->begin(); iter_action != pHandler->getActions()->end(); ++iter_action)
+			{
+				CCAction* pAction = *iter_action;
+				if (NULL != pAction && pAction->getTag() == (int)tag && pAction->getOriginalTarget() == pTarget)
+					return pAction;
+			}
+		}
+	}
+
+	return NULL;
+}
+
+unsigned int CCActionManager::numberOfRunningActionsInTarget(CCObject* pTarget)
+{
+	CCMutableArray<CCActionHandler*>::CCMutableArrayIterator iter;
+	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end(); ++iter)
+	{
+		CCActionHandler* pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			return pHandler->getActions()->count();
+		}
+	}
+
+	return 0;
+}
+
+void CCActionManager::pauseTarget(CCObject* pTarget)
+{
+	CCMutableArray<CCActionHandler*>::CCMutableArrayIterator iter;
+	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end(); ++iter)
+	{
+		CCActionHandler* pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			pHandler->setPaused(true);
+			break;
+		}
+	}
+}
+
+void CCActionManager::resumeTarget(CCObject* pTarget)
+{
+	CCMutableArray<CCActionHandler*>::CCMutableArrayIterator iter;
+	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end(); ++iter)
+	{
+		CCActionHandler* pHandler = *iter;
+		if (NULL != pHandler && pHandler->getTarget() == pTarget)
+		{
+			pHandler->setPaused(false);
+			break;
+		}
 	}
 }
 
 void CCActionManager::update(ccTime dt)
 {
+	CCMutableArray<CCActionHandler*> removed_handlers;
 	CCMutableArray<CCActionHandler*>::CCMutableArrayIterator iter;
-	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end();)
+	for (iter = m_pActionHandlers->begin(); iter != m_pActionHandlers->end(); ++iter)
 	{
 		CCActionHandler* pHandler = *iter;
 		if (NULL == pHandler || pHandler->isPaused() || NULL == pHandler->getActions())
 			continue;
 
+		CCMutableArray<CCAction*> removed_actions;
 		CCMutableArray<CCAction*>::CCMutableArrayIterator iter_action;
-		for (iter_action = pHandler->getActions()->begin(); iter_action != pHandler->getActions()->end();)
+		for (iter_action = pHandler->getActions()->begin(); iter_action != pHandler->getActions()->end(); ++iter_action)
 		{
 			CCAction* pAction = *iter_action;
 			if (NULL == pAction)
@@ -182,20 +276,24 @@ void CCActionManager::update(ccTime dt)
 
 			pAction->step(dt);
 
-			++iter_action;
 			if (pAction->isDone())
 			{
 				pAction->stop();
-				pHandler->getActions()->removeObject(pAction);
+				removed_actions.addObject(pAction);
 			}
 		}
 
-		++iter;
+		// 移除结束的action
+		pHandler->getActions()->removeObjectsInArray(&removed_actions);
+
 		if (pHandler->getActions()->count() == 0)
 		{
-			m_pActionHandlers->removeObject(pHandler);
+			removed_handlers.addObject(pHandler);
 		}
 	}
+
+	// 删除没有action的handler
+	m_pActionHandlers->removeObjectsInArray(&removed_handlers);
 }
 
 NS_CC_END;

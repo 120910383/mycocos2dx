@@ -19,6 +19,9 @@
     <Filter Include="tests\SchedulerTest">
       <UniqueIdentifier>{a5012b19-d9bf-481b-8cd6-bdecc73a520d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tests\ActionTest">
+      <UniqueIdentifier>{0879d388-9d02-4cb4-aff0-c69da7945695}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="..\tests\SchedulerTest\SchedulerTest.cpp">
       <Filter>tests\SchedulerTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\tests\ActionTest\ActionTest.cpp">
+      <Filter>tests\ActionTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="..\tests\SchedulerTest\SchedulerTest.h">
       <Filter>tests\SchedulerTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\tests\ActionTest\ActionTest.h">
+      <Filter>tests\ActionTest</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

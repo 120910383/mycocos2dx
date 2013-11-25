@@ -115,6 +115,9 @@ void TestControllerLayer::menu_call_back(CCObject* sender)
 	case TEST_SCHEDULER:
 		test_init_layer = SchedulerUpdateTest::create_test();
 		break;
+	case TEST_ACTION:
+		test_init_layer = ActionMoveToTest::create_test();
+		break;
 	default:
 		CCAssert(false, "invaild item tag");
 		return;

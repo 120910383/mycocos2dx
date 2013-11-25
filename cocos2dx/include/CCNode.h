@@ -9,7 +9,7 @@
 NS_CC_BEGIN;
 
 class CCTouch;
-
+class CCAction;
 enum
 {
 	kCCNodeTagInvalid = -1,
@@ -109,6 +109,13 @@ public:
 	void transformAncestors();
 	CCRect boundingBox();
 
+	CCAction* runAction(CCAction* action);
+	void stopAllActions();
+	void stopAction(CCAction* action);
+	void stopActionByTag(int tag);
+	CCAction* getActionByTag(int tag);
+	unsigned int numberOfRunningActions();
+
 	void scheduleUpdate();
 	void scheduleUpdateWithPriority(int priority);
 	void unscheduleUpdate();
@@ -118,8 +125,8 @@ public:
 	void unschedule(SEL_SCHEDULE selector);
 
 	void unscheduleAllSelectors();
-	void resumeScheduler();
-	void pauseScheduler();
+	void resumeSchedulerAndActions();
+	void pauseSchedulerAndActions();
 
 private:
 	void childrenAlloc();

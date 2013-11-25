@@ -5,6 +5,8 @@
 #include "CCTouch.h"
 #include "CCStdC.h"
 #include "CCScheduler.h"
+#include "CCAction.h"
+#include "CCActionManager.h"
 
 NS_CC_BEGIN;
 
@@ -277,7 +279,7 @@ CCMutableArray<CCNode*>* CCNode::getChildren()
 void CCNode::onEnter()
 {
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::onEnter);
-	resumeScheduler();
+	resumeSchedulerAndActions();
 	m_bIsRunning = true;
 	//TODO... 动作、日程和脚本处理
 }
@@ -285,7 +287,7 @@ void CCNode::onEnter()
 void CCNode::onExit()
 {
 	//TODO... 动作、日程和脚本处理
-	pauseScheduler();
+	pauseSchedulerAndActions();
 	m_bIsRunning = false;
 	arrayMakeObjectsPerformSelector(m_pChildren, &CCNode::onExit);
 }
@@ -465,7 +467,7 @@ void CCNode::removeAllChildrenWithCleanup(bool cleanup)
 void CCNode::cleanup()
 {
 	// 停止所有本节点的动作和定时器
-	// TODO...
+	this->stopAllActions();
 	this->unscheduleAllSelectors();
 
 	// 递归执行子节点
@@ -590,6 +592,40 @@ CCRect CCNode::boundingBox()
 	return CCRectApplyAffineTransform(rect, nodeToParentTransform());
 }
 
+CCAction* CCNode::runAction(CCAction* action)
+{
+	CCAssert(action != NULL, "Argument must be non-nil");
+	CCActionManager::sharedManager()->addAction(action, this, !m_bIsRunning);
+	return action;
+}
+
+void CCNode::stopAllActions()
+{
+	CCActionManager::sharedManager()->removeAllActionsFromTarget(this);
+}
+
+void CCNode::stopAction(CCAction* action)
+{
+	CCActionManager::sharedManager()->removeAction(action);
+}
+
+void CCNode::stopActionByTag(int tag)
+{
+	CCAssert(tag != kCCActionTagInvalid, "Invalid tag");
+	CCActionManager::sharedManager()->removeActionByTag(tag, this);
+}
+
+CCAction* CCNode::getActionByTag(int tag)
+{
+	CCAssert( tag != kCCActionTagInvalid, "Invalid tag");
+	return CCActionManager::sharedManager()->getActionByTag(tag, this);
+}
+
+unsigned int CCNode::numberOfRunningActions()
+{
+	return CCActionManager::sharedManager()->numberOfRunningActionsInTarget(this);
+}
+
 void CCNode::scheduleUpdate()
 {
 	scheduleUpdateWithPriority(0);
@@ -629,14 +665,16 @@ void CCNode::unscheduleAllSelectors()
 	CCScheduler::sharedScheduler()->unscheduleAllSelectorsForTarget(this);
 }
 
-void CCNode::resumeScheduler()
+void CCNode::resumeSchedulerAndActions()
 {
 	CCScheduler::sharedScheduler()->resumeTarget(this);
+	CCActionManager::sharedManager()->resumeTarget(this);
 }
 
-void CCNode::pauseScheduler()
+void CCNode::pauseSchedulerAndActions()
 {
 	CCScheduler::sharedScheduler()->pauseTarget(this);
+	CCActionManager::sharedManager()->pauseTarget(this);
 }
 
 void CCNode::childrenAlloc()

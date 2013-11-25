@@ -17,6 +17,9 @@
 #include "CCMenu.h"
 #include "CCMenuItem.h"
 #include "CCScheduler.h"
+#include "CCAction.h"
+#include "CCActionInterval.h"
+#include "CCActionManager.h"
 
 //
 // cocoa includes

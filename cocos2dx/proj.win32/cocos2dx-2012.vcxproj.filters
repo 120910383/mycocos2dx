@@ -124,6 +124,9 @@
     <ClCompile Include="..\actions\CCActionManager.cpp">
       <Filter>actions</Filter>
     </ClCompile>
+    <ClCompile Include="..\actions\CCActionInterval.cpp">
+      <Filter>actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\CCAffineTransform.h">
@@ -247,6 +250,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CCActionManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CCActionInterval.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

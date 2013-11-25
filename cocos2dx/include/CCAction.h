@@ -9,6 +9,8 @@ enum
 	kCCActionTagInvalid = -1,
 };
 
+//////////////////////////////////////////////////////////////////////////
+/// CCAction
 class CCNode;
 class CC_DLL CCAction : public CCObject
 {
@@ -38,6 +40,23 @@ protected:
 	CCNode* m_pOriginalTarget;
 	CCNode* m_pTarget;
 	int m_nTag;
+};
+
+//////////////////////////////////////////////////////////////////////////
+/// CCFiniteTimeAction
+class CC_DLL CCFiniteTimeAction : public CCAction
+{
+public:
+	CCFiniteTimeAction()
+		: m_fDuration(0)
+	{}
+	virtual ~CCFiniteTimeAction() {}
+	inline ccTime getDuration() { return m_fDuration; }
+	inline void setDuration(ccTime duration) { m_fDuration = duration; }
+	virtual CCFiniteTimeAction* reverse();
+
+protected:
+	ccTime m_fDuration;
 };
 
 NS_CC_END;

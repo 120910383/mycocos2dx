@@ -2,6 +2,8 @@
 
 NS_CC_BEGIN;
 
+//////////////////////////////////////////////////////////////////////////
+/// CCAction
 CCAction::CCAction()
 	: m_pOriginalTarget(NULL)
 	, m_pTarget(NULL)
@@ -48,6 +50,14 @@ void CCAction::update(ccTime dt)
 {
 	CC_UNUSED_PARAM(dt);
 	CCAssert(false, "[Action update]. override me");
+}
+
+//////////////////////////////////////////////////////////////////////////
+// CCFiniteTimeAction
+CCFiniteTimeAction* CCFiniteTimeAction::reverse()
+{
+	CCAssert(false, "override me");
+	return NULL;
 }
 
 NS_CC_END;

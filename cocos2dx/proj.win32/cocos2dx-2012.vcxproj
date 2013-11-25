@@ -92,6 +92,7 @@ xcopy /Y /Q "$(ProjectDir)..\third_party\win32\libraries\*.*" "$(OutDir)"</Comma
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\actions\CCAction.cpp" />
+    <ClCompile Include="..\actions\CCActionInterval.cpp" />
     <ClCompile Include="..\actions\CCActionManager.cpp" />
     <ClCompile Include="..\base_nodes\CCNode.cpp" />
     <ClCompile Include="..\CCConfiguration.cpp" />
@@ -124,6 +125,7 @@ xcopy /Y /Q "$(ProjectDir)..\third_party\win32\libraries\*.*" "$(OutDir)"</Comma
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\CCAction.h" />
+    <ClInclude Include="..\include\CCActionInterval.h" />
     <ClInclude Include="..\include\CCActionManager.h" />
     <ClInclude Include="..\include\CCAffineTransform.h" />
     <ClInclude Include="..\include\CCAutoreleasePool.h" />

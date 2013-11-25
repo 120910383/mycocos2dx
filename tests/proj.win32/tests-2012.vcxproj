@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\tests\ActionTest\ActionTest.cpp" />
     <ClCompile Include="..\tests\AppDelegate.cpp" />
     <ClCompile Include="..\tests\LabelTest\LabelTest.cpp" />
     <ClCompile Include="..\tests\OpenGLTest\OpenGLTest.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\tests\ActionTest\ActionTest.h" />
     <ClInclude Include="..\tests\AppDelegate.h" />
     <ClInclude Include="..\tests\LabelTest\LabelTest.h" />
     <ClInclude Include="..\tests\OpenGLTest\OpenGLTest.h" />

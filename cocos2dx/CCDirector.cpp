@@ -7,6 +7,7 @@
 #include "CCTextureCache.h"
 #include "CCGL.h"
 #include "CCScheduler.h"
+#include "CCActionManager.h"
 #include "platform.h"
 
 NS_CC_BEGIN;
@@ -338,6 +339,7 @@ void CCDirector::purgeDirector()
 	stopAnimation();
 
 	// purge all managers:todo...
+	CCActionManager::sharedManager()->purgeSharedManager();
 	CCScheduler::purgeSharedScheduler();
 	CCTextureCache::purgeSharedTextureCache();
 
