@@ -134,4 +134,92 @@ CCActionInterval* CCMoveBy::reverse()
 	return CCMoveBy::actionWithDuration(m_fDuration, ccp(-m_delta.x, -m_delta.y));
 }
 
+//////////////////////////////////////////////////////////////////////////
+/// CCScaleTo
+CCScaleTo* CCScaleTo::actionWithDuration(ccTime duration, float s)
+{
+	CCScaleTo* pScaleTo = new CCScaleTo();
+	pScaleTo->initWithDuration(duration, s);
+	pScaleTo->autorelease();
+	return pScaleTo;
+}
+
+CCScaleTo* CCScaleTo::actionWithDuration(ccTime duration, float sx, float sy)
+{
+	CCScaleTo* pScaleTo = new CCScaleTo();
+	pScaleTo->initWithDuration(duration, sx, sy);
+	pScaleTo->autorelease();
+	return pScaleTo;
+}
+
+bool CCScaleTo::initWithDuration(ccTime duration, float s)
+{
+	if (CCActionInterval::initWithDuration(duration))
+	{
+		m_fEndScaleX = s;
+		m_fEndScaleY = s;
+		return true;
+	}
+	return false;
+}
+
+bool CCScaleTo::initWithDuration(ccTime duration, float sx, float sy)
+{
+	if (CCActionInterval::initWithDuration(duration))
+	{
+		m_fEndScaleX = sx;
+		m_fEndScaleY = sy;
+		return true;
+	}
+	return false;
+}
+
+void CCScaleTo::startWithTarget(CCNode* pTarget)
+{
+	CCActionInterval::startWithTarget(pTarget);
+	m_fStartScaleX = pTarget->getScaleX();
+	m_fStartScaleY = pTarget->getScaleY();
+	m_fDeltaX = m_fEndScaleX - m_fStartScaleX;
+	m_fDeltaY = m_fEndScaleY - m_fStartScaleY;
+}
+
+void CCScaleTo::update(ccTime time)
+{
+	if (NULL != m_pTarget)
+	{
+		m_pTarget->setScaleX(m_fStartScaleX + m_fDeltaX * time);
+		m_pTarget->setScaleY(m_fStartScaleY + m_fDeltaY * time);
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+/// CCScaleBy
+CCScaleBy* CCScaleBy::actionWithDuration(ccTime duration, float s)
+{
+	CCScaleBy* pScaleBy = new CCScaleBy();
+	pScaleBy->initWithDuration(duration, s);
+	pScaleBy->autorelease();
+	return pScaleBy;
+}
+
+CCScaleBy* CCScaleBy::actionWithDuration(ccTime duration, float sx, float sy)
+{
+	CCScaleBy* pScaleBy = new CCScaleBy();
+	pScaleBy->initWithDuration(duration, sx, sy);
+	pScaleBy->autorelease();
+	return pScaleBy;
+}
+
+void CCScaleBy::startWithTarget(CCNode* pTarget)
+{
+	CCScaleTo::startWithTarget(pTarget);
+	m_fDeltaX = m_fStartScaleX * m_fEndScaleX - m_fStartScaleX;
+	m_fDeltaY = m_fStartScaleY * m_fEndScaleY - m_fStartScaleY;
+}
+
+CCActionInterval* CCScaleBy::reverse()
+{
+	return CCScaleBy::actionWithDuration(m_fDuration, 1 / m_fEndScaleX, 1 / m_fEndScaleY);
+}
+
 NS_CC_END;

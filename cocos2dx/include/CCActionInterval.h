@@ -56,4 +56,40 @@ public:
 	static CCMoveBy* actionWithDuration(ccTime duration, const CCPoint& position);
 };
 
+//////////////////////////////////////////////////////////////////////////
+/// CCScaleTo
+class CC_DLL CCScaleTo : public CCActionInterval
+{
+public:
+	bool initWithDuration(ccTime duration, float s);
+	bool initWithDuration(ccTime duration, float sx, float sy);
+
+	virtual void startWithTarget(CCNode* pTarget);
+	virtual void update(ccTime time);
+
+public:
+	static CCScaleTo* actionWithDuration(ccTime duration, float s);
+	static CCScaleTo* actionWithDuration(ccTime duration, float sx, float sy);
+
+protected:
+	float m_fStartScaleX;
+	float m_fStartScaleY;
+	float m_fEndScaleX;
+	float m_fEndScaleY;
+	float m_fDeltaX;
+	float m_fDeltaY;
+};
+
+//////////////////////////////////////////////////////////////////////////
+/// CCScaleBy
+class CC_DLL CCScaleBy : public CCScaleTo
+{
+public:
+	virtual void startWithTarget(CCNode* pTarget);
+	virtual CCActionInterval* reverse();
+
+public:
+	static CCScaleBy* actionWithDuration(ccTime duration, float s);
+	static CCScaleBy* actionWithDuration(ccTime duration, float sx, float sy);
+};
 NS_CC_END;
