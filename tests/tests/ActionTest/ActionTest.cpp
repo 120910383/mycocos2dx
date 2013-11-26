@@ -187,7 +187,7 @@ TestBasicLayer* ActionScaleByTest::get_cur_layer()
 
 TestBasicLayer* ActionScaleByTest::get_next_layer()
 {
-	return NULL;
+	return ActionRotateToTest::create_test();
 }
 
 bool ActionScaleByTest::init()
@@ -214,6 +214,111 @@ bool ActionScaleByTest::init()
 		m_reverse_scale_sprite->setPosition(ccp(win_size.width * 2 / 3, win_size.height / 2));
 		m_reverse_scale_sprite->runAction(scale_by_action_reverse);
 		addChild(m_reverse_scale_sprite);
+
+		result = true;
+	} while (0);
+
+	return result;
+}
+
+//////////////////////////////////////////////////////////////////////////
+ActionRotateToTest::ActionRotateToTest()
+	: m_rotate_sprite(NULL)
+{
+}
+
+const char* ActionRotateToTest::title()
+{
+	return "Action CCRotateTo Test";
+}
+
+TestBasicLayer* ActionRotateToTest::get_last_layer()
+{
+	return ActionScaleByTest::create_test();
+}
+
+TestBasicLayer* ActionRotateToTest::get_cur_layer()
+{
+	return ActionRotateToTest::create_test();
+}
+
+TestBasicLayer* ActionRotateToTest::get_next_layer()
+{
+	return ActionRotateByTest::create_test();
+}
+
+bool ActionRotateToTest::init()
+{
+	bool result = false;
+	do 
+	{
+		CC_BREAK_IF(!TestBasicLayer::init());
+
+		CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+
+		m_rotate_sprite = CCSprite::spriteWithFile("Images/man_ini.png");
+		CC_BREAK_IF(NULL == m_rotate_sprite);
+		m_rotate_sprite->setPosition(ccp(win_size.width / 2, win_size.height / 2));
+		m_rotate_sprite->runAction(CCRotateTo::actionWithDuration(2.0f, -520.0f));
+		addChild(m_rotate_sprite);
+
+		result = true;
+	} while (0);
+
+	return result;
+}
+
+//////////////////////////////////////////////////////////////////////////
+ActionRotateByTest::ActionRotateByTest()
+	: m_rotate_sprite(NULL)
+	, m_reverse_rotate_sprite(NULL)
+{
+}
+
+const char* ActionRotateByTest::title()
+{
+	return "Action CCRotateBy Test";
+}
+
+TestBasicLayer* ActionRotateByTest::get_last_layer()
+{
+	return ActionRotateToTest::create_test();
+}
+
+TestBasicLayer* ActionRotateByTest::get_cur_layer()
+{
+	return ActionRotateByTest::create_test();
+}
+
+TestBasicLayer* ActionRotateByTest::get_next_layer()
+{
+	return NULL;
+}
+
+bool ActionRotateByTest::init()
+{
+	bool result = false;
+	do 
+	{
+		CC_BREAK_IF(!TestBasicLayer::init());
+
+		CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+		CCActionInterval* rotate_by_action = CCRotateBy::actionWithDuration(2.0f, 720.0f);
+		CC_BREAK_IF(NULL == rotate_by_action);
+		CCActionInterval* rotate_by_action_reverse = rotate_by_action->reverse();
+		CC_BREAK_IF(NULL == rotate_by_action_reverse);
+
+		m_rotate_sprite = CCSprite::spriteWithFile("Images/man_ini.png");
+		CC_BREAK_IF(NULL == m_rotate_sprite);
+		m_rotate_sprite->setPosition(ccp(win_size.width / 3, win_size.height / 2));
+		m_rotate_sprite->runAction(rotate_by_action);
+		addChild(m_rotate_sprite);
+
+		m_reverse_rotate_sprite = CCSprite::spriteWithFile("Images/man_ini.png");
+		CC_BREAK_IF(NULL == m_reverse_rotate_sprite);
+		m_reverse_rotate_sprite->setPosition(ccp(win_size.width * 2 / 3, win_size.height / 2));
+		m_reverse_rotate_sprite->runAction(rotate_by_action_reverse);
+		addChild(m_reverse_rotate_sprite);
 
 		result = true;
 	} while (0);

@@ -76,3 +76,40 @@ protected:
 	CCSprite* m_scale_sprite;
 	CCSprite* m_reverse_scale_sprite;
 };
+
+//////////////////////////////////////////////////////////////////////////
+class ActionRotateToTest : public TestBasicLayer
+{
+public:
+	ActionRotateToTest();
+	CREATE_TEST(ActionRotateToTest);
+	virtual const char* title();
+	virtual TestBasicLayer* get_last_layer();
+	virtual TestBasicLayer* get_cur_layer();
+	virtual TestBasicLayer* get_next_layer();
+
+protected:
+	bool init();
+
+protected:
+	CCSprite* m_rotate_sprite;
+};
+
+//////////////////////////////////////////////////////////////////////////
+class ActionRotateByTest : public TestBasicLayer
+{
+public:
+	ActionRotateByTest();
+	CREATE_TEST(ActionRotateByTest);
+	virtual const char* title();
+	virtual TestBasicLayer* get_last_layer();
+	virtual TestBasicLayer* get_cur_layer();
+	virtual TestBasicLayer* get_next_layer();
+
+protected:
+	bool init();
+
+protected:
+	CCSprite* m_rotate_sprite;
+	CCSprite* m_reverse_rotate_sprite;
+};

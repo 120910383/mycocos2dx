@@ -222,4 +222,114 @@ CCActionInterval* CCScaleBy::reverse()
 	return CCScaleBy::actionWithDuration(m_fDuration, 1 / m_fEndScaleX, 1 / m_fEndScaleY);
 }
 
+//////////////////////////////////////////////////////////////////////////
+/// CCRotateTo
+CCRotateTo* CCRotateTo::actionWithDuration(ccTime duration, float fAngle)
+{
+	CCRotateTo* pRotateTo = new CCRotateTo();
+	pRotateTo->initWithDuration(duration, fAngle);
+	pRotateTo->autorelease();
+	return pRotateTo;
+}
+
+bool CCRotateTo::initWithDuration(ccTime duration, float fAngle)
+{
+	if (CCActionInterval::initWithDuration(duration))
+	{
+		m_fDstAngle = fAngle;
+		return true;
+	}
+	return false;
+}
+
+void CCRotateTo::startWithTarget(CCNode* pTarget)
+{
+	CCActionInterval::startWithTarget(pTarget);
+	m_fStartAngle = pTarget->getRotation();
+	if (m_fStartAngle > 0)
+	{
+		m_fStartAngle = fmodf(m_fStartAngle, 360.0f);
+	}
+	else
+	{
+		m_fStartAngle = fmodf(m_fStartAngle, -360.0f);
+	}
+
+	
+	m_fDiffAngle = m_fDstAngle - m_fStartAngle;
+	// 此处感觉原版计算有问题，如果传入360则不动，传入720则旋转360，有些奇怪
+	// 这里进行修正(一种是最大选择范围-180-180，另一种是按实际角度旋转，这里暂时采用第一种方法)
+	//if (m_fDiffAngle > 180)
+	//{
+	//	m_fDiffAngle -= 360;
+	//}
+
+	//if (m_fDiffAngle < -180)
+	//{
+	//	m_fDiffAngle += 360;
+	//}
+
+	if (m_fDiffAngle > 180)
+	{
+		while (m_fDiffAngle > 180)
+		{
+			m_fDiffAngle -= 360;
+		}
+	}
+	else if (m_fDiffAngle < -180)
+	{
+		while (m_fDiffAngle < -180)
+		{
+			m_fDiffAngle += 360;
+		}
+	}
+}
+
+void CCRotateTo::update(ccTime time)
+{
+	if (NULL != m_pTarget)
+	{
+		m_pTarget->setRotation(m_fStartAngle + m_fDiffAngle * time);
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+/// CCRotateBy
+CCRotateBy* CCRotateBy::actionWithDuration(ccTime duration, float fDeltaAngle)
+{
+	CCRotateBy* pRotateBy = new CCRotateBy();
+	pRotateBy->initWithDuration(duration, fDeltaAngle);
+	pRotateBy->autorelease();
+	return pRotateBy;
+}
+
+bool CCRotateBy::initWithDuration(ccTime duration, float fDeltaAngle)
+{
+	if (CCActionInterval::initWithDuration(duration))
+	{
+		m_fDiffAngle = fDeltaAngle;
+		return true;
+	}
+	return false;
+}
+
+void CCRotateBy::startWithTarget(CCNode* pTarget)
+{
+	CCActionInterval::startWithTarget(pTarget);
+	m_fStartAngle = pTarget->getRotation();
+}
+
+void CCRotateBy::update(ccTime time)
+{
+	if (NULL != m_pTarget)
+	{
+		m_pTarget->setRotation(m_fStartAngle + m_fDiffAngle * time);
+	}
+}
+
+CCActionInterval* CCRotateBy::reverse()
+{
+	return CCRotateBy::actionWithDuration(m_fDuration, -m_fDiffAngle);
+}
+
 NS_CC_END;

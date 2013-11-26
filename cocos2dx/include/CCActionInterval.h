@@ -92,4 +92,41 @@ public:
 	static CCScaleBy* actionWithDuration(ccTime duration, float s);
 	static CCScaleBy* actionWithDuration(ccTime duration, float sx, float sy);
 };
+
+//////////////////////////////////////////////////////////////////////////
+/// CCRotateTo
+class CC_DLL CCRotateTo : public CCActionInterval
+{
+public:
+	bool initWithDuration(ccTime duration, float fAngle);
+	virtual void startWithTarget(CCNode* pTarget);
+	virtual void update(ccTime time);
+
+public:
+	static CCRotateTo* actionWithDuration(ccTime duration, float fAngle);
+
+protected:
+	float m_fDstAngle;
+	float m_fStartAngle;
+	float m_fDiffAngle;
+};
+
+//////////////////////////////////////////////////////////////////////////
+/// CCRotateBy
+class CC_DLL CCRotateBy : public CCActionInterval
+{
+public:
+	bool initWithDuration(ccTime duration, float fDeltaAngle);
+	virtual void startWithTarget(CCNode* pTarget);
+	virtual void update(ccTime time);
+	virtual CCActionInterval* reverse();
+
+public:
+	static CCRotateBy* actionWithDuration(ccTime duration, float fDeltaAngle);
+
+protected:
+	float m_fDiffAngle;
+	float m_fStartAngle;
+};
+
 NS_CC_END;
